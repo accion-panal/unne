@@ -2,8 +2,6 @@ import React, { useState, useId } from 'react';
 import ReactSelect from 'react-select';
 
 const RSelect = ({ id, options, onChange, value }) => {
-  const [isClearable, setIsClearable] = useState(true);
-
   return (
     <ReactSelect
       id={id}
@@ -11,7 +9,6 @@ const RSelect = ({ id, options, onChange, value }) => {
       onChange={onChange}
       value={value}
       instanceId={useId()}
-      isClearable={isClearable}
     />
   );
 };

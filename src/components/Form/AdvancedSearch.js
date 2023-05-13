@@ -1,27 +1,83 @@
-import React, { useId } from 'react';
+import React, { useId, useContext, useEffect } from 'react';
+import { SelectsContext } from '../../context/selects/SelectsContext';
 import ReactSelect from 'react-select';
 
-const AdvancedSearch = ({ handleSubmit, operationType, setOperationType }) => {
-  const opcionesTipoOperacion = [
-    { value: 'venta', label: 'Venta' },
-    { value: 'arriendo', label: 'Arriendo' },
-  ];
+const AdvancedSearch = ({ handleSubmit }) => {
+  const { contextDataSelects } = useContext(SelectsContext);
+  const [
+    filterSearchEntry,
+    setFilterSearchEntry,
+    getSelects,
+    selects,
+    communes,
+    getCommunesByRegion,
+    regions,
+    operationType,
+    typeOfProperty,
+    installmentType,
+  ] = contextDataSelects;
 
-  const handleChangeTipoOperacion = (seleccion) => {
-    setOperationType(seleccion);
-  };
+  // ? 1 Operation Type (val:options)
+  const operationTypeOptions = selects?.operationType?.map(
+    ({ value, name }) => ({
+      value: value,
+      label: name,
+    })
+  );
+
+  // ? 2 Property Type (val:options)
+  const propertyTypeOptions = selects?.typeOfProperty?.map(
+    ({ value, name }) => ({
+      value: value,
+      label: name,
+    })
+  );
+
+  // ? 1 Operation Type (ev:onChange)
+  const handleOperationTypeChange = (seleccion) =>
+    setFilterSearchEntry({
+      ...filterSearchEntry,
+      operationType: seleccion,
+    });
+
+  // ? 2 Type of Property (ev:onChange)
+  const handleTypeOfPropertyChange = (seleccion) =>
+    setFilterSearchEntry({
+      ...filterSearchEntry,
+      typeOfProperty: seleccion,
+    });
+
+  console.log(
+    'Tipo de operacion seleccionada',
+    filterSearchEntry?.operationType
+  );
+  console.log(
+    'Tipo de Propiedad seleccionada',
+    filterSearchEntry?.typeOfProperty
+  );
+
+  useEffect(() => {
+    getSelects();
+  }, []);
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="operationType">Tipo de operación:</label>
+          <label>Tipo de operación:</label>
           <ReactSelect
-            id="operationType"
-            options={opcionesTipoOperacion}
-            onChange={handleChangeTipoOperacion}
-            value={operationType}
-            instanceId={useId()}
+            options={operationTypeOptions ?? []}
+            onChange={handleOperationTypeChange}
+            value={filterSearchEntry?.operationType ?? ''}
+          />
+        </div>
+
+        <div>
+          <label>Tipo de operación:</label>
+          <ReactSelect
+            options={propertyTypeOptions ?? []}
+            onChange={handleTypeOfPropertyChange}
+            value={filterSearchEntry?.typeOfProperty ?? ''}
           />
         </div>
 
