@@ -12,8 +12,9 @@ const SelectsProvider = ({ children }) => {
   const [installmentType, setInstallmentType] = useState([]);
   const [errorServerMsg, setErrorServerMsg] = useState({});
   const [filterSearchEntry, setFilterSearchEntry] = useState({
-    operationType: '', //venta
-    typeOfProperty: '', //casa
+    operationType: '',
+    typeOfProperty: '',
+    installmentType: '',
     region: '',
     commune: '',
     surfaceM2: '',
@@ -21,7 +22,7 @@ const SelectsProvider = ({ children }) => {
     maxPrice: 0,
     bedrooms: '',
     bathrooms: '',
-    parkingLots: '',
+    coveredParkingLots: '',
   });
 
   const getSelects = async () => {

@@ -5,7 +5,7 @@ const Pagination = ({ properties }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [showAllPages, setShowAllPages] = useState(false);
 
-  const propertiesPerPage = 12;
+  const propertiesPerPage = 10;
   const totalPages = Math.ceil(properties.length / propertiesPerPage);
 
   const startIndex = (currentPage - 1) * propertiesPerPage;
@@ -45,7 +45,7 @@ const Pagination = ({ properties }) => {
   return (
     <div>
       <ul>
-        {currentProperties.map((property) => (
+        {currentProperties?.reverse()?.map((property) => (
           <li key={property.id}>
             {property?.id} - {property.title}
             <Link to={`/propiedades/${property?.id}?statusId=1&companyId=1`}>

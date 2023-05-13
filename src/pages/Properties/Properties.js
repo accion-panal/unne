@@ -9,24 +9,9 @@ const Properties = () => {
   const { contextData } = useContext(PropertiesContext);
   const { contextDataSelects } = useContext(SelectsContext);
   const [statusId, companyId] = contextData;
-  const [
-    filterSearchEntry,
-    setFilterSearchEntry,
-    getSelects,
-    selects,
-    communes,
-    getCommunesByRegion,
-    regionId,
-    setRegionId,
-    regions,
-    operationType,
-    typeOfProperty,
-    installmentType,
-  ] = contextDataSelects;
-
+  const [filterSearchEntry, ...rest] = contextDataSelects;
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [loadingOnStart, setLoadingOnStart] = useState(true);
   const [notFoundMsg, setNotFoundMsg] = useState('');
 
   const handleSubmit = async (e) => {
@@ -44,6 +29,11 @@ const Properties = () => {
           ? ''
           : `&typeOfProperty=${filterSearchEntry?.typeOfProperty?.value}`,
 
+      installmentType:
+        filterSearchEntry?.installmentType?.value === undefined
+          ? ''
+          : `&installment_type=${filterSearchEntry?.installmentType?.value}`,
+
       region:
         filterSearchEntry?.region?.label === undefined
           ? ''
@@ -53,37 +43,64 @@ const Properties = () => {
         filterSearchEntry?.commune?.label === undefined
           ? ''
           : `&commune=${filterSearchEntry?.commune?.label}`,
+
+      surfaceM2:
+        filterSearchEntry?.surfaceM2 === undefined
+          ? ''
+          : `&surface_m2=${filterSearchEntry?.surfaceM2}`,
+
+      minPrice:
+        filterSearchEntry?.minPrice === undefined
+          ? ''
+          : `&min_price=${filterSearchEntry?.minPrice}`,
+
+      maxPrice:
+        filterSearchEntry?.maxPrice === undefined
+          ? ''
+          : `&max_price=${filterSearchEntry?.maxPrice}`,
+
+      bedrooms:
+        filterSearchEntry?.bedrooms?.value === undefined
+          ? ''
+          : `&bedrooms=${filterSearchEntry?.bedrooms?.value}`,
+
+      bathrooms:
+        filterSearchEntry?.bathrooms?.value === undefined
+          ? ''
+          : `&bathrooms=${filterSearchEntry?.bathrooms?.value}`,
+
+      coveredParkingLots:
+        filterSearchEntry?.coveredParkingLots?.value === undefined
+          ? ''
+          : `&covered_parking_lots=${filterSearchEntry?.coveredParkingLots?.value}`,
     };
 
-    const url = `${urlPaths?.operationType}${urlPaths?.typeOfProperty}${urlPaths?.region}${urlPaths?.commune}`;
+    const url = `${urlPaths?.operationType}${urlPaths?.typeOfProperty}${urlPaths?.installmentType}${urlPaths?.region}${urlPaths?.commune}${urlPaths?.surfaceM2}${urlPaths?.minPrice}${urlPaths?.maxPrice}${urlPaths?.bedrooms}${urlPaths?.bathrooms}${urlPaths?.coveredParkingLots}`;
 
     try {
-      setNotFoundMsg('');
       setLoading(true);
+      setNotFoundMsg('');
       setProperties([]);
-      const res = await PropertiesServices.getProperties(
+      const response = await PropertiesServices.getProperties(
         statusId,
         companyId,
         url
       );
-
+      setProperties(response.length > 0 ? response : []);
       setLoading(false);
-      setProperties(res.length > 0 ? res : []);
-      setNotFoundMsg(
-        res.length > 0 ? '' : 'No coincide ninguna propiedad con tu busqueda'
-      );
+      setNotFoundMsg(response.length > 0 ? '' : 'Busqueda no coincide');
     } catch (error) {
       console.error('Se produjo un error:', error);
     }
   };
 
   const getProperties = async (statusId, companyId, url) => {
-    const res = await PropertiesServices.getProperties(
+    const response = await PropertiesServices.getProperties(
       statusId,
       companyId,
       url
     );
-    setProperties(res);
+    setProperties(response);
   };
 
   const memoizedData = useMemo(
@@ -101,36 +118,11 @@ const Properties = () => {
         <div>
           <div>
             {loading && <p>cargando...</p>}
-            {/* {properties.length <= 0 ? <p>NO HAY...</p> : ''} */}
             {notFoundMsg}
-
-            {/* {properties.map((property) => (
-              <div key={property.id}>
-                {property?.id}.- {property?.title}
-                <Link
-                  to={`/propiedades/${property.id}/?statusId=${statusId}&companyId=${companyId}`}
-                >
-                  Ver detalle
-                </Link>
-              </div>
-            ))} */}
           </div>
           <Pagination {...{ properties }} />
-          {/* {properties.length > 0
-            ? properties.map((property) => (
-                <div key={property.id}>
-                  {property?.id}.- {property?.title}
-                  <Link
-                    to={`/properties/${property.id}/?statusId=${statusId}&companyId=${companyId}`}
-                  >
-                    Ver detalle
-                  </Link>
-                </div>
-              ))
-            : null} */}
         </div>
       </div>
-
       <div>
         <AdvancedSearch handleSubmit={handleSubmit} />
       </div>
