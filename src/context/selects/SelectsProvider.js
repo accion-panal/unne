@@ -61,7 +61,6 @@ const SelectsProvider = ({ children }) => {
           regionId,
           setRegionId,
           regions,
-          communes,
           operationType,
           typeOfProperty,
           installmentType,

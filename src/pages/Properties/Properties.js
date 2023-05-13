@@ -16,6 +16,8 @@ const Properties = () => {
     selects,
     communes,
     getCommunesByRegion,
+    regionId,
+    setRegionId,
     regions,
     operationType,
     typeOfProperty,
@@ -25,7 +27,7 @@ const Properties = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingOnStart, setLoadingOnStart] = useState(true);
-  const [notFoundMsg, setNotFoundMsg] = useState([]);
+  const [notFoundMsg, setNotFoundMsg] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,9 +43,19 @@ const Properties = () => {
         filterSearchEntry?.typeOfProperty?.value === undefined
           ? ''
           : `&typeOfProperty=${filterSearchEntry?.typeOfProperty?.value}`,
+
+      region:
+        filterSearchEntry?.region?.label === undefined
+          ? ''
+          : `&region=${filterSearchEntry?.region?.label}`,
+
+      commune:
+        filterSearchEntry?.commune?.label === undefined
+          ? ''
+          : `&commune=${filterSearchEntry?.commune?.label}`,
     };
 
-    const url = `${urlPaths?.operationType}${urlPaths?.typeOfProperty}`;
+    const url = `${urlPaths?.operationType}${urlPaths?.typeOfProperty}${urlPaths?.region}${urlPaths?.commune}`;
 
     try {
       setNotFoundMsg('');
