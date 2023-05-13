@@ -6,6 +6,7 @@ const SelectsProvider = ({ children }) => {
   const [selects, setSelects] = useState([]);
   const [regions, setRegions] = useState([]);
   const [communes, setCommunes] = useState([]);
+  const [regionId, setRegionId] = useState('');
   const [operationType, setOperationType] = useState([]);
   const [typeOfProperty, setTypeOfProperty] = useState([]);
   const [installmentType, setInstallmentType] = useState([]);
@@ -57,6 +58,8 @@ const SelectsProvider = ({ children }) => {
           selects,
           communes,
           getCommunesByRegion,
+          regionId,
+          setRegionId,
           regions,
           communes,
           operationType,

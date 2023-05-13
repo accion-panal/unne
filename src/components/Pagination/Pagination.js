@@ -3,16 +3,15 @@ import { Link } from 'react-router-dom';
 
 const Pagination = ({ properties }) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [showAllPages, setShowAllPages] = useState(false);
 
-  const propertiesPerPage = 5;
+  const propertiesPerPage = 12;
   const totalPages = Math.ceil(properties.length / propertiesPerPage);
 
   const startIndex = (currentPage - 1) * propertiesPerPage;
   const endIndex = startIndex + propertiesPerPage;
 
   const currentProperties = properties.slice(startIndex, endIndex);
-
-  console.log(currentProperties);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -28,7 +27,7 @@ const Pagination = ({ properties }) => {
 
   const getPageNumbers = () => {
     const pageNumbers =
-      totalPages <= 5
+      totalPages <= 5 || showAllPages
         ? Array.from({ length: totalPages }, (_, i) => i + 1)
         : [
             1,
@@ -43,47 +42,15 @@ const Pagination = ({ properties }) => {
     return pageNumbers;
   };
 
-  // const getPageNumbers = () => {
-  //   const pageNumbers = [];
-
-  //   if (totalPages <= 5) {
-  //     for (let i = 1; i <= totalPages; i++) {
-  //       pageNumbers.push(i);
-  //     }
-  //   } else {
-  //     if (currentPage <= 3) {
-  //       for (let i = 1; i <= 5; i++) {
-  //         pageNumbers.push(i);
-  //       }
-  //       pageNumbers.push('...');
-  //       pageNumbers.push(totalPages);
-  //     } else if (currentPage >= totalPages - 2) {
-  //       pageNumbers.push(1);
-  //       pageNumbers.push('...');
-  //       for (let i = totalPages - 4; i <= totalPages; i++) {
-  //         pageNumbers.push(i);
-  //       }
-  //     } else {
-  //       pageNumbers.push(1);
-  //       pageNumbers.push('...');
-  //       for (let i = currentPage - 1; i <= currentPage + 1; i++) {
-  //         pageNumbers.push(i);
-  //       }
-  //       pageNumbers.push('...');
-  //       pageNumbers.push(totalPages);
-  //     }
-  //   }
-
-  //   return pageNumbers;
-  // };
-
   return (
     <div>
       <ul>
         {currentProperties.map((property) => (
           <li key={property.id}>
-            {property.title}
-            <Link to="/">ver detalles</Link>
+            {property?.id} - {property.title}
+            <Link to={`/propiedades/${property?.id}?statusId=1&companyId=1`}>
+              ver detalles
+            </Link>
           </li>
         ))}
       </ul>

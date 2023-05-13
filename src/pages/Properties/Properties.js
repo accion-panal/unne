@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { PropertiesContext } from '../../context/properties/PropertiesContext';
 import { SelectsContext } from '../../context/selects/SelectsContext';
 import AdvancedSearch from '../../components/Form/AdvancedSearch';
@@ -64,14 +63,6 @@ const Properties = () => {
     } catch (error) {
       console.error('Se produjo un error:', error);
     }
-
-    // if (res.length > 0) {
-    //   setProperties(res);
-    //   setLoading(false);
-    // } else {
-    //   setLoading(false);
-    //   setNotFoundMsg('No hay');
-    // }
   };
 
   const getProperties = async (statusId, companyId, url) => {

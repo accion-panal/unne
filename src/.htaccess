@@ -1,0 +1,56 @@
+RewriteEngine On
+RewriteBase /
+
+# Ruta /
+RewriteRule ^$ /index.html [L]
+
+# Ruta /propiedades
+RewriteRule ^propiedades$ /index.html [L]
+
+# Ruta /propiedades/${property?.id}?statusId=1&companyId=1
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^propiedades/([0-9]+)/?$ /index.html [L]
+
+
+# Nuevas Rutas 
+RewriteEngine On
+RewriteBase /
+
+# Ruta /
+RewriteRule ^$ /index.html [L]
+
+# Ruta /propiedades
+RewriteRule ^propiedades /index.html [L]
+
+# Ruta /propiedades/${property?.id}?statusId=1&companyId=1
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^propiedades/([0-9]+)/?$ /index.html [L]
+
+# Ruta /quienes-somos
+RewriteRule ^quienes-somos /index.html [L]
+
+# Ruta /soy-propietario/quiero-vender
+RewriteRule ^soy-propietario/quiero-vender /index.html [L]
+
+# Ruta /soy-propietario/quiero-arrendar
+RewriteRule ^soy-propietario/quiero-arrendar /index.html [L]
+
+# Ruta /soy-inversionista/unidades-en-remate
+RewriteRule ^soy-inversionista/unidades-en-remate /index.html [L]
+
+# Ruta /soy-inversionista/unidades-nuevas
+RewriteRule ^soy-inversionista/unidades-nuevas /index.html [L]
+
+# Ruta /soy-inversionist/administracion-de-arriendo
+RewriteRule ^soy-inversionist/administracion-de-arriendo /index.html [L]
+
+# Ruta /eres-corredor/asociate
+RewriteRule ^eres-corredor/asociate /index.html [L]
+
+# Ruta /eres-corredor/servicios-legales
+RewriteRule ^eres-corredor/servicios-legales /index.html [L]
+
+# Ruta /eres-corredor/academia-unne
+RewriteRule ^eres-corredor/academia-unne /index.html [L]
