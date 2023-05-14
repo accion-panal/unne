@@ -20,6 +20,10 @@ const Properties = () => {
   const [loading, setLoading] = useState(false);
   const [notFoundMsg, setNotFoundMsg] = useState('');
 
+  /** Filter peroperties views */
+  const [isGrid, setIsGrid] = useState(true);
+  const [isList, setIsList] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -129,13 +133,24 @@ const Properties = () => {
   return (
     <Section className="relative flex flex-col md:flex-row">
       <div className="relative w-full md:w-3/4 m-2">
-        <PropertiesTop {...{ totalItems, itemsPerPage }} />
+        <PropertiesTop
+          {...{
+            totalItems,
+            itemsPerPage,
+            isGrid,
+            setIsGrid,
+            isList,
+            setIsList,
+          }}
+        />
         {loadingOnStart && <Spinner />}
         {loading && <Spinner />}
         {notFoundMsg && <NotFound message={notFoundMsg} />}
 
         {/* Properties List and Pagination */}
-        <Pagination {...{ properties, totalItems }} />
+        <Pagination
+          {...{ properties, totalItems, isGrid, setIsGrid, isList, setIsList }}
+        />
       </div>
 
       {/* Advanced search properties form */}

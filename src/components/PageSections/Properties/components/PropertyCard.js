@@ -12,9 +12,9 @@ const PropertyCard = ({ data, isList }) => {
     <div
       className={`${
         isList
-          ? 'flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row'
+          ? 'flex flex-col items-center bg-white border border-gray-200 rounded shadow md:flex-row'
           : 'w-full'
-      } border rounded-lg border-gray-200 hover:cursor-pointer hover:shadow-xl transition duration-300 ease-in-out`}
+      } border rounded border-gray-200 hover:cursor-pointer hover:shadow-xl transition duration-300 ease-in-out`}
     >
       <img
         className={isList ? 'xl:h-64' : 'rounded-t-lg'}

@@ -5,7 +5,7 @@ import { company } from '../../data/company';
 
 const PropertiesProvider = ({ children }) => {
   const [totalItems, setTotalItems] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
   const [statusIdParams, setStatusIdParams] = useSearchParams({
     statusId: company.statusId,
   });

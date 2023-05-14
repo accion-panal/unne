@@ -1,10 +1,20 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { iconsList } from '../Icons';
 
-const PropertiesTop = ({ totalItems, itemsPerPage }) => {
+const PropertiesTop = ({
+  totalItems,
+  itemsPerPage,
+  isGrid,
+  setIsGrid,
+  isList,
+  setIsList,
+}) => {
   const { pathname } = useLocation();
+  const { BsFillGridFill, FaThList, FaMapMarkerAlt } = iconsList;
 
-  function getTitle(pathname) {
+  const getTitle = (pathname) => {
     switch (pathname) {
       case '/propiedades':
         return 'Propiedades';
@@ -13,7 +23,7 @@ const PropertiesTop = ({ totalItems, itemsPerPage }) => {
       default:
         return 'Unne';
     }
-  }
+  };
 
   useEffect(() => {
     document.title = getTitle(pathname);
@@ -21,12 +31,45 @@ const PropertiesTop = ({ totalItems, itemsPerPage }) => {
 
   return (
     <div className=" py-5 px-3 border mb-4 bg-white w-full">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center my-4">
         <div className="flex flex-col justify-start">
           <h1 className="text-2xl font-ligth">{getTitle(pathname)}</h1>
         </div>
         <div>
-          <ul>Navehacion</ul>
+          <ul className="flex">
+            <li
+              onClick={() => {
+                setIsGrid(true);
+                setIsList(false);
+              }}
+              className={`${
+                isGrid
+                  ? 'bg-orange-500 text-white'
+                  : 'bg-gray-100 text-gray-500'
+              } mx-1 p-2.5 cursor-pointer `}
+            >
+              <BsFillGridFill />
+            </li>
+            <li
+              onClick={() => {
+                setIsList(true);
+                setIsGrid(false);
+              }}
+              className={`${
+                isList
+                  ? 'bg-orange-500 text-white'
+                  : 'bg-gray-100 cursor-pointer text-gray-500'
+              } mx-1 p-2.5 cursor-pointer`}
+            >
+              <FaThList />
+            </li>
+
+            <li className="mx-1 p-2.5 bg-gray-100 cursor-pointer text-gray-500">
+              <Link to="/maps-propiedades">
+                <FaMapMarkerAlt />
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
       <div className="flex flex-row justify-start items-center bg-gray-50 text-gray-400">

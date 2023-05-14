@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { PropertiesContext } from '../../context/properties/PropertiesContext';
 import PropertyCard from '../PageSections/Properties/components/PropertyCard';
 
-const Pagination = ({ properties }) => {
+const Pagination = ({ properties, isList, isGrid }) => {
   const { contextData } = useContext(PropertiesContext);
   const [, , , , itemsPerPage, ,] = contextData;
   const [currentPage, setCurrentPage] = useState(1);
@@ -48,9 +48,15 @@ const Pagination = ({ properties }) => {
   return (
     <React.Fragment>
       <div className="relative mb-48">
-        <ul className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 g-4">
+        <ul
+          className={`${
+            isGrid
+              ? 'grid grid-cols-1 sm:grid-cols-3 gap-4 p-2'
+              : 'flex flex-col gap-4 p-2'
+          }`}
+        >
           {currentProperties?.reverse()?.map((property) => (
-            <PropertyCard key={property?.id} data={property} />
+            <PropertyCard key={property?.id} data={property} isList={isList} />
           ))}
         </ul>
       </div>
