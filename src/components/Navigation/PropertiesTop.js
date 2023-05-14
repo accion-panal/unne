@@ -10,6 +10,7 @@ const PropertiesTop = ({
   setIsGrid,
   isList,
   setIsList,
+  properties,
 }) => {
   const { pathname } = useLocation();
   const { BsFillGridFill, FaThList, FaMapMarkerAlt } = iconsList;
@@ -72,11 +73,17 @@ const PropertiesTop = ({
           </ul>
         </div>
       </div>
-      <div className="flex flex-row justify-start items-center bg-gray-50 text-gray-400">
-        <small className="text-sm p-1 rounded">Proyectos: {totalItems}</small>
+      <div className="flex flex-row justify-start items-center bg-gray-50 text-gray-500">
+        <small className="text-sm p-1 rounded">
+          Encontradas: {properties?.length ?? 0}
+        </small>
         <span className="text-gray-300 mx-3">|</span>
         <small className="text-sm p-1 rounded">
-          Por página: {itemsPerPage}
+          Proyectos: {totalItems ?? 0}
+        </small>
+        <span className="text-gray-300 mx-3">|</span>
+        <small className="text-sm p-1 rounded">
+          Por página: {itemsPerPage ?? 0}
         </small>
       </div>
     </div>

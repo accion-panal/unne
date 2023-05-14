@@ -141,6 +141,7 @@ const Properties = () => {
             setIsGrid,
             isList,
             setIsList,
+            properties,
           }}
         />
         {loadingOnStart && <Spinner />}
