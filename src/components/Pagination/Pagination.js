@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { PropertiesContext } from '../../context/properties/PropertiesContext';
 import PropertyCard from '../PageSections/Properties/components/PropertyCard';
 
 const Pagination = ({ properties }) => {
+  const { contextData } = useContext(PropertiesContext);
+  const [, , , , itemsPerPage, ,] = contextData;
   const [currentPage, setCurrentPage] = useState(1);
   const [showAllPages, setShowAllPages] = useState(false);
 
-  const propertiesPerPage = 9;
+  const propertiesPerPage = itemsPerPage; // 10
   const totalPages = Math.ceil(properties.length / propertiesPerPage);
 
   const startIndex = (currentPage - 1) * propertiesPerPage;

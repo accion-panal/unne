@@ -1,16 +1,12 @@
 import React, { Fragment } from 'react';
-import { Link, useRoutes, useLocation } from 'react-router-dom';
-// import { useRouter } from 'next/router';
+import { Link, useLocation } from 'react-router-dom';
 import { Popover, Transition } from '@headlessui/react';
 import { iconsList } from '../Icons';
 
 const NavigationItem = ({ menuItem }) => {
-  // const { route } = useRouter();
-  const { id, name, href, children } = menuItem;
-  const { IoIosArrowDown } = iconsList;
   const { pathname } = useLocation();
-
-  console.log(pathname);
+  const { name, href, children } = menuItem;
+  const { IoIosArrowDown } = iconsList;
 
   return children?.length > 0 ? (
     <Popover className="relative">
@@ -38,7 +34,7 @@ const NavigationItem = ({ menuItem }) => {
                       to={href}
                       className={`${
                         pathname === href
-                          ? 'bg-orange-500 text-white flex items-center rounded-lg transition duration-150 ease-in-out hover:bg-orange-600 focus:outline-none focus-visible:ring'
+                          ? 'bg-amber-500 text-white flex items-center rounded-lg transition duration-150 ease-in-out hover:bg-amber-600 focus:outline-none focus-visible:ring'
                           : 'flex items-center rounded-lg transition duration-150 ease-in-out hover:bg-slate-100 focus:outline-none focus-visible:ring'
                       }`}
                     >

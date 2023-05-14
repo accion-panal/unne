@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { PropertiesContext } from './PropertiesContext';
 import { company } from '../../data/company';
 
 const PropertiesProvider = ({ children }) => {
+  const [totalItems, setTotalItems] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(1);
   const [statusIdParams, setStatusIdParams] = useSearchParams({
     statusId: company.statusId,
   });
@@ -17,7 +19,14 @@ const PropertiesProvider = ({ children }) => {
   return (
     <PropertiesContext.Provider
       value={{
-        contextData: [statusId, companyId],
+        contextData: [
+          statusId,
+          companyId,
+          totalItems,
+          setTotalItems,
+          itemsPerPage,
+          setItemsPerPage,
+        ],
       }}
     >
       {children}

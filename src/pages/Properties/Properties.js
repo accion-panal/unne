@@ -7,11 +7,13 @@ import PropertiesServices from '../../services/PropertiesServices';
 import Pagination from '../../components/Pagination/Pagination';
 import Spinner from '../../components/Spinner/Spinner';
 import NotFound from '../../components/Message/NotFound';
+import PropertiesTop from '../../components/Navigation/PropertiesTop';
 
 const Properties = () => {
   const { contextData } = useContext(PropertiesContext);
   const { contextDataSelects } = useContext(SelectsContext);
-  const [statusId, companyId] = contextData;
+  const [statusId, companyId, totalItems, setTotalItems, itemsPerPage, ,] =
+    contextData;
   const [filterSearchEntry, ...rest] = contextDataSelects;
   const [properties, setProperties] = useState([]);
   const [loadingOnStart, setLoadingOnStart] = useState(true);
@@ -85,7 +87,7 @@ const Properties = () => {
       setLoading(true);
       setNotFoundMsg('');
       setProperties([]);
-      const response = await PropertiesServices.getProperties(
+      const [response, metaData] = await PropertiesServices.getProperties(
         statusId,
         companyId,
         url
@@ -99,11 +101,12 @@ const Properties = () => {
   };
 
   const getProperties = async (statusId, companyId, url) => {
-    const response = await PropertiesServices.getProperties(
+    const [response, metaData] = await PropertiesServices.getProperties(
       statusId,
       companyId,
       url
     );
+    setTotalItems(metaData?.meta?.totalItems);
     setProperties(response);
   };
 
@@ -126,12 +129,13 @@ const Properties = () => {
   return (
     <Section className="relative flex flex-col md:flex-row">
       <div className="relative w-full md:w-3/4 m-2">
+        <PropertiesTop {...{ totalItems, itemsPerPage }} />
         {loadingOnStart && <Spinner />}
         {loading && <Spinner />}
         {notFoundMsg && <NotFound message={notFoundMsg} />}
 
         {/* Properties List and Pagination */}
-        <Pagination {...{ properties }} />
+        <Pagination {...{ properties, totalItems }} />
       </div>
 
       {/* Advanced search properties form */}
