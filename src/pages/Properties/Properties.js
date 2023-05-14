@@ -116,23 +116,13 @@ const Properties = () => {
 
   return (
     <Section className="relative flex flex-col md:flex-row">
-      <div className="relative w-full md:w-3/4 m-2 overflow-y-scroll">
+      <div className="relative w-full md:w-3/4 m-2">
         <div>
           {loading && <p>cargando...</p>}
           {notFoundMsg}
         </div>
 
-        {/* <div className="relative mb-16">
-          <ul className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 g-4">
-            {properties?.reverse()?.map((property) => (
-              <PropertyCard key={property?.id} data={property} />
-            ))}
-          </ul>
-        </div> */}
-
-        <div className="">
-          <Pagination {...{ properties }} />
-        </div>
+        <Pagination {...{ properties }} />
       </div>
 
       <div className="w-full md:w-1/4 h-[100%] m-2 p-8 border border-gray-200 rounded-lg bg-white">

@@ -6,7 +6,7 @@ const Pagination = ({ properties }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [showAllPages, setShowAllPages] = useState(false);
 
-  const propertiesPerPage = 10;
+  const propertiesPerPage = 9;
   const totalPages = Math.ceil(properties.length / propertiesPerPage);
 
   const startIndex = (currentPage - 1) * propertiesPerPage;
@@ -45,7 +45,7 @@ const Pagination = ({ properties }) => {
 
   return (
     <React.Fragment>
-      <div className="relative mb-16">
+      <div className="relative mb-48">
         <ul className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 g-4">
           {currentProperties?.reverse()?.map((property) => (
             <PropertyCard key={property?.id} data={property} />
@@ -54,19 +54,38 @@ const Pagination = ({ properties }) => {
       </div>
 
       <div className="absolute bottom-0 flex justify-center items-center border border-gray-200 w-[100%] p-5">
-        <button onClick={handlePrevPage} disabled={currentPage === 1}>
-          Anterior
+        <button
+          onClick={handlePrevPage}
+          disabled={currentPage === 1}
+          className={`${
+            currentPage === 1 ? 'bg-gray-100 text-gray-400' : 'bg-gray-200'
+          } p-3 border rounded-l-lg`}
+        >
+          Volver
         </button>
         {getPageNumbers().map((pageNumber) => (
           <button
             key={pageNumber}
             onClick={() => handlePageChange(pageNumber)}
             disabled={currentPage === pageNumber || pageNumber === '...'}
+            className={`${
+              currentPage === pageNumber || pageNumber === '...'
+                ? 'bg-orange-500 text-white'
+                : 'bg-white text-black'
+            } p-3 border`}
           >
             {pageNumber}
           </button>
         ))}
-        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+        <button
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+          className={`${
+            currentPage === totalPages
+              ? 'bg-gray-100 text-gray-400'
+              : 'bg-gray-200'
+          } p-3 border rounded-r-lg`}
+        >
           Siguiente
         </button>
       </div>

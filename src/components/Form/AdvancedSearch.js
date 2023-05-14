@@ -171,7 +171,7 @@ const AdvancedSearch = ({ handleSubmit }) => {
           />
         </div>
         <div className="mb-5">
-          <label>Tipo de Instalacion</label>
+          <label>Estado de propiedad</label>
           <ReactSelect
             options={installmentOptions ?? []}
             value={filterSearchEntry?.installmentType ?? {}}
@@ -298,9 +298,18 @@ const AdvancedSearch = ({ handleSubmit }) => {
         <div className="w-full">
           <PrimaryButton
             type="submit"
-            className="text-white bg-amber-500 w-full hover:bg-amber-600"
+            className="text-white bg-orange-500 w-full hover:bg-orange-600 my-1"
           >
             Buscar
+          </PrimaryButton>
+        </div>
+
+        <div className="w-full">
+          <PrimaryButton
+            onClick={() => window.location.reload()}
+            className="text-white bg-gray-500 w-full hover:bg-gray-600 my-1"
+          >
+            Restablecer búsqueda
           </PrimaryButton>
         </div>
       </form>
