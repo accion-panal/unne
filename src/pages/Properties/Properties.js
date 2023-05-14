@@ -4,7 +4,6 @@ import { SelectsContext } from '../../context/selects/SelectsContext';
 import Section from '../../components/Section/Section';
 import AdvancedSearch from '../../components/Form/AdvancedSearch';
 import PropertiesServices from '../../services/PropertiesServices';
-import PropertyCard from '../../components/PageSections/Properties/components/PropertyCard';
 import Pagination from '../../components/Pagination/Pagination';
 import Spinner from '../../components/Spinner/Spinner';
 import NotFound from '../../components/Message/NotFound';
@@ -15,6 +14,7 @@ const Properties = () => {
   const [statusId, companyId] = contextData;
   const [filterSearchEntry, ...rest] = contextDataSelects;
   const [properties, setProperties] = useState([]);
+  const [loadingOnStart, setLoadingOnStart] = useState(true);
   const [loading, setLoading] = useState(false);
   const [notFoundMsg, setNotFoundMsg] = useState('');
 
@@ -116,15 +116,25 @@ const Properties = () => {
     memoizedData();
   }, [memoizedData]);
 
+  useEffect(() => {
+    if (properties?.length > 0) {
+      setLoadingOnStart(false);
+      return;
+    }
+  }, [properties]);
+
   return (
     <Section className="relative flex flex-col md:flex-row">
       <div className="relative w-full md:w-3/4 m-2">
-        <div>{loading && <Spinner />}</div>
-        <div>{notFoundMsg && <NotFound message={notFoundMsg} />}</div>
+        {loadingOnStart && <Spinner />}
+        {loading && <Spinner />}
+        {notFoundMsg && <NotFound message={notFoundMsg} />}
 
+        {/* Properties List and Pagination */}
         <Pagination {...{ properties }} />
       </div>
 
+      {/* Advanced search properties form */}
       <div className="w-full md:w-1/4 h-[100%] m-2 p-8 border border-gray-200 rounded-lg bg-white">
         <AdvancedSearch handleSubmit={handleSubmit} />
       </div>
