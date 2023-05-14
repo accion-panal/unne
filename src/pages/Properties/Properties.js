@@ -113,16 +113,15 @@ const Properties = () => {
   }, [memoizedData]);
 
   return (
-    <div>
+    <div className="flex">
       <div>
         <div>
-          <div>
-            {loading && <p>cargando...</p>}
-            {notFoundMsg}
-          </div>
-          <Pagination {...{ properties }} />
+          {loading && <p>cargando...</p>}
+          {notFoundMsg}
         </div>
+        <Pagination {...{ properties }} />
       </div>
+
       <div>
         <AdvancedSearch handleSubmit={handleSubmit} />
       </div>

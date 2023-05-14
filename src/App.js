@@ -1,10 +1,14 @@
-import { Link } from 'react-router-dom';
+import React, { Fragment } from 'react';
 import AppRoutes from './routes';
+import Layout from './components/Layout/Layout';
 
 function App() {
   return (
-    <div className="App">
-      <nav>
+    <Fragment>
+      <Layout>
+        <AppRoutes />
+      </Layout>
+      {/* <nav>
         <ul>
           <li>
             <Link to="/">Home</Link>
@@ -14,10 +18,8 @@ function App() {
             <Link to="/propiedades">Propiedades</Link>
           </li>
         </ul>
-      </nav>
-
-      <AppRoutes />
-    </div>
+      </nav> */}
+    </Fragment>
   );
 }
 

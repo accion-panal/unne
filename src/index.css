@@ -67,10 +67,6 @@ span {
   font-family: var(--font-poppins-regular);
 }
 
-button {
-  font-family: var(--font-poppins-semobold);
-}
-
 p,
 label,
 strong {
