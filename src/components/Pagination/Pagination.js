@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import PropertyCard from '../PageSections/Properties/components/PropertyCard';
 
 const Pagination = ({ properties }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,18 +44,16 @@ const Pagination = ({ properties }) => {
   };
 
   return (
-    <div>
-      <ul>
-        {currentProperties?.reverse()?.map((property) => (
-          <li key={property.id}>
-            {property?.id} - {property.title}
-            <Link to={`/propiedades/${property?.id}?statusId=1&companyId=1`}>
-              ver detalles
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <div>
+    <React.Fragment>
+      <div className="relative mb-16">
+        <ul className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 g-4">
+          {currentProperties?.reverse()?.map((property) => (
+            <PropertyCard key={property?.id} data={property} />
+          ))}
+        </ul>
+      </div>
+
+      <div className="absolute bottom-0 flex justify-center items-center border border-gray-200 w-[100%] p-5">
         <button onClick={handlePrevPage} disabled={currentPage === 1}>
           Anterior
         </button>
@@ -71,7 +70,7 @@ const Pagination = ({ properties }) => {
           Siguiente
         </button>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 

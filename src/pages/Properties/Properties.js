@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { PropertiesContext } from '../../context/properties/PropertiesContext';
 import { SelectsContext } from '../../context/selects/SelectsContext';
+import Section from '../../components/Section/Section';
 import AdvancedSearch from '../../components/Form/AdvancedSearch';
 import PropertiesServices from '../../services/PropertiesServices';
+import PropertyCard from '../../components/PageSections/Properties/components/PropertyCard';
 import Pagination from '../../components/Pagination/Pagination';
 
 const Properties = () => {
@@ -113,19 +115,30 @@ const Properties = () => {
   }, [memoizedData]);
 
   return (
-    <div className="flex">
-      <div>
+    <Section className="relative flex flex-col md:flex-row">
+      <div className="relative w-full md:w-3/4 m-2 overflow-y-scroll">
         <div>
           {loading && <p>cargando...</p>}
           {notFoundMsg}
         </div>
-        <Pagination {...{ properties }} />
+
+        {/* <div className="relative mb-16">
+          <ul className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 g-4">
+            {properties?.reverse()?.map((property) => (
+              <PropertyCard key={property?.id} data={property} />
+            ))}
+          </ul>
+        </div> */}
+
+        <div className="">
+          <Pagination {...{ properties }} />
+        </div>
       </div>
 
-      <div>
+      <div className="w-full md:w-1/4 h-[100%] m-2 p-8 border border-gray-200 rounded-lg bg-white">
         <AdvancedSearch handleSubmit={handleSubmit} />
       </div>
-    </div>
+    </Section>
   );
 };
 

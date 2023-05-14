@@ -1,6 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { SelectsContext } from '../../context/selects/SelectsContext';
 import ReactSelect from 'react-select';
+import InputForm from '../Input/InputForm';
+import PrimaryButton from '../Button/ButtonPrimary';
 import {
   bedroomsOptions,
   bathroomsOptions,
@@ -150,52 +152,63 @@ const AdvancedSearch = ({ handleSubmit }) => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="mb-5">
           <label>Tipo de operación:</label>
           <ReactSelect
             options={operationTypeOptions ?? []}
             value={filterSearchEntry?.operationType ?? {}}
             onChange={handleOperationTypeChange}
+            className="my-1"
           />
         </div>
-
-        <div>
+        <div className="mb-5">
           <label>Tipo de operación:</label>
           <ReactSelect
             options={propertyTypeOptions ?? []}
             value={filterSearchEntry?.typeOfProperty ?? {}}
             onChange={handleTypeOfPropertyChange}
+            className="my-1"
           />
         </div>
-
-        <div>
+        <div className="mb-5">
           <label>Tipo de Instalacion</label>
           <ReactSelect
             options={installmentOptions ?? []}
             value={filterSearchEntry?.installmentType ?? {}}
             onChange={handleInstallmentTypeChange}
+            className="my-1"
           />
         </div>
-
-        <div>
+        <div className="mb-5">
           <label>Region</label>
           <ReactSelect
             options={regionsOptions ?? []}
             value={filterSearchEntry?.region ?? {}}
             onChange={handleRegionsChange}
+            className="my-1"
           />
         </div>
-
-        <div>
+        <div className="mb-5">
           <label>Comuna</label>
           <ReactSelect
             options={communesOptions() ?? []}
             value={filterSearchEntry?.commune ?? {}}
             onChange={handleCommunesChange}
+            className="my-1"
           />
         </div>
 
-        <div>
+        <div className="mb-5 flex flex-col">
+          <label>Metros M2</label>
+          <InputForm
+            id="surfaceM2"
+            name="surfaceM2"
+            value={filterSearchEntry?.surfaceM2}
+            onChange={handleSurfaceM2Change}
+            placeholder="Ej: 100"
+          />
+        </div>
+        {/* <div className="mb-5 flex flex-col">
           <label>Metros M2</label>
           <input
             type="text"
@@ -203,10 +216,24 @@ const AdvancedSearch = ({ handleSubmit }) => {
             name="surfaceM2"
             value={filterSearchEntry?.surfaceM2}
             onChange={handleSurfaceM2Change}
+            placeholder="Ej: 100"
+            className="my-1 bg-white border border-gray-300 rounded-md px-3 p-[7px] outline-none focus:outline-none"
+          />
+        </div> */}
+
+        <div className="mb-5 flex flex-col">
+          <label>Precio Mínimo</label>
+          <InputForm
+            type="number"
+            id="minPrice"
+            name="minPrice"
+            value={filterSearchEntry?.minPrice}
+            onChange={handleMinPriceChange}
+            placeholder="Ej: 10.000.000"
           />
         </div>
 
-        <div>
+        {/* <div>
           <label>Precio Min.</label>
           <input
             type="number"
@@ -215,9 +242,21 @@ const AdvancedSearch = ({ handleSubmit }) => {
             value={filterSearchEntry?.minPrice}
             onChange={handleMinPriceChange}
           />
+        </div> */}
+
+        <div className="mb-5 flex flex-col">
+          <label>Precio Máximo</label>
+          <InputForm
+            type="number"
+            id="maxPrice"
+            name="maxPrice"
+            value={filterSearchEntry?.maxPrice}
+            onChange={handleMaxPriceChange}
+            placeholder="Ej: 100.000.000"
+          />
         </div>
 
-        <div>
+        {/* <div>
           <label>Precio Max.</label>
           <input
             type="number"
@@ -226,36 +265,44 @@ const AdvancedSearch = ({ handleSubmit }) => {
             value={filterSearchEntry?.maxPrice}
             onChange={handleMaxPriceChange}
           />
-        </div>
-
-        <div>
+        </div> */}
+        <div className="mb-5">
           <label>Dormitorios</label>
           <ReactSelect
             options={bedroomsOptions ?? []}
             value={filterSearchEntry?.bedrooms ?? {}}
             onChange={handleBedroomsChange}
+            className="my-1"
           />
         </div>
 
-        <div>
-          <label>Banos</label>
+        <div className="mb-5">
+          <label>Baños</label>
           <ReactSelect
             options={bathroomsOptions ?? []}
             value={filterSearchEntry?.bathrooms ?? {}}
             onChange={handleBathroomsChange}
+            className="my-1"
           />
         </div>
 
-        <div>
+        <div className="mb-5">
           <label>Estacionamientos</label>
           <ReactSelect
             options={coveredParkingLotsOptions ?? []}
             value={filterSearchEntry?.coveredParkingLots ?? {}}
             onChange={handleCoveredParkingLotsChange}
+            className="my-1"
           />
         </div>
-
-        <button type="submit">Buscar</button>
+        <div className="w-full">
+          <PrimaryButton
+            type="submit"
+            className="text-white bg-amber-500 w-full hover:bg-amber-600"
+          >
+            Buscar
+          </PrimaryButton>
+        </div>
       </form>
     </div>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const ButtonPrimary = ({
-  className = 'text-gray-700 dark:text-gray-200',
+  className = '',
   translate = '',
   sizeClass = 'px-4 py-3 sm:px-6',
   fontSize = 'text-sm sm:text-base font-medium',
@@ -19,7 +19,7 @@ const ButtonPrimary = ({
   const _renderLoading = () => {
     return (
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-5 h-5 border-t-2 border-b-2 border-gray-300 rounded-full animate-spin"></div>
+        <div className="w-5 h-5 border-t-2 border-b-2 border-gray-200 rounded-full animate-spin"></div>
       </div>
     );
   };
