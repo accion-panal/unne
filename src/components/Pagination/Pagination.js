@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import PropertyCard from '../PageSections/Properties/components/PropertyCard';
 
 const Pagination = ({ properties }) => {

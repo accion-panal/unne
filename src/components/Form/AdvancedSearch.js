@@ -153,7 +153,7 @@ const AdvancedSearch = ({ handleSubmit }) => {
     <div>
       <form onSubmit={handleSubmit}>
         <div className="mb-5">
-          <label>Tipo de operación:</label>
+          <label>Tipo de operación</label>
           <ReactSelect
             options={operationTypeOptions ?? []}
             value={filterSearchEntry?.operationType ?? {}}
@@ -162,7 +162,7 @@ const AdvancedSearch = ({ handleSubmit }) => {
           />
         </div>
         <div className="mb-5">
-          <label>Tipo de operación:</label>
+          <label>Tipo de propiedad</label>
           <ReactSelect
             options={propertyTypeOptions ?? []}
             value={filterSearchEntry?.typeOfProperty ?? {}}

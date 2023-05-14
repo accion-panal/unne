@@ -6,6 +6,8 @@ import AdvancedSearch from '../../components/Form/AdvancedSearch';
 import PropertiesServices from '../../services/PropertiesServices';
 import PropertyCard from '../../components/PageSections/Properties/components/PropertyCard';
 import Pagination from '../../components/Pagination/Pagination';
+import Spinner from '../../components/Spinner/Spinner';
+import NotFound from '../../components/Message/NotFound';
 
 const Properties = () => {
   const { contextData } = useContext(PropertiesContext);
@@ -90,7 +92,7 @@ const Properties = () => {
       );
       setProperties(response.length > 0 ? response : []);
       setLoading(false);
-      setNotFoundMsg(response.length > 0 ? '' : 'Busqueda no coincide');
+      setNotFoundMsg(response.length > 0 ? '' : 'Propiedades no encontradas');
     } catch (error) {
       console.error('Se produjo un error:', error);
     }
@@ -117,10 +119,8 @@ const Properties = () => {
   return (
     <Section className="relative flex flex-col md:flex-row">
       <div className="relative w-full md:w-3/4 m-2">
-        <div>
-          {loading && <p>cargando...</p>}
-          {notFoundMsg}
-        </div>
+        <div>{loading && <Spinner />}</div>
+        <div>{notFoundMsg && <NotFound message={notFoundMsg} />}</div>
 
         <Pagination {...{ properties }} />
       </div>
