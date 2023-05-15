@@ -44,7 +44,7 @@ export const navigationData = [
       {
         id: 1,
         name: 'Unidades de remate',
-        href: '/soy-inversionista/unidades-de-remate',
+        href: '/soy-inversionista/unidades-en-remate',
       },
       {
         id: 2,
