@@ -21,11 +21,22 @@
     "react-map-gl": "^7.0.23",
     "react-number-format": "^5.1.4",
     "react-router-dom": "^6.11.1",
-    "react-scripts": "5.0.1",
     "react-select": "^5.7.3",
     "web-vitals": "^2.1.4"
   },
   "homepage": "https://unne.pa/",
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "useBuiltIns": "usage",
+          "corejs": 3
+        }
+      ],
+      "@babel/preset-react"
+    ]
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -51,7 +62,9 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.21.5",
     "postcss": "^8.4.23",
+    "react-scripts": "^5.0.1",
     "tailwindcss": "^3.3.2"
   }
 }
