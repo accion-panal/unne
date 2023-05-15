@@ -5,6 +5,8 @@ import GalleryCarousel from '../../../GalleryCarousel/GalleryCarousel';
 import Details from './Details';
 import Characteristics from './Characteristics';
 import ReactMap from '../../../Map/ReactMap';
+import ClipboardProperty from './ClipboardProperty';
+import Modal from '../../../Modal/Modal';
 import Spinner from '../../../Spinner/Spinner';
 import { iconsList } from '../../../Icons';
 //importar los componentes aca
@@ -13,11 +15,21 @@ const PropertyComponent = ({ property }) => {
   const [loadingOnStart, setLoadingOnStart] = useState(true);
   const [showModalShare, setShowModalShare] = useState(false);
   const [showModalDetail, setShowModalDetail] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const { FaShare, MdSimCardDownload } = iconsList;
 
   const lng = Number(property?.LngLat?.match(/Lng: ([-\d.]+)/)[1]) || -70.64827;
   const lat = Number(property?.LngLat?.match(/Lat: ([-\d.]+)/)[1]) || -33.45694;
 
-  const { FaShare, MdSimCardDownload } = iconsList;
+  const renderContent = () => (
+    <ClipboardProperty
+      {...{
+        propertyId: property?.id,
+        copied,
+        setCopied,
+      }}
+    />
+  );
 
   useEffect(() => {
     if (Object.keys(property).length > 0) {
@@ -71,6 +83,17 @@ const PropertyComponent = ({ property }) => {
               property={property}
             />
           </div>
+
+          <Modal
+            renderTrigger={() => null}
+            isOpenProp={showModalShare}
+            renderContent={renderContent}
+            contentExtraClass="max-w-2xl"
+            modalTitle="Compartir Propiedad"
+            onCloseModal={() => {
+              setShowModalShare(false);
+            }}
+          />
         </div>
       )}
     </Section>

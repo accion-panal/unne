@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import ButtonClose from '../ButtonClose/ButtonClose';
-import Button from '../Button/Button';
 import { Dialog, Transition } from '@headlessui/react';
+import ButtonClose from '../BottonClose/BottonClose';
+import Button from '../Button/Button';
 
 const Modal = ({
   renderTrigger,

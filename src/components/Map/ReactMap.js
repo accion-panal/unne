@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// import { useRouter } from 'next/router';
-import { useLocation } from 'react-router-dom';
 import Map, {
   Marker,
   NavigationControl,
@@ -12,29 +10,37 @@ import Map, {
 import CardMap from './CardMap';
 import { iconsList } from '../Icons';
 
-const ReactMap = ({ longitudeProp, latitudeProp, property }) => {
-  const mapRef = useRef(null);
-  const location = useLocation();
+const ReactMap = ({ longitudeProp, latitudeProp, property, props }) => {
   const [showPopup, setShowPopup] = useState(false);
-  const [viewport, setViewport] = useState({
-    width: '100%',
-    height: 500,
-    latitude: latitudeProp,
-    longitude: longitudeProp,
-    zoom: 18,
-    dragPan: true,
-  });
   const { FaMapMarkerAlt } = iconsList;
 
-  useEffect(() => {
+  const [viewport, setViewport] = useState({
+    width: '100%',
+    height: '100%',
+    latitude: latitudeProp,
+    longitude: longitudeProp,
+  });
+
+  const handleViewportChange = (newViewport) => {
+    setViewport(newViewport);
+  };
+
+  const handleMarkerDrag = (event) => {
     setViewport({
       ...viewport,
       latitude: latitudeProp,
       longitude: longitudeProp,
-      zoom: 18,
-      dragPan: true,
     });
-  }, [mapRef, longitudeProp, latitudeProp]);
+  };
+
+  useEffect(() => {
+    setViewport((prevViewport) => ({
+      ...prevViewport,
+      latitude: latitudeProp,
+      longitude: longitudeProp,
+      zoom: 15,
+    }));
+  }, []);
 
   return (
     <div className="container my-24">
@@ -57,50 +63,41 @@ const ReactMap = ({ longitudeProp, latitudeProp, property }) => {
           {property?.city || 'Ciudad no registrada'}
         </h4>
 
-        <Link
-          to='/'
-          className="ml-2 xl:ml-5 text-blue-500 text-sm"
-        >
+        <Link to="/" className="ml-2 xl:ml-5 text-blue-500 text-sm">
           Ver información de la zona
         </Link>
       </div>
 
       <Map
-        {...viewport}
-        ref={mapRef}
         mapboxAccessToken={
           'pk.eyJ1Ijoic2VyZ2lvdmVyYWhlcm5hbmRlemJpZGF0YSIsImEiOiJjbDMwZHc4cmswMDdqM2NydmIzYWF0cGl4In0.hsYQFPebleAB4j6mRckMzQ'
         }
-        onViewportChange={(nextViewport) => setViewport(nextViewport)}
         initialViewState={{
           pitch: 45,
           width: 400,
           height: 900,
           attributionControl: true,
         }}
+        {...viewport}
+        onViewportChange={handleViewportChange}
+        interactive={true}
+        dragPan={true}
+        dragRotate={false}
+        scrollZoom={true}
+        touchZoom={true}
+        doubleClickZoom={true}
         mapStyle={'mapbox://styles/mapbox/streets-v12'}
         style={{
+          margin: '1.5rem 0rem',
           width: 'auto',
-          height: '400px',
-          borderRadius: '15px',
-          padding: '2rem',
-          margin: '1.5rem',
-          width: 'auto',
-          height: '70vh',
-          borderRadius: '15px',
+          height: '450px',
         }}
       >
         <Marker
           latitude={latitudeProp}
           longitude={longitudeProp}
-          offsetLeft={-20}
-          offsetTop={-10}
-          style={{
-            cursor: 'pointer',
-            zIndex: 100,
-            margin: '0',
-            padding: '0',
-          }}
+          draggable={true}
+          onDragEnd={handleMarkerDrag}
           onClick={() => setShowPopup(!showPopup)}
         >
           {showPopup && (
