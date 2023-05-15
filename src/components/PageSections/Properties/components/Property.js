@@ -4,6 +4,7 @@ import TopInfoAddress from './TopInfoAddress';
 import GalleryCarousel from '../../../GalleryCarousel/GalleryCarousel';
 import Details from './Details';
 import Characteristics from './Characteristics';
+import ReactMap from '../../../Map/ReactMap';
 import Spinner from '../../../Spinner/Spinner';
 import { iconsList } from '../../../Icons';
 //importar los componentes aca
@@ -12,6 +13,9 @@ const PropertyComponent = ({ property }) => {
   const [loadingOnStart, setLoadingOnStart] = useState(true);
   const [showModalShare, setShowModalShare] = useState(false);
   const [showModalDetail, setShowModalDetail] = useState(false);
+
+  const lng = Number(property?.LngLat?.match(/Lng: ([-\d.]+)/)[1]) || -70.64827;
+  const lat = Number(property?.LngLat?.match(/Lat: ([-\d.]+)/)[1]) || -33.45694;
 
   const { FaShare, MdSimCardDownload } = iconsList;
 
@@ -57,6 +61,15 @@ const PropertyComponent = ({ property }) => {
               <Details property={property} />
               {/* <SimilarProjects /> */}
             </div>
+          </div>
+
+          {/* REACT MAP */}
+          <div>
+            <ReactMap
+              longitudeProp={lng}
+              latitudeProp={lat}
+              property={property}
+            />
           </div>
         </div>
       )}
