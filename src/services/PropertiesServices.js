@@ -8,6 +8,13 @@ const PropertiesServices = {
     );
     return [response.data.data, response.data];
   },
+
+  getProperty: async (id, statusId, companyId) => {
+    const response = await api.get(
+      `https://aulen.partnersadvisers.info/properties/${id}?statusId=${statusId}&companyId=${companyId}`
+    );
+    return response.data;
+  },
 };
 
 export default PropertiesServices;
