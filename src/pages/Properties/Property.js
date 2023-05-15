@@ -7,7 +7,6 @@ import { company } from '../../data/company';
 const Property = () => {
   const { id } = useParams();
   const [property, setProperty] = useState({});
-  // aca hacer el loader
 
   const getProperty = async (id, statusId, companyId) => {
     const response = await PropertiesServices.getProperty(
@@ -21,8 +20,6 @@ const Property = () => {
   useEffect(() => {
     getProperty(id, company?.statusId, company?.companyId);
   }, [id]);
-
-  console.log('property', property);
 
   return (
     <Fragment>

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Section from '../../../Section/Section';
+import { PDFViewer } from '@react-pdf/renderer';
 import TopInfoAddress from './TopInfoAddress';
 import GalleryCarousel from '../../../GalleryCarousel/GalleryCarousel';
 import Details from './Details';
 import Characteristics from './Characteristics';
 import ReactMap from '../../../Map/ReactMap';
+import PDFView from './PDFView';
 import ClipboardProperty from './ClipboardProperty';
 import Modal from '../../../Modal/Modal';
 import Spinner from '../../../Spinner/Spinner';
@@ -21,6 +23,7 @@ const PropertyComponent = ({ property }) => {
   const lng = Number(property?.LngLat?.match(/Lng: ([-\d.]+)/)[1]) || -70.64827;
   const lat = Number(property?.LngLat?.match(/Lat: ([-\d.]+)/)[1]) || -33.45694;
 
+  /** Render clipboard property modal */
   const renderContent = () => (
     <ClipboardProperty
       {...{
@@ -29,6 +32,13 @@ const PropertyComponent = ({ property }) => {
         setCopied,
       }}
     />
+  );
+
+  /** Render Property detail */
+  const renderContentPdf = () => (
+    <PDFViewer className="w-full h-[90vh]">
+      <PDFView property={property} />
+    </PDFViewer>
   );
 
   useEffect(() => {
@@ -92,6 +102,17 @@ const PropertyComponent = ({ property }) => {
             modalTitle="Compartir Propiedad"
             onCloseModal={() => {
               setShowModalShare(false);
+            }}
+          />
+
+          <Modal
+            renderTrigger={() => null}
+            isOpenProp={showModalDetail}
+            renderContent={renderContentPdf}
+            contentExtraClass="max-w-[90%]"
+            modalTitle="Descargar PDF"
+            onCloseModal={() => {
+              setShowModalDetail(false);
             }}
           />
         </div>
