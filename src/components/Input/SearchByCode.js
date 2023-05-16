@@ -1,32 +1,25 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { PropertiesContext } from '../../context/properties/PropertiesContext';
 import { SelectsContext } from '../../context/selects/SelectsContext';
-import Section from '../../components/Section/Section';
-import AdvancedSearch from '../../components/Form/AdvancedSearch';
 import PropertiesServices from '../../services/PropertiesServices';
-import Pagination from '../../components/Pagination/Pagination';
-import Spinner from '../../components/Spinner/Spinner';
-import NotFound from '../../components/Message/NotFound';
-import PropertiesTop from '../../components/Navigation/PropertiesTop';
 
-const Properties = () => {
+const SearchByCode = ({ propertyId, setPropertyId }) => {
   const { contextData } = useContext(PropertiesContext);
   const { contextDataSelects } = useContext(SelectsContext);
-  const [statusId, companyId, totalItems, setTotalItems, itemsPerPage] =
-    contextData;
-  const [filterSearchEntry, ...rest] = contextDataSelects;
-  const [properties, setProperties] = useState([]);
-  const [loadingOnStart, setLoadingOnStart] = useState(true);
+  const [filterSearchEntry, ...restSelects] = contextDataSelects;
+  const [statusId, companyId, ...rest] = contextData;
   const [loading, setLoading] = useState(false);
   const [notFoundMsg, setNotFoundMsg] = useState('');
+  
 
-  /** Filter peroperties views */
-  const [isGrid, setIsGrid] = useState(true);
-  const [isList, setIsList] = useState(false);
+  const CLASSES =
+    'block w-full my-4 text-gray-500 focus:outline-none bg-white rounded-full border border-gray-300';
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handlePropertyId = (ev) => setPropertyId(Number(ev.target.value));
 
+  const handleSubmit = async (ev) => {
+    ev.preventDefault();
     /** Building url path */
     const urlPaths = {
       operationType:
@@ -90,76 +83,69 @@ const Properties = () => {
     try {
       setLoading(true);
       setNotFoundMsg('');
-      setProperties([]);
+      // setProperties([]);
       const [response, metaData] = await PropertiesServices.getProperties(
         statusId,
         companyId,
         url
       );
-      setProperties(response.length > 0 ? response : []);
+      // setProperties(response.length > 0 ? response : []);
       setLoading(false);
       setNotFoundMsg(response.length > 0 ? '' : 'Propiedades no encontradas');
     } catch (error) {
       console.error('Se produjo un error:', error);
     }
+
+    console.log('Buscando... propiedad por codigo');
   };
-
-  const getProperties = async (statusId, companyId, url) => {
-    const [response, metaData] = await PropertiesServices.getProperties(
-      statusId,
-      companyId,
-      url
-    );
-    setTotalItems(metaData?.meta?.totalItems);
-    setProperties(response);
-  };
-
-  const memoizedData = useMemo(
-    () => () => getProperties(statusId, companyId, ''),
-    []
-  );
-
-  useEffect(() => {
-    memoizedData();
-  }, [memoizedData]);
-
-  useEffect(() => {
-    if (properties?.length > 0) {
-      setLoadingOnStart(false);
-      return;
-    }
-  }, [properties]);
 
   return (
-    <Section className="relative flex flex-col md:flex-row">
-      <div className="relative w-full md:w-3/4 m-2">
-        <PropertiesTop
-          {...{
-            totalItems,
-            itemsPerPage,
-            isGrid,
-            setIsGrid,
-            isList,
-            setIsList,
-            properties,
-          }}
-        />
-        {loadingOnStart && <Spinner />}
-        {loading && <Spinner />}
-        {notFoundMsg && <NotFound message={notFoundMsg} />}
+    <Fragment>
+      <form>
+        <div className="relative">
+          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg
+              aria-hidden="true"
+              className="w-5 h-5 text-gray-500 dark:text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              ></path>
+            </svg>
+          </div>
+          <input
+            type="number"
+            id="search-property"
+            value={propertyId}
+            onChange={handlePropertyId}
+            className={`${CLASSES} p-3 pl-10 text-MD`}
+            placeholder="Código: 00001"
+          />
 
-        {/* Properties List and Pagination */}
-        <Pagination
-          {...{ properties, totalItems, isGrid, setIsGrid, isList, setIsList }}
-        />
-      </div>
+          <button
+            onClick={handleSubmit}
+            className="text-white absolute pt-2 top-[0px] right-[1px] bottom-[0px] bg-gray-400 hover:bg-gray-500 py-2.5 px-4 xl:px-7 rounded-r-full"
+          >
+            Buscar propiedad
+          </button>
 
-      {/* Advanced search properties form */}
-      <div className="w-full md:w-1/4 h-[100%] m-2 p-8 border border-gray-200 rounded-lg bg-white">
-        <AdvancedSearch handleSubmit={handleSubmit} />
-      </div>
-    </Section>
+          {/* <Link
+            to={`/propiedades/${propertyId}?statusId=${statusId}&companyId=${companyId}`}
+            className="text-white absolute pt-3 top-[0px] right-[1px] bottom-[0px] bg-gray-400 hover:bg-gray-500 py-2.5 px-4 xl:px-7 rounded-r-full"
+          >
+            Buscar
+          </Link> */}
+        </div>
+      </form>
+    </Fragment>
   );
 };
 
-export default Properties;
+export default SearchByCode;

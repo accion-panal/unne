@@ -61,7 +61,7 @@ const PropertyComponent = ({ property }) => {
                 <div className="flex flex-row">
                   <span
                     onClick={() => setShowModalShare(true)}
-                    className="flex items-center hover:text-blue-500 cursor-pointer"
+                    className="flex items-center hover:text-orange-500 cursor-pointer"
                   >
                     <FaShare className="mr-1" />
                     Compartir
@@ -69,7 +69,7 @@ const PropertyComponent = ({ property }) => {
                   <span className="mx-4 text-gray-200">|</span>
                   <span
                     onClick={() => setShowModalDetail(true)}
-                    className="flex items-center hover:text-blue-500 cursor-pointer"
+                    className="flex items-center hover:text-orange-500 cursor-pointer"
                   >
                     <MdSimCardDownload className="mr-1" />
                     Descargar PDF

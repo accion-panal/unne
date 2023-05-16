@@ -6,7 +6,7 @@ const TopInfoAddress = ({ property }) => {
 
   return (
     <ul className="flex rounded-md">
-      <li className="py-3 text-gray-800 hover:text-blue-500">
+      <li className="py-3 text-gray-800 hover:text-orange-500">
         <Link to="/propiedades">Volver al listado</Link>
       </li>
       <li className="py-3 px-5 text-gray-200">

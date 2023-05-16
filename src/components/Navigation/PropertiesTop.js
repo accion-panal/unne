@@ -79,7 +79,7 @@ const PropertiesTop = ({
         </small>
         <span className="text-gray-300 mx-3">|</span>
         <small className="text-sm p-1 rounded">
-          Proyectos: {totalItems ?? 0}
+          Total Propiedades: {totalItems ?? 0}
         </small>
         <span className="text-gray-300 mx-3">|</span>
         <small className="text-sm p-1 rounded">

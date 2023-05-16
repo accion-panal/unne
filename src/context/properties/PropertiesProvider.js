@@ -4,8 +4,9 @@ import { PropertiesContext } from './PropertiesContext';
 import { company } from '../../data/company';
 
 const PropertiesProvider = ({ children }) => {
+  const [properties, setProperties] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const [statusIdParams, setStatusIdParams] = useSearchParams({
     statusId: company.statusId,
   });
@@ -26,6 +27,8 @@ const PropertiesProvider = ({ children }) => {
           setTotalItems,
           itemsPerPage,
           setItemsPerPage,
+          // properties,
+          // setProperties,
         ],
       }}
     >
