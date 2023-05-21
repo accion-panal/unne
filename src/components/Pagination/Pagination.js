@@ -2,9 +2,18 @@ import React, { useState, useContext } from 'react';
 import { PropertiesContext } from '../../context/properties/PropertiesContext';
 import PropertyCard from '../PageSections/Properties/components/PropertyCard';
 
-const Pagination = ({ properties, isList, isGrid }) => {
+const Pagination = ({ isList, isGrid }) => {
   const { contextData } = useContext(PropertiesContext);
-  const [, , , , itemsPerPage, ,] = contextData;
+  const [
+    statusId,
+    companyId,
+    totalItems,
+    setTotalItems,
+    itemsPerPage,
+    setItemsPerPage,
+    properties,
+    setProperties,
+  ] = contextData;
   const [currentPage, setCurrentPage] = useState(1);
   const [showAllPages, setShowAllPages] = useState(false);
 

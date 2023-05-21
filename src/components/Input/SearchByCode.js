@@ -8,10 +8,18 @@ const SearchByCode = ({ propertyId, setPropertyId }) => {
   const { contextData } = useContext(PropertiesContext);
   const { contextDataSelects } = useContext(SelectsContext);
   const [filterSearchEntry, ...restSelects] = contextDataSelects;
-  const [statusId, companyId, ...rest] = contextData;
+  const [
+    statusId,
+    companyId,
+    totalItems,
+    setTotalItems,
+    itemsPerPage,
+    setItemsPerPage,
+    properties,
+    setProperties,
+  ] = contextData;
   const [loading, setLoading] = useState(false);
   const [notFoundMsg, setNotFoundMsg] = useState('');
-  
 
   const CLASSES =
     'block w-full my-4 text-gray-500 focus:outline-none bg-white rounded-full border border-gray-300';

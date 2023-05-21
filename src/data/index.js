@@ -15,4 +15,4 @@ export const mainCarouselData = [
 ];
 
 /** Tabs search by Property Data */
-export const webServicesTabs = ['Venta', 'Arriendo ', 'Inversion'];
+export const webServicesTabs = ['venta', 'arriendo ', 'inversion'];

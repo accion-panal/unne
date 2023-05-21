@@ -5,7 +5,16 @@ import { truncateString, parseToCLPCurrency } from '../../../../utils';
 
 const PropertyCard = ({ data, isList }) => {
   const { contextData } = useContext(PropertiesContext);
-  const [statusId, companyId] = contextData;
+  const [
+    statusId,
+    companyId,
+    totalItems,
+    setTotalItems,
+    itemsPerPage,
+    setItemsPerPage,
+    properties,
+    setProperties,
+  ] = contextData;
   const { id, title, image, address, commune, city, price, types } = data;
 
   return (

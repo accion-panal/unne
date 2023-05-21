@@ -12,7 +12,7 @@ const SelectsProvider = ({ children }) => {
   const [installmentType, setInstallmentType] = useState([]);
   const [errorServerMsg, setErrorServerMsg] = useState({});
   const [filterSearchEntry, setFilterSearchEntry] = useState({
-    operationType: '',
+    operationType: '', 
     typeOfProperty: '',
     installmentType: '',
     region: '',

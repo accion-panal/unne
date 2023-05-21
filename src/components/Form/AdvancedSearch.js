@@ -50,7 +50,12 @@ const AdvancedSearch = ({ handleSubmit }) => {
   // Regions (val:options)
   const regionsOptions = selects?.regions?.map(({ id, name }) => ({
     value: id,
-    label: name,
+    label:
+      name === 'Metropolitana de Santiago'
+        ? 'Santiago'
+        : name && name === 'Arica y Parinacota'
+        ? 'Arica'
+        : name,
   }));
 
   // Communes (val:options)
@@ -221,16 +226,30 @@ const AdvancedSearch = ({ handleSubmit }) => {
           />
         </div> */}
 
-        <div className="mb-5 flex flex-col">
-          <label>Precio Mínimo</label>
-          <InputForm
-            type="number"
-            id="minPrice"
-            name="minPrice"
-            value={filterSearchEntry?.minPrice}
-            onChange={handleMinPriceChange}
-            placeholder="Ej: 10.000.000"
-          />
+        <div className="mb-5 space-x-1 flex flex-row w-100 justify-between">
+          <div className="flex flex-col w-[48%]">
+            <label>Precio Mínimo</label>
+            <InputForm
+              type="number"
+              id="minPrice"
+              name="minPrice"
+              value={filterSearchEntry?.minPrice}
+              onChange={handleMinPriceChange}
+              placeholder="Ej: 10.000.000"
+            />
+          </div>
+
+          <div className="flex flex-col w-[48%]">
+            <label>Precio Máximo</label>
+            <InputForm
+              type="number"
+              id="maxPrice"
+              name="maxPrice"
+              value={filterSearchEntry?.maxPrice}
+              onChange={handleMaxPriceChange}
+              placeholder="Ej: 100.000.000"
+            />
+          </div>
         </div>
 
         {/* <div>
@@ -244,7 +263,7 @@ const AdvancedSearch = ({ handleSubmit }) => {
           />
         </div> */}
 
-        <div className="mb-5 flex flex-col">
+        {/* <div className="mb-5 flex flex-col">
           <label>Precio Máximo</label>
           <InputForm
             type="number"
@@ -254,7 +273,7 @@ const AdvancedSearch = ({ handleSubmit }) => {
             onChange={handleMaxPriceChange}
             placeholder="Ej: 100.000.000"
           />
-        </div>
+        </div> */}
 
         {/* <div>
           <label>Precio Max.</label>

@@ -1,17 +1,27 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { PropertiesContext } from '../../../../context/properties/PropertiesContext';
 import { SelectsContext } from '../../../../context/selects/SelectsContext';
 import { Tab } from '@headlessui/react';
 import SearchByCode from '../../../Input/SearchByCode';
 import { webServicesTabs } from '../../../../data';
-import { company } from '../../../../data/company';
+import ButtonPrimary from '../../../Button/ButtonPrimary';
 
 const classNames = (...classes) => classes.filter(Boolean).join(' ');
 
 const SearchPropertiesSection = () => {
   const { contextData } = useContext(PropertiesContext);
   const { contextDataSelects } = useContext(SelectsContext);
+  const [
+    statusId,
+    companyId,
+    totalItems,
+    setTotalItems,
+    itemsPerPage,
+    setItemsPerPage,
+    properties,
+    setProperties,
+  ] = contextData;
   const [
     filterSearchEntry,
     setFilterSearchEntry,
@@ -29,7 +39,10 @@ const SearchPropertiesSection = () => {
 
   const [propertyId, setPropertyId] = useState('');
   const [categories, setCategories] = useState([...webServicesTabs]);
+  const [activeTab, setActiveTab] = useState(categories[-1]);
   const [isOpenSearchCode, setIsOpenSearchCode] = useState(false);
+
+  const navigate = useNavigate();
 
   /** Handle show search input */
   const handleOpenSearchCode = (ev) => {
@@ -43,8 +56,6 @@ const SearchPropertiesSection = () => {
       ...filterSearchEntry,
       operationType: selection,
     });
-
-    console.log(selection);
   };
 
   /** Handle Property on change */
@@ -79,75 +90,42 @@ const SearchPropertiesSection = () => {
     getCommunesByRegion(filterSearchEntry?.region);
   }, [filterSearchEntry?.region]);
 
-  console.log(propertyId);
-
-  console.log(filterSearchEntry);
-
-  // const onFormSubmit = (
-  //   statusId,
-  //   companyId,
-  //   operationType,
-  //   typeOfProperty,
-  //   region,
-  //   commune,
-  //   surfaceM2,
-  //   minPrice,
-  //   maxPrice,
-  //   bedrooms,
-  //   bathrooms,
-  //   parkingLots
-  // ) => {
-  //   return getPropertiesOnFormSubmit(
-  //     statusId,
-  //     companyId,
-  //     operationType,
-  //     typeOfProperty,
-  //     region,
-  //     commune,
-  //     surfaceM2,
-  //     minPrice,
-  //     maxPrice,
-  //     bedrooms,
-  //     bathrooms,
-  //     parkingLots
-  //   );
-  // };
-
   return (
     <div className="my-10">
-      <div className="bg-gray-50 border rounded-2xl w-100 xl:w-3/5 mx-auto text-black p-4 xl:px-10">
+      <div className="bg-gray-50  rounded-2xl w-100 xl:w-3/5 mx-auto text-black p-4 xl:px-10 shadow-lg">
         <form>
           <div className="grid grid-cols-1 grid-rows-1 gap-4">
             <div className="d-flex justify-start items-start pb-4">
-              <Tab.Group className="m-0">
-                <Tab.List className="flex space-x-1 w-100 rounded-[100px] text-black mb:16 bg-gray-200 mx-auto w-5/6 lg:w-3/6">
-                  {Object.values(categories).map((category) => (
-                    <Tab
-                      key={category}
-                      onClick={() =>
-                        onOperationTypeChange(category.toLowerCase().trim())
-                      }
-                      className={({ selected }) =>
-                        classNames(
-                          'w-full text-md font-medium leading-5 rounded-[100px] text-black focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-amber-400',
-                          'ring-opacity-60 ring-offset-2 focus:outline-none focus:bg-amber-400 text-black p-2',
-                          selected
-                            ? 'bg-amber-400 text-white p-2'
-                            : 'text-gray-600'
-                        )
-                      }
+              <div className=" border-gray-200">
+                <nav
+                  className="flex space-x-1 w-100 rounded-[100px] text-black mb:16 bg-gray-200 mx-auto w-5/6 lg:w-3/6"
+                  aria-label="Tabs"
+                >
+                  {categories.map((tab) => (
+                    <button
+                      key={tab}
+                      className={`${
+                        activeTab === tab
+                          ? 'bg-amber-400 text-white p-2'
+                          : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      } w-full text-md font-medium leading-5 rounded-[100px] py-3 focus:ring-1 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-amber-400 ring-opacity-60 ring-offset-2 focus:outline-none focus:bg-amber-400 text-black p-2`}
+                      onClick={(ev) => {
+                        ev.preventDefault();
+                        setActiveTab(tab);
+                        onOperationTypeChange(tab.toLowerCase().trim());
+                      }}
                     >
-                      {category}
-                    </Tab>
+                      {tab}
+                    </button>
                   ))}
-                </Tab.List>
-              </Tab.Group>
+                </nav>
+              </div>
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            <div className="mx-1">
+          <div className="grid grid-cols-1 w-full lg:grid-cols-4">
+            <div className="mx-1 my-2">
               <select
-                className="select select-ghost bg-white w-full max-w-xs rounded-full border-gray-300"
+                className="select select-ghost bg-white rounded-full border-gray-300 w-full"
                 placeholder="Tipo de Propiedad"
                 value={filterSearchEntry?.typeOfProperty}
                 onChange={onTypeOfPropertyChange}
@@ -160,24 +138,24 @@ const SearchPropertiesSection = () => {
               </select>
             </div>
 
-            <div className="mx-1">
+            <div className="mx-1 my-2">
               <select
-                className="select select-ghost bg-white w-full max-w-xs rounded-full border-gray-300"
+                className="select select-ghost bg-white rounded-full border-gray-300 w-full"
                 placeholder="Region"
-                value={filterSearchEntry?.regions}
+                value={filterSearchEntry?.region}
                 onChange={onRegionChange}
               >
                 {selects?.regions?.map(({ id, name }) => (
-                  <option key={id} value={id}>
+                  <option key={id} value={id} name={name}>
                     {name}
                   </option>
                 ))}
               </select>
             </div>
 
-            <div className="mx-1">
+            <div className="mx-1 my-2">
               <select
-                className="select select-ghost bg-white w-full max-w-xs rounded-full border-gray-300"
+                className="select select-ghost bg-white rounded-full border-gray-300 w-full"
                 placeholder="Comuna"
                 value={filterSearchEntry?.commune}
                 onChange={onCommuneChange}
@@ -190,29 +168,13 @@ const SearchPropertiesSection = () => {
               </select>
             </div>
 
-            <div className="mx-1 flex justify-center items-center">
-              <Link
-                href="/propiedades"
-                // onClick={() => {
-                //   onFormSubmit(
-                //     company.statusId,
-                //     company.companyId,
-                //     filterSearchEntry?.operationType,
-                //     filterSearchEntry?.typeOfProperty,
-                //     filterSearchEntry?.region,
-                //     filterSearchEntry?.commune,
-                //     filterSearchEntry?.surfaceM2,
-                //     filterSearchEntry?.minPrice,
-                //     filterSearchEntry?.maxPrice,
-                //     filterSearchEntry?.bedrooms,
-                //     filterSearchEntry?.bathrooms,
-                //     filterSearchEntry?.parkingLots
-                //   );
-                // }}
+            <div className="mx-1 flex justify-center items-center my-2">
+              <ButtonPrimary
+                type="submit"
                 className="block w-full p-[.7rem] text-center rounded-full border bg-amber-400 text-white border-amber-300 hover:bg-amber-500"
               >
                 Buscar
-              </Link>
+              </ButtonPrimary>
             </div>
           </div>
 
