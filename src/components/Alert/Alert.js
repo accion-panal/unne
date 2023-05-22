@@ -13,7 +13,7 @@ const Alert = ({ type, message }) => {
   };
 
   return (
-    <div class={`${setTypeMessage(type)} p-4 mb-4 text-sm`} role="alert">
+    <div className={`${setTypeMessage(type)} p-4 mb-4 text-sm`} role="alert">
       {message}
     </div>
   );

@@ -1,93 +1,121 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
+import { api } from '../../../../api';
 import { useNavigate } from 'react-router-dom';
-// import { PropertiesContext } from '../../../../context/properties/PropertiesContext';
-// import { SelectsContext } from '../../../../context/selects/SelectsContext';
-import { Tab } from '@headlessui/react';
+import { SelectsContext } from '../../../../context/selects/SelectsContext';
+import { PropertiesContext } from '../../../../context/properties/PropertiesContext';
 import SearchByCode from '../../../Input/SearchByCode';
 import { webServicesTabs } from '../../../../data';
 import ButtonPrimary from '../../../Button/ButtonPrimary';
-
-const classNames = (...classes) => classes.filter(Boolean).join(' ');
+import {
+  company,
+  paginationTopLimit,
+} from '../../../../constants/consts/company';
 
 const SearchPropertiesSection = () => {
-  // const { contextData } = useContext(PropertiesContext);
-  // const { contextDataSelects } = useContext(SelectsContext);
-  // const [
-  //   statusId,
-  //   companyId,
-  //   totalItems,
-  //   setTotalItems,
-  //   itemsPerPage,
-  //   setItemsPerPage,
-  //   properties,
-  //   setProperties,
-  // ] = contextData;
-  // const [
-  //   filterSearchEntry,
-  //   setFilterSearchEntry,
-  //   getSelects,
-  //   selects,
-  //   communes,
-  //   getCommunesByRegion,
-  //   regionId,
-  //   setRegionId,
-  //   regions,
-  //   operationType,
-  //   typeOfProperty,
-  //   installmentType,
-  // ] = contextDataSelects;
+  const { contextDataSelects } = useContext(SelectsContext);
+  const { contextData } = useContext(PropertiesContext);
+  const {
+    regions,
+    communes,
+    setStateId,
+    typeOfProperty,
+    selectedSelects,
+    setSelectedSelects,
+  } = contextDataSelects;
+  const { setProperties, page, setIsLoading, setNotFoundMsg } = contextData;
 
   const [categories, setCategories] = useState([...webServicesTabs]);
   const [activeTab, setActiveTab] = useState(categories[-1]);
   const [isOpenSearchCode, setIsOpenSearchCode] = useState(false);
-
   const navigate = useNavigate();
+  const [isSearching, setIsSearching] = useState(false);
 
   const handleOpenSearchCode = (ev) => {
     ev.preventDefault();
     setIsOpenSearchCode(!isOpenSearchCode);
   };
 
-  // const onOperationTypeChange = (selection) => {
-  //   setFilterSearchEntry({
-  //     ...filterSearchEntry,
-  //     operationType: selection,
-  //   });
-  // };
+  /** Handle Inputs Form */
+  const onTypeOfPropertyChange = (ev) =>
+    setSelectedSelects({
+      ...selectedSelects,
+      typeOfProperty: ev.target.value,
+    });
 
-  // const onTypeOfPropertyChange = (ev) => {
-  //   setFilterSearchEntry({
-  //     ...filterSearchEntry,
-  //     typeOfProperty: ev.target.value,
-  //   });
-  // };
+  const onRegionChange = (ev) => {
+    const selectedRegionId = ev.target.value;
+    const selectedRegion = regions.find(
+      (region) => region.id === Number(selectedRegionId)
+    );
+    setStateId(selectedRegion.id);
+    setSelectedSelects({
+      ...selectedSelects,
+      region:
+        selectedRegion.name === 'Metropolitana de Santiago'
+          ? 'Santiago'
+          : selectedRegion.name === 'Arica y Parinacota'
+          ? 'Arica'
+          : selectedRegion.name,
+    });
+  };
 
-  // const onRegionChange = (ev) => {
-  //   setFilterSearchEntry({
-  //     ...filterSearchEntry,
-  //     region: Number(ev.target.value),
-  //   });
-  // };
+  const onCommuneChange = (ev) =>
+    setSelectedSelects({
+      ...selectedSelects,
+      commune: ev.target.value,
+    });
 
-  // const onCommuneChange = (ev) => {
-  //   setFilterSearchEntry({
-  //     ...filterSearchEntry,
-  //     commune: ev.target.value,
-  //   });
-  // };
+  /** On Form Submit */
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  // useEffect(() => {
-  //   getSelects();
-  // }, []);
+    const createUrl = {
+      operationType:
+        selectedSelects.operationType?.length > 0
+          ? `&operationType=${selectedSelects?.operationType}`
+          : '',
+      typeOfProperty:
+        selectedSelects.typeOfProperty?.length > 0
+          ? `&typeOfProperty=${selectedSelects.typeOfProperty}`
+          : '',
+      region:
+        selectedSelects.region?.length > 0
+          ? `&region=${selectedSelects.region}`
+          : '',
+      commune:
+        selectedSelects.commune?.length > 0
+          ? `&commune=${selectedSelects.commune}`
+          : '',
+    };
 
-  // useEffect(() => {
-  //   getCommunesByRegion(filterSearchEntry?.region);
-  // }, [filterSearchEntry?.region]);
+    const url = `properties?page=${page}&limit=${paginationTopLimit.topLimit}&statusId=${company.statusId}&companyId=${company.companyId}${createUrl.operationType}${createUrl.typeOfProperty}${createUrl.region}${createUrl.commune}`;
+
+    try {
+      setNotFoundMsg('');
+      setProperties([]);
+      setIsSearching(true);
+      setIsLoading(true);
+      const response = await api.get(url);
+      setProperties(response.data.data);
+      navigate(
+        `/propiedades?statusId=${company.statusId}&companyId=${company.companyId}`
+      );
+      setIsLoading(false);
+      setIsSearching(false);
+      setNotFoundMsg(
+        response.data.data.length === 0
+          ? 'Lo sentimos, tu busqueda no coincide con nuestros registros'
+          : ''
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="my-10">
       <div className="bg-gray-50  rounded-2xl w-100 xl:w-3/5 mx-auto text-black p-4 xl:px-10 shadow-lg">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 grid-rows-1 gap-4">
             <div className="d-flex justify-start items-start pb-4">
               <div className=" border-gray-200">
@@ -106,7 +134,10 @@ const SearchPropertiesSection = () => {
                       onClick={(ev) => {
                         ev.preventDefault();
                         setActiveTab(tab);
-                        // onOperationTypeChange(tab.toLowerCase().trim());
+                        setSelectedSelects({
+                          ...selectedSelects,
+                          operationType: tab?.toLowerCase().trim(),
+                        });
                       }}
                     >
                       {tab}
@@ -121,14 +152,14 @@ const SearchPropertiesSection = () => {
               <select
                 className="select select-ghost bg-white rounded-full border-gray-300 w-full"
                 placeholder="Tipo de Propiedad"
-                // value={filterSearchEntry?.typeOfProperty}
-                // onChange={onTypeOfPropertyChange}
+                value={selectedSelects?.typeOfProperty}
+                onChange={onTypeOfPropertyChange}
               >
-                {/* {selects?.typeOfProperty?.map(({ value, name }) => (
+                {typeOfProperty?.map(({ value, name }) => (
                   <option key={value} value={name}>
                     {name}
                   </option>
-                ))} */}
+                ))}
               </select>
             </div>
 
@@ -136,14 +167,14 @@ const SearchPropertiesSection = () => {
               <select
                 className="select select-ghost bg-white rounded-full border-gray-300 w-full"
                 placeholder="Region"
-                // value={filterSearchEntry?.region}
-                // onChange={onRegionChange}
+                value={selectedSelects?.region}
+                onChange={onRegionChange}
               >
-                {/* {selects?.regions?.map(({ id, name }) => (
+                {regions?.map(({ id, name }) => (
                   <option key={id} value={id} name={name}>
                     {name}
                   </option>
-                ))} */}
+                ))}
               </select>
             </div>
 
@@ -151,14 +182,14 @@ const SearchPropertiesSection = () => {
               <select
                 className="select select-ghost bg-white rounded-full border-gray-300 w-full"
                 placeholder="Comuna"
-                // value={filterSearchEntry?.commune}
-                // onChange={onCommuneChange}
+                value={selectedSelects?.commune}
+                onChange={onCommuneChange}
               >
-                {/* {communes?.map(({ id, name }) => (
+                {communes?.map(({ id, name }) => (
                   <option key={id} value={name}>
                     {name}
                   </option>
-                ))} */}
+                ))}
               </select>
             </div>
 
@@ -167,7 +198,7 @@ const SearchPropertiesSection = () => {
                 type="submit"
                 className="block w-full p-[.7rem] text-center rounded-full border bg-amber-400 text-white border-amber-300 hover:bg-amber-500"
               >
-                Buscar
+                {isSearching ? 'Buscando...' : 'Buscar'}
               </ButtonPrimary>
             </div>
           </div>
