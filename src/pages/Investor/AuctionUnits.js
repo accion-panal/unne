@@ -1,7 +1,7 @@
 import React from 'react';
 
 const AuctionUnits = () => {
-  return <div>AuctionUnits</div>;
+  return <div>Unidades en Remate</div>;
 };
 
 export default AuctionUnits;

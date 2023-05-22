@@ -5,7 +5,6 @@ import SearchPropertiesSection from './components/SearchPropertiesSection';
 const HomeComponent = () => {
   return (
     <Fragment>
-      {/* aca los componentes */}
       <CarouselSection />
       <SearchPropertiesSection />
     </Fragment>

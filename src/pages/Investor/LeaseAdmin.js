@@ -1,7 +1,7 @@
 import React from 'react';
 
 const LeaseAdmin = () => {
-  return <div>LeaseAdmin</div>;
+  return <div>Administracion de Arriendo</div>;
 };
 
 export default LeaseAdmin;
