@@ -2,6 +2,8 @@ import React, { Fragment, useContext, useState } from 'react';
 import { PropertiesContext } from '../../context/properties/PropertiesContext';
 import { company } from '../../constants/consts/company';
 import PropertiesServices from '../../services/PropertiesServices';
+import NotFound from '../Message/NotFound';
+import Alert from '../Alert/Alert';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -48,6 +50,9 @@ const SearchByCode = () => {
       if (error.response.data.message) {
         setIsSearching(false);
         setNotFoundMsg('Propiedad no encontrada');
+        setTimeout(() => {
+          setNotFoundMsg('');
+        }, 4000);
       }
       console.log('Propiead no encontrada');
     }
@@ -93,12 +98,11 @@ const SearchByCode = () => {
         </div> */}
 
           <button className="text-white absolute pt-2 top-[0px] right-[1px] bottom-[0px] bg-gray-400 hover:bg-gray-500 py-2.5 px-4 xl:px-7 rounded-r-full">
-            Buscar xd {isSearching && <span>obteniendo...</span>}
+            {isSearching ? 'Buscando...' : 'Buscar'}
           </button>
         </div>
 
-        {propertyFounded?.title}
-        {notFoundMsg && <p>{notFoundMsg}</p>}
+        {notFoundMsg && <Alert type="danger" message={notFoundMsg} />}
       </form>
     </Fragment>
   );
