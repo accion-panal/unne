@@ -1,338 +1,366 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
+import { api } from '../../api';
+import { PropertiesContext } from '../../context/properties/PropertiesContext';
 import { SelectsContext } from '../../context/selects/SelectsContext';
-import ReactSelect from 'react-select';
-import InputForm from '../Input/InputForm';
-import PrimaryButton from '../Button/ButtonPrimary';
 import {
   bedroomsOptions,
   bathroomsOptions,
   coveredParkingLotsOptions,
-} from '../../data/selects';
+} from '../../constants/consts/selects';
+import { company, paginationTopLimit } from '../../constants/consts/company';
+import Button from '../Button/Button';
 
-const AdvancedSearch = ({ handleSubmit }) => {
+const AdvancedSearch = ({ setProperties }) => {
+  const { contextData } = useContext(PropertiesContext);
   const { contextDataSelects } = useContext(SelectsContext);
-  const [
-    filterSearchEntry,
-    setFilterSearchEntry,
-    getSelects,
-    selects,
+  const { page, setIsLoading, setNotFoundMsg } = contextData;
+  const {
+    regions,
     communes,
-    getCommunesByRegion,
-    regionId,
-    setRegionId,
-    ...rest
-  ] = contextDataSelects;
+    operationType,
+    typeOfProperty,
+    installmentType,
+    setStateId,
+    selectedSelects,
+    setSelectedSelects,
+  } = contextDataSelects;
 
-  // Operation Type (val:options)
-  const operationTypeOptions = selects?.operationType?.map(
-    ({ value, name }) => ({
-      value: value,
-      label: name,
-    })
-  );
+  /** Handle Inputs Form */
+  const onOperationTypeChange = (ev) =>
+    setSelectedSelects({
+      ...selectedSelects,
+      operationType: ev.target.value,
+    });
 
-  // Property Type (val:options)
-  const propertyTypeOptions = selects?.typeOfProperty?.map(
-    ({ value, name }) => ({
-      value: value,
-      label: name,
-    })
-  );
+  const onTypeOfPropertyChange = (ev) =>
+    setSelectedSelects({
+      ...selectedSelects,
+      typeOfProperty: ev.target.value,
+    });
 
-  // Installment Type (val:options)
-  const installmentOptions = selects?.installment_type?.map(
-    ({ value, name }) => ({
-      value: value,
-      label: name,
-    })
-  );
+  const onInstallmentTypeChange = (ev) =>
+    setSelectedSelects({
+      ...selectedSelects,
+      installmentType: ev.target.value,
+    });
 
-  // Regions (val:options)
-  const regionsOptions = selects?.regions?.map(({ id, name }) => ({
-    value: id,
-    label:
-      name === 'Metropolitana de Santiago'
-        ? 'Santiago'
-        : name && name === 'Arica y Parinacota'
-        ? 'Arica'
-        : name,
-  }));
-
-  // Communes (val:options)
-  const communesOptions = () => {
-    const communesList = communes.map((commune) => ({
-      value: commune?.id,
-      label: commune?.name,
-    }));
-    return communesList;
+  const onRegionChange = (ev) => {
+    const selectedRegionId = ev.target.value;
+    const selectedRegion = regions.find(
+      (region) => region.id === Number(selectedRegionId)
+    );
+    setStateId(selectedRegion.id);
+    setSelectedSelects({
+      ...selectedSelects,
+      region:
+        selectedRegion.name === 'Metropolitana de Santiago'
+          ? 'Santiago'
+          : selectedRegion.name === 'Arica y Parinacota'
+          ? 'Arica'
+          : selectedRegion.name,
+    });
   };
 
-  // Operation Type (ev:onChange)
-  const handleOperationTypeChange = (seleccion) =>
-    setFilterSearchEntry({
-      ...filterSearchEntry,
-      operationType: seleccion,
+  const onCommuneChange = (ev) =>
+    setSelectedSelects({
+      ...selectedSelects,
+      commune: ev.target.value,
     });
 
-  // Type of Property (ev:onChange)
-  const handleTypeOfPropertyChange = (seleccion) =>
-    setFilterSearchEntry({
-      ...filterSearchEntry,
-      typeOfProperty: seleccion,
-    });
-
-  // Installment Type (ev:onChange)
-  const handleInstallmentTypeChange = (seleccion) =>
-    setFilterSearchEntry({
-      ...filterSearchEntry,
-      installmentType: seleccion,
-    });
-
-  // Regions (ev:onChange)
-  const handleRegionsChange = (seleccion) => {
-    setFilterSearchEntry({
-      ...filterSearchEntry,
-      region: seleccion,
-    });
-    setRegionId(seleccion?.value);
-  };
-
-  // Communes (ev:onChange)
-  const handleCommunesChange = (seleccion) =>
-    setFilterSearchEntry({
-      ...filterSearchEntry,
-      commune: seleccion,
-    });
-
-  // SurfaceM2 (ev:onChange)
-  const handleSurfaceM2Change = (ev) =>
-    setFilterSearchEntry({
-      ...filterSearchEntry,
+  const onSurfaceM2Change = (ev) =>
+    setSelectedSelects({
+      ...selectedSelects,
       surfaceM2: ev.target.value,
     });
 
-  // MinPrice (ev:onChange)
-  const handleMinPriceChange = (ev) =>
-    setFilterSearchEntry({
-      ...filterSearchEntry,
+  const onMinPriceChange = (ev) =>
+    setSelectedSelects({
+      ...selectedSelects,
       minPrice: Number(ev.target.value),
     });
 
-  // MaxPrice (ev:onChange)
-  const handleMaxPriceChange = (ev) =>
-    setFilterSearchEntry({
-      ...filterSearchEntry,
+  const onMaxPriceChange = (ev) =>
+    setSelectedSelects({
+      ...selectedSelects,
       maxPrice: Number(ev.target.value),
     });
 
-  // Bedrooms (ev:onChange)
-  const handleBedroomsChange = (selection) =>
-    setFilterSearchEntry({
-      ...filterSearchEntry,
-      bedrooms: selection,
+  const onBedroomChange = (ev) =>
+    setSelectedSelects({
+      ...selectedSelects,
+      bedrooms: ev.target.value,
     });
 
-  // Bathrooms (ev:onChange)
-  const handleBathroomsChange = (selection) =>
-    setFilterSearchEntry({
-      ...filterSearchEntry,
-      bathrooms: selection,
+  const onBathroomChange = (ev) =>
+    setSelectedSelects({
+      ...selectedSelects,
+      bathrooms: ev.target.value,
     });
 
-  // Bathrooms (ev:onChange)
-  const handleCoveredParkingLotsChange = (selection) =>
-    setFilterSearchEntry({
-      ...filterSearchEntry,
-      coveredParkingLots: selection,
+  const onCoveredParkingLotChange = (ev) =>
+    setSelectedSelects({
+      ...selectedSelects,
+      coveredParkingLots: ev.target.value,
     });
 
-  useEffect(() => {
-    getSelects();
-  }, []);
+  const resetForm = () =>
+    setSelectedSelects({
+      operationType: '',
+      typeOfProperty: '',
+      installmentType: '',
+      region: '',
+      commune: '',
+      surfaceM2: '',
+      minPrice: 0,
+      maxPrice: 0,
+      bedrooms: '',
+      bathrooms: '',
+      coveredParkingLots: '',
+    });
 
-  useEffect(() => {
-    getCommunesByRegion(regionId);
-  }, [regionId]);
+  /** On Form Submit */
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const createUrl = {
+      operationType:
+        selectedSelects.operationType?.length > 0
+          ? `&operationType=${selectedSelects?.operationType}`
+          : '',
+      typeOfProperty:
+        selectedSelects.typeOfProperty?.length > 0
+          ? `&typeOfProperty=${selectedSelects.typeOfProperty}`
+          : '',
+      installmentType:
+        selectedSelects.installmentType?.length > 0
+          ? `&installment_type=${selectedSelects.installmentType}`
+          : '',
+      region:
+        selectedSelects.region?.length > 0
+          ? `&region=${selectedSelects.region}`
+          : '',
+      commune:
+        selectedSelects.commune?.length > 0
+          ? `&commune=${selectedSelects.commune}`
+          : '',
+      surfaceM2:
+        selectedSelects.surfaceM2?.length > 0
+          ? `&surface_m2=${selectedSelects.surfaceM2}`
+          : '',
+      minPrice:
+        selectedSelects.minPrice > 0
+          ? `&min_price=${selectedSelects.minPrice}`
+          : '',
+      maxPrice:
+        selectedSelects.maxPrice > 0
+          ? `&max_price=${selectedSelects.maxPrice}`
+          : '',
+      bedrooms:
+        selectedSelects.bedrooms?.length > 0
+          ? `&bedrooms=${selectedSelects.bedrooms}`
+          : '',
+      bathrooms:
+        selectedSelects.bathrooms?.length > 0
+          ? `&bathrooms=${selectedSelects.bathrooms}`
+          : '',
+      coveredParkingLots:
+        selectedSelects.coveredParkingLots?.length > 0
+          ? `&covered_parking_lots=${selectedSelects.coveredParkingLots}`
+          : '',
+    };
+
+    const url = `properties?page=${page}&limit=${paginationTopLimit.topLimit}&statusId=${company.statusId}&companyId=${company.companyId}${createUrl.operationType}${createUrl.typeOfProperty}${createUrl.installmentType}${createUrl.region}${createUrl.commune}${createUrl.surfaceM2}${createUrl.minPrice}${createUrl.maxPrice}${createUrl.bedrooms}${createUrl.bathrooms}${createUrl.coveredParkingLots}`;
+
+    try {
+      setNotFoundMsg('');
+      setProperties([]);
+      setIsLoading(true);
+      const response = await api.get(url);
+      setProperties(response.data.data);
+      setIsLoading(false);
+      setNotFoundMsg(
+        response.data.data.length === 0
+          ? 'Lo sentimos, tu busqueda no coincide con nuestros registros'
+          : ''
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-5">
-          <label>Tipo de operación</label>
-          <ReactSelect
-            options={operationTypeOptions ?? []}
-            value={filterSearchEntry?.operationType ?? {}}
-            onChange={handleOperationTypeChange}
-            className="my-1"
-          />
-        </div>
-        <div className="mb-5">
-          <label>Tipo de propiedad</label>
-          <ReactSelect
-            options={propertyTypeOptions ?? []}
-            value={filterSearchEntry?.typeOfProperty ?? {}}
-            onChange={handleTypeOfPropertyChange}
-            className="my-1"
-          />
-        </div>
-        <div className="mb-5">
-          <label>Estado de propiedad</label>
-          <ReactSelect
-            options={installmentOptions ?? []}
-            value={filterSearchEntry?.installmentType ?? {}}
-            onChange={handleInstallmentTypeChange}
-            className="my-1"
-          />
-        </div>
-        <div className="mb-5">
-          <label>Region</label>
-          <ReactSelect
-            options={regionsOptions ?? []}
-            value={filterSearchEntry?.region ?? {}}
-            onChange={handleRegionsChange}
-            className="my-1"
-          />
-        </div>
-        <div className="mb-5">
-          <label>Comuna</label>
-          <ReactSelect
-            options={communesOptions() ?? []}
-            value={filterSearchEntry?.commune ?? {}}
-            onChange={handleCommunesChange}
-            className="my-1"
-          />
-        </div>
+    <form onSubmit={handleSubmit} className="p-5">
+      <div className="flex flex-col mb-3">
+        <label className="mb-1 text-gray-500">Tipo de Operación</label>
+        <select
+          value={selectedSelects?.operationType}
+          onChange={onOperationTypeChange}
+          className="p-2 border outline-none focus:outline-none bg-white border-gray-200 w-[100%]"
+        >
+          <option value="">Seleccione...</option>
+          {operationType.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.name}
+            </option>
+          ))}
+        </select>
+      </div>
 
-        <div className="mb-5 flex flex-col">
-          <label>Metros M2</label>
-          <InputForm
-            id="surfaceM2"
-            name="surfaceM2"
-            value={filterSearchEntry?.surfaceM2}
-            onChange={handleSurfaceM2Change}
-            placeholder="Ej: 100"
-          />
-        </div>
-        {/* <div className="mb-5 flex flex-col">
-          <label>Metros M2</label>
+      <div className="flex flex-col mb-3">
+        <label className="mb-1 text-gray-500">Tipo de Propiedad</label>
+        <select
+          value={selectedSelects?.typeOfProperty}
+          onChange={onTypeOfPropertyChange}
+          className="p-2 border outline-none focus:outline-none bg-white border-gray-200 w-[100%]"
+        >
+          <option value="">Seleccione...</option>
+          {typeOfProperty.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="flex flex-col mb-3">
+        <label className="mb-1 text-gray-500">Tipo de Instalación</label>
+        <select
+          value={selectedSelects.installmentType}
+          onChange={onInstallmentTypeChange}
+          className="p-2 border outline-none focus:outline-none bg-white border-gray-200 w-[100%]"
+        >
+          <option value="">Seleccione...</option>
+          {installmentType.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="flex flex-col mb-3">
+        <label className="mb-1 text-gray-500">Región</label>
+        <select
+          onChange={onRegionChange}
+          className="p-2 border outline-none focus:outline-none bg-white border-gray-200 w-[100%]"
+        >
+          {regions.map((region) => (
+            <option key={region.id} value={region.id}>
+              {region.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="flex flex-col mb-3">
+        <label className="mb-1 text-gray-500">Comuna</label>
+        <select
+          onChange={onCommuneChange}
+          className="p-2 border outline-none focus:outline-none bg-white border-gray-200 w-[100%]"
+        >
+          {communes.map((region) => (
+            <option key={region.id} value={region.name}>
+              {region.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="flex flex-col mb-3">
+        <label className="mb-1 text-gray-500">Metros cuadrados</label>
+        <input
+          type="text"
+          value={selectedSelects.surfaceM2}
+          onChange={onSurfaceM2Change}
+          className="p-2 border outline-none focus:outline-none bg-white border-gray-200 w-[100%]"
+          placeholder="Ej: 500"
+        />
+      </div>
+
+      <div className="flex flex-row justify-between items-center w-[100%] mb-3">
+        <div className="w-[49%]">
+          <label className="mb-1 text-gray-500">Precio mínimo</label>
           <input
             type="text"
-            id="surfaceM2"
-            name="surfaceM2"
-            value={filterSearchEntry?.surfaceM2}
-            onChange={handleSurfaceM2Change}
-            placeholder="Ej: 100"
-            className="my-1 bg-white border border-gray-300 rounded-md px-3 p-[7px] outline-none focus:outline-none"
+            value={selectedSelects.minPrice}
+            onChange={onMinPriceChange}
+            className="p-2 border outline-none focus:outline-none bg-white border-gray-200 w-[100%]"
           />
-        </div> */}
-
-        <div className="mb-5 space-x-1 flex flex-row w-100 justify-between">
-          <div className="flex flex-col w-[48%]">
-            <label>Precio Mínimo</label>
-            <InputForm
-              type="number"
-              id="minPrice"
-              name="minPrice"
-              value={filterSearchEntry?.minPrice}
-              onChange={handleMinPriceChange}
-              placeholder="Ej: 10.000.000"
-            />
-          </div>
-
-          <div className="flex flex-col w-[48%]">
-            <label>Precio Máximo</label>
-            <InputForm
-              type="number"
-              id="maxPrice"
-              name="maxPrice"
-              value={filterSearchEntry?.maxPrice}
-              onChange={handleMaxPriceChange}
-              placeholder="Ej: 100.000.000"
-            />
-          </div>
         </div>
 
-        {/* <div>
-          <label>Precio Min.</label>
+        <div className="w-[49%]">
+          <label className="mb-1 text-gray-500">Precio máximo</label>
           <input
-            type="number"
-            id="minPrice"
-            name="minPrice"
-            value={filterSearchEntry?.minPrice}
-            onChange={handleMinPriceChange}
-          />
-        </div> */}
-
-        {/* <div className="mb-5 flex flex-col">
-          <label>Precio Máximo</label>
-          <InputForm
-            type="number"
-            id="maxPrice"
-            name="maxPrice"
-            value={filterSearchEntry?.maxPrice}
-            onChange={handleMaxPriceChange}
-            placeholder="Ej: 100.000.000"
-          />
-        </div> */}
-
-        {/* <div>
-          <label>Precio Max.</label>
-          <input
-            type="number"
-            id="maxPrice"
-            name="maxPrice"
-            value={filterSearchEntry?.maxPrice}
-            onChange={handleMaxPriceChange}
-          />
-        </div> */}
-        <div className="mb-5">
-          <label>Dormitorios</label>
-          <ReactSelect
-            options={bedroomsOptions ?? []}
-            value={filterSearchEntry?.bedrooms ?? {}}
-            onChange={handleBedroomsChange}
-            className="my-1"
+            type="text"
+            value={selectedSelects.maxPrice}
+            onChange={onMaxPriceChange}
+            className="p-2 border outline-none focus:outline-none bg-white border-gray-200 w-[100%]"
           />
         </div>
+      </div>
 
-        <div className="mb-5">
-          <label>Baños</label>
-          <ReactSelect
-            options={bathroomsOptions ?? []}
-            value={filterSearchEntry?.bathrooms ?? {}}
-            onChange={handleBathroomsChange}
-            className="my-1"
-          />
-        </div>
+      <div className="flex flex-col mb-3">
+        <label className="mb-1 text-gray-500">Dormitorios</label>
+        <select
+          value={selectedSelects?.bedrooms}
+          onChange={onBedroomChange}
+          className="p-2 border outline-none focus:outline-none bg-white border-gray-200 w-[100%]"
+        >
+          <option value="">Seleccione...</option>
+          {bedroomsOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
 
-        <div className="mb-5">
-          <label>Estacionamientos</label>
-          <ReactSelect
-            options={coveredParkingLotsOptions ?? []}
-            value={filterSearchEntry?.coveredParkingLots ?? {}}
-            onChange={handleCoveredParkingLotsChange}
-            className="my-1"
-          />
-        </div>
-        <div className="w-full">
-          <PrimaryButton
-            type="submit"
-            className="text-white bg-orange-500 w-full hover:bg-orange-600 my-1"
-          >
-            Buscar
-          </PrimaryButton>
-        </div>
+      <div className="flex flex-col mb-3">
+        <label className="mb-1 text-gray-500">Baños</label>
+        <select
+          value={selectedSelects?.bathrooms}
+          onChange={onBathroomChange}
+          className="p-2 border outline-none focus:outline-none bg-white border-gray-200 w-[100%]"
+        >
+          <option value="">Seleccione...</option>
+          {bathroomsOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
 
-        <div className="w-full">
-          <PrimaryButton
-            onClick={() => window.location.reload()}
-            className="text-white bg-gray-500 w-full hover:bg-gray-600 my-1"
-          >
-            Restablecer búsqueda
-          </PrimaryButton>
-        </div>
-      </form>
-    </div>
+      <div className="flex flex-col mb-3">
+        <label className="mb-1 text-gray-500">Estacionamientos</label>
+        <select
+          value={selectedSelects?.coveredParkingLots}
+          onChange={onCoveredParkingLotChange}
+          className="p-2 border outline-none focus:outline-none bg-white border-gray-200 w-[100%]"
+        >
+          <option value="">Seleccione...</option>
+          {coveredParkingLotsOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <Button
+        type="submit"
+        className="block w-full p-2 my-1 uppercase font-semibold text-sm rounded-full hover:shadow-sm transition ease-in-out duration-300 text-white bg-orange-500 hover:bg-orange-600"
+      >
+        Buscar
+      </Button>
+
+      <Button
+        onClick={resetForm}
+        className="block w-full p-2 my-1 text-sm rounded-full hover:shadow-sm transition ease-in-out duration-300 text-white bg-gray-500 hover:bg-gray-600"
+      >
+        Limpiar
+      </Button>
+    </form>
   );
 };
 

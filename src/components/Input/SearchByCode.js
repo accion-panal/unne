@@ -1,23 +1,23 @@
 import React, { Fragment, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PropertiesContext } from '../../context/properties/PropertiesContext';
-import { SelectsContext } from '../../context/selects/SelectsContext';
+// import { PropertiesContext } from '../../context/properties/PropertiesContext';
+// import { SelectsContext } from '../../context/selects/SelectsContext';
 import PropertiesServices from '../../services/PropertiesServices';
 
 const SearchByCode = ({ propertyId, setPropertyId }) => {
-  const { contextData } = useContext(PropertiesContext);
-  const { contextDataSelects } = useContext(SelectsContext);
-  const [filterSearchEntry, ...restSelects] = contextDataSelects;
-  const [
-    statusId,
-    companyId,
-    totalItems,
-    setTotalItems,
-    itemsPerPage,
-    setItemsPerPage,
-    properties,
-    setProperties,
-  ] = contextData;
+  // const { contextData } = useContext(PropertiesContext);
+  // const { contextDataSelects } = useContext(SelectsContext);
+  // const [filterSearchEntry, ...restSelects] = contextDataSelects;
+  // const [
+  //   statusId,
+  //   companyId,
+  //   totalItems,
+  //   setTotalItems,
+  //   itemsPerPage,
+  //   setItemsPerPage,
+  //   properties,
+  //   setProperties,
+  // ] = contextData;
   const [loading, setLoading] = useState(false);
   const [notFoundMsg, setNotFoundMsg] = useState('');
 
@@ -26,86 +26,86 @@ const SearchByCode = ({ propertyId, setPropertyId }) => {
 
   const handlePropertyId = (ev) => setPropertyId(Number(ev.target.value));
 
-  const handleSubmit = async (ev) => {
-    ev.preventDefault();
-    /** Building url path */
-    const urlPaths = {
-      operationType:
-        filterSearchEntry?.operationType?.value === undefined
-          ? ''
-          : `&operationType=${filterSearchEntry?.operationType?.value}`,
+  // const handleSubmit = async (ev) => {
+  //   ev.preventDefault();
+  //   /** Building url path */
+  //   const urlPaths = {
+  //     operationType:
+  //       filterSearchEntry?.operationType?.value === undefined
+  //         ? ''
+  //         : `&operationType=${filterSearchEntry?.operationType?.value}`,
 
-      typeOfProperty:
-        filterSearchEntry?.typeOfProperty?.value === undefined
-          ? ''
-          : `&typeOfProperty=${filterSearchEntry?.typeOfProperty?.value}`,
+  //     typeOfProperty:
+  //       filterSearchEntry?.typeOfProperty?.value === undefined
+  //         ? ''
+  //         : `&typeOfProperty=${filterSearchEntry?.typeOfProperty?.value}`,
 
-      installmentType:
-        filterSearchEntry?.installmentType?.value === undefined
-          ? ''
-          : `&installment_type=${filterSearchEntry?.installmentType?.value}`,
+  //     installmentType:
+  //       filterSearchEntry?.installmentType?.value === undefined
+  //         ? ''
+  //         : `&installment_type=${filterSearchEntry?.installmentType?.value}`,
 
-      region:
-        filterSearchEntry?.region?.label === undefined
-          ? ''
-          : `&region=${filterSearchEntry?.region?.label}`,
+  //     region:
+  //       filterSearchEntry?.region?.label === undefined
+  //         ? ''
+  //         : `&region=${filterSearchEntry?.region?.label}`,
 
-      commune:
-        filterSearchEntry?.commune?.label === undefined
-          ? ''
-          : `&commune=${filterSearchEntry?.commune?.label}`,
+  //     commune:
+  //       filterSearchEntry?.commune?.label === undefined
+  //         ? ''
+  //         : `&commune=${filterSearchEntry?.commune?.label}`,
 
-      surfaceM2:
-        filterSearchEntry?.surfaceM2 === undefined
-          ? ''
-          : `&surface_m2=${filterSearchEntry?.surfaceM2}`,
+  //     surfaceM2:
+  //       filterSearchEntry?.surfaceM2 === undefined
+  //         ? ''
+  //         : `&surface_m2=${filterSearchEntry?.surfaceM2}`,
 
-      minPrice:
-        filterSearchEntry?.minPrice === undefined
-          ? ''
-          : `&min_price=${filterSearchEntry?.minPrice}`,
+  //     minPrice:
+  //       filterSearchEntry?.minPrice === undefined
+  //         ? ''
+  //         : `&min_price=${filterSearchEntry?.minPrice}`,
 
-      maxPrice:
-        filterSearchEntry?.maxPrice === undefined
-          ? ''
-          : `&max_price=${filterSearchEntry?.maxPrice}`,
+  //     maxPrice:
+  //       filterSearchEntry?.maxPrice === undefined
+  //         ? ''
+  //         : `&max_price=${filterSearchEntry?.maxPrice}`,
 
-      bedrooms:
-        filterSearchEntry?.bedrooms?.value === undefined
-          ? ''
-          : `&bedrooms=${filterSearchEntry?.bedrooms?.value}`,
+  //     bedrooms:
+  //       filterSearchEntry?.bedrooms?.value === undefined
+  //         ? ''
+  //         : `&bedrooms=${filterSearchEntry?.bedrooms?.value}`,
 
-      bathrooms:
-        filterSearchEntry?.bathrooms?.value === undefined
-          ? ''
-          : `&bathrooms=${filterSearchEntry?.bathrooms?.value}`,
+  //     bathrooms:
+  //       filterSearchEntry?.bathrooms?.value === undefined
+  //         ? ''
+  //         : `&bathrooms=${filterSearchEntry?.bathrooms?.value}`,
 
-      coveredParkingLots:
-        filterSearchEntry?.coveredParkingLots?.value === undefined
-          ? ''
-          : `&covered_parking_lots=${filterSearchEntry?.coveredParkingLots?.value}`,
-    };
+  //     coveredParkingLots:
+  //       filterSearchEntry?.coveredParkingLots?.value === undefined
+  //         ? ''
+  //         : `&covered_parking_lots=${filterSearchEntry?.coveredParkingLots?.value}`,
+  //   };
 
-    const url = `${urlPaths?.operationType}${urlPaths?.typeOfProperty}${urlPaths?.installmentType}${urlPaths?.region}${urlPaths?.commune}${urlPaths?.surfaceM2}${urlPaths?.minPrice}${urlPaths?.maxPrice}${urlPaths?.bedrooms}${urlPaths?.bathrooms}${urlPaths?.coveredParkingLots}`;
+  //   const url = `${urlPaths?.operationType}${urlPaths?.typeOfProperty}${urlPaths?.installmentType}${urlPaths?.region}${urlPaths?.commune}${urlPaths?.surfaceM2}${urlPaths?.minPrice}${urlPaths?.maxPrice}${urlPaths?.bedrooms}${urlPaths?.bathrooms}${urlPaths?.coveredParkingLots}`;
 
-    try {
-      setLoading(true);
-      setNotFoundMsg('');
-      // setProperties([]);
-      const [response, metaData] = await PropertiesServices.getProperties(
-        statusId,
-        companyId,
-        url
-      );
-      // setProperties(response.length > 0 ? response : []);
-      setLoading(false);
-      setNotFoundMsg(response.length > 0 ? '' : 'Propiedades no encontradas');
-    } catch (error) {
-      console.error('Se produjo un error:', error);
-    }
+  //   try {
+  //     setLoading(true);
+  //     setNotFoundMsg('');
+  //     // setProperties([]);
+  //     const [response, metaData] = await PropertiesServices.getProperties(
+  //       // statusId,
+  //       // companyId,
+  //       url
+  //     );
+  //     // setProperties(response.length > 0 ? response : []);
+  //     setLoading(false);
+  //     setNotFoundMsg(response.length > 0 ? '' : 'Propiedades no encontradas');
+  //   } catch (error) {
+  //     console.error('Se produjo un error:', error);
+  //   }
 
-    console.log('Buscando... propiedad por codigo');
-  };
+  //   console.log('Buscando... propiedad por codigo');
+  // };
 
   return (
     <Fragment>
@@ -138,7 +138,7 @@ const SearchByCode = ({ propertyId, setPropertyId }) => {
           />
 
           <button
-            onClick={handleSubmit}
+            // onClick={handleSubmit}
             className="text-white absolute pt-2 top-[0px] right-[1px] bottom-[0px] bg-gray-400 hover:bg-gray-500 py-2.5 px-4 xl:px-7 rounded-r-full"
           >
             Buscar propiedad

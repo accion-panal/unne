@@ -9,7 +9,7 @@ import {
 } from '@react-pdf/renderer';
 import ExchangeRateServices from '../../../../services/ExchangeRateServices';
 import { parseToCLPCurrency, clpToUf } from '../../../../utils';
-import { company } from '../../../../data/company';
+import { company } from '../../../../constants/consts/company';
 
 const styles = StyleSheet.create({
   page: { backgroundColor: 'white', width: '80%' },

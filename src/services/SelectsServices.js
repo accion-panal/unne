@@ -1,14 +1,14 @@
-import api from '../api/index';
+import { api } from '../api';
 
 const SelectsServices = {
   getSelects: async () => {
-    const response = await api.get(`properties/select-filters`);
-    return response.data;
+    const response = await api.get('properties/select-filters');
+    return { data: response.data };
   },
 
-  getCommunesByRegion: async (stateId) => {
+  getCommunesByStateId: async (stateId) => {
     const response = await api.get(`properties/communes?stateId=${stateId}`);
-    return response.data;
+    return { data: response.data };
   },
 };
 

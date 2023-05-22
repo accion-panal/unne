@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PropertiesContext } from '../../../../context/properties/PropertiesContext';
-import { SelectsContext } from '../../../../context/selects/SelectsContext';
+// import { PropertiesContext } from '../../../../context/properties/PropertiesContext';
+// import { SelectsContext } from '../../../../context/selects/SelectsContext';
 import { Tab } from '@headlessui/react';
 import SearchByCode from '../../../Input/SearchByCode';
 import { webServicesTabs } from '../../../../data';
@@ -10,32 +10,32 @@ import ButtonPrimary from '../../../Button/ButtonPrimary';
 const classNames = (...classes) => classes.filter(Boolean).join(' ');
 
 const SearchPropertiesSection = () => {
-  const { contextData } = useContext(PropertiesContext);
-  const { contextDataSelects } = useContext(SelectsContext);
-  const [
-    statusId,
-    companyId,
-    totalItems,
-    setTotalItems,
-    itemsPerPage,
-    setItemsPerPage,
-    properties,
-    setProperties,
-  ] = contextData;
-  const [
-    filterSearchEntry,
-    setFilterSearchEntry,
-    getSelects,
-    selects,
-    communes,
-    getCommunesByRegion,
-    regionId,
-    setRegionId,
-    regions,
-    operationType,
-    typeOfProperty,
-    installmentType,
-  ] = contextDataSelects;
+  // const { contextData } = useContext(PropertiesContext);
+  // const { contextDataSelects } = useContext(SelectsContext);
+  // const [
+  //   statusId,
+  //   companyId,
+  //   totalItems,
+  //   setTotalItems,
+  //   itemsPerPage,
+  //   setItemsPerPage,
+  //   properties,
+  //   setProperties,
+  // ] = contextData;
+  // const [
+  //   filterSearchEntry,
+  //   setFilterSearchEntry,
+  //   getSelects,
+  //   selects,
+  //   communes,
+  //   getCommunesByRegion,
+  //   regionId,
+  //   setRegionId,
+  //   regions,
+  //   operationType,
+  //   typeOfProperty,
+  //   installmentType,
+  // ] = contextDataSelects;
 
   const [propertyId, setPropertyId] = useState('');
   const [categories, setCategories] = useState([...webServicesTabs]);
@@ -44,51 +44,46 @@ const SearchPropertiesSection = () => {
 
   const navigate = useNavigate();
 
-  /** Handle show search input */
   const handleOpenSearchCode = (ev) => {
     ev.preventDefault();
     setIsOpenSearchCode(!isOpenSearchCode);
   };
 
-  /** Handle Operation Type options */
-  const onOperationTypeChange = (selection) => {
-    setFilterSearchEntry({
-      ...filterSearchEntry,
-      operationType: selection,
-    });
-  };
+  // const onOperationTypeChange = (selection) => {
+  //   setFilterSearchEntry({
+  //     ...filterSearchEntry,
+  //     operationType: selection,
+  //   });
+  // };
 
-  /** Handle Property on change */
-  const onTypeOfPropertyChange = (ev) => {
-    setFilterSearchEntry({
-      ...filterSearchEntry,
-      typeOfProperty: ev.target.value,
-    });
-  };
+  // const onTypeOfPropertyChange = (ev) => {
+  //   setFilterSearchEntry({
+  //     ...filterSearchEntry,
+  //     typeOfProperty: ev.target.value,
+  //   });
+  // };
 
-  /** Handle Region on change */
-  const onRegionChange = (ev) => {
-    setFilterSearchEntry({
-      ...filterSearchEntry,
-      region: Number(ev.target.value),
-    });
-  };
+  // const onRegionChange = (ev) => {
+  //   setFilterSearchEntry({
+  //     ...filterSearchEntry,
+  //     region: Number(ev.target.value),
+  //   });
+  // };
 
-  /** Handle Commune on change */
-  const onCommuneChange = (ev) => {
-    setFilterSearchEntry({
-      ...filterSearchEntry,
-      commune: ev.target.value,
-    });
-  };
+  // const onCommuneChange = (ev) => {
+  //   setFilterSearchEntry({
+  //     ...filterSearchEntry,
+  //     commune: ev.target.value,
+  //   });
+  // };
 
-  useEffect(() => {
-    getSelects();
-  }, []);
+  // useEffect(() => {
+  //   getSelects();
+  // }, []);
 
-  useEffect(() => {
-    getCommunesByRegion(filterSearchEntry?.region);
-  }, [filterSearchEntry?.region]);
+  // useEffect(() => {
+  //   getCommunesByRegion(filterSearchEntry?.region);
+  // }, [filterSearchEntry?.region]);
 
   return (
     <div className="my-10">
@@ -112,7 +107,7 @@ const SearchPropertiesSection = () => {
                       onClick={(ev) => {
                         ev.preventDefault();
                         setActiveTab(tab);
-                        onOperationTypeChange(tab.toLowerCase().trim());
+                        // onOperationTypeChange(tab.toLowerCase().trim());
                       }}
                     >
                       {tab}
@@ -127,14 +122,14 @@ const SearchPropertiesSection = () => {
               <select
                 className="select select-ghost bg-white rounded-full border-gray-300 w-full"
                 placeholder="Tipo de Propiedad"
-                value={filterSearchEntry?.typeOfProperty}
-                onChange={onTypeOfPropertyChange}
+                // value={filterSearchEntry?.typeOfProperty}
+                // onChange={onTypeOfPropertyChange}
               >
-                {selects?.typeOfProperty?.map(({ value, name }) => (
+                {/* {selects?.typeOfProperty?.map(({ value, name }) => (
                   <option key={value} value={name}>
                     {name}
                   </option>
-                ))}
+                ))} */}
               </select>
             </div>
 
@@ -142,14 +137,14 @@ const SearchPropertiesSection = () => {
               <select
                 className="select select-ghost bg-white rounded-full border-gray-300 w-full"
                 placeholder="Region"
-                value={filterSearchEntry?.region}
-                onChange={onRegionChange}
+                // value={filterSearchEntry?.region}
+                // onChange={onRegionChange}
               >
-                {selects?.regions?.map(({ id, name }) => (
+                {/* {selects?.regions?.map(({ id, name }) => (
                   <option key={id} value={id} name={name}>
                     {name}
                   </option>
-                ))}
+                ))} */}
               </select>
             </div>
 
@@ -157,14 +152,14 @@ const SearchPropertiesSection = () => {
               <select
                 className="select select-ghost bg-white rounded-full border-gray-300 w-full"
                 placeholder="Comuna"
-                value={filterSearchEntry?.commune}
-                onChange={onCommuneChange}
+                // value={filterSearchEntry?.commune}
+                // onChange={onCommuneChange}
               >
-                {communes?.map(({ id, name }) => (
+                {/* {communes?.map(({ id, name }) => (
                   <option key={id} value={name}>
                     {name}
                   </option>
-                ))}
+                ))} */}
               </select>
             </div>
 

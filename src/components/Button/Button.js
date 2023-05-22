@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Button = ({ href, type, children, className }) => {
+const Button = ({ href, type, children, className, onClick = () => {} }) => {
   const btnStyles = {
     primary:
-      'text-center rounded-full text-white uppercase font-bold transition ease-in-out',
+      'text-center rounded-full text-white uppercase font-semibold transition ease-in-out',
   };
 
   if (!!href) {
@@ -22,7 +22,10 @@ const Button = ({ href, type, children, className }) => {
       );
     } else {
       return (
-        <button className={`${className} ${btnStyles.primary}`}>
+        <button
+          onClick={onClick}
+          className={`${className} ${btnStyles.primary}`}
+        >
           {children}
         </button>
       );

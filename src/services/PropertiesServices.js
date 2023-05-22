@@ -1,19 +1,17 @@
-import api from '../api/index';
-import { company } from '../data/company';
+import { api } from '../api';
+import { company, paginationTopLimit } from '../constants/consts/company';
 
 const PropertiesServices = {
-  getProperties: async (statusId, companyId, url) => {
+  getProperties: async (
+    currentPage,
+    limit = paginationTopLimit.limit,
+    statusId = company.statusId,
+    companyId = company.companyId
+  ) => {
     const response = await api.get(
-      `https://aulen.partnersadvisers.info/properties?page=1&limit=${company?.limit}&statusId=${statusId}&companyId=${companyId}${url}`
+      `properties?page=${currentPage}&limit=${limit}&statusId=${statusId}&companyId=${companyId}`
     );
-    return [response.data.data, response.data];
-  },
-
-  getProperty: async (id, statusId, companyId) => {
-    const response = await api.get(
-      `https://aulen.partnersadvisers.info/properties/${id}?statusId=${statusId}&companyId=${companyId}`
-    );
-    return response.data;
+    return { data: response.data.data, meta: response.data.meta };
   },
 };
 

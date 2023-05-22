@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import PropertyComponent from '../../components/PageSections/Properties/components/Property';
 import PropertiesServices from '../../services/PropertiesServices';
-import { company } from '../../data/company';
+import { company } from '../../constants/consts/company';
 
 const Property = () => {
   const { id } = useParams();

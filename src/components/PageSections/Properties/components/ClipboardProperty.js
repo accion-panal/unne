@@ -1,6 +1,6 @@
 import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { company } from '../../../../data/company';
+import { company } from '../../../../constants/consts/company';
 import { iconsList } from '../../../Icons';
 
 const ClipboardProperty = ({ copied, setCopied, propertyId }) => {

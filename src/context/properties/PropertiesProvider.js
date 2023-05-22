@@ -1,157 +1,62 @@
-import React, { useContext, useState, useMemo, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { PropertiesContext } from './PropertiesContext';
-import { company } from '../../data/company';
-import { SelectsContext } from '../selects/SelectsContext';
 import PropertiesServices from '../../services/PropertiesServices';
+import { paginationTopLimit } from '../../constants/consts/company';
 
 const PropertiesProvider = ({ children }) => {
-  const { contextDataSelects } = useContext(SelectsContext);
   const [properties, setProperties] = useState([]);
-  const [totalItems, setTotalItems] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(3);
-  const [loadingOnStart, setLoadingOnStart] = useState(true);
-  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const [notFoundMsg, setNotFoundMsg] = useState('');
-  const [statusIdParams, setStatusIdParams] = useSearchParams({
-    statusId: company.statusId,
-  });
-  const [companyIdIdParams, setCompanyIdIdParams] = useSearchParams({
-    companyId: company.companyId,
-  });
-  const [filterSearchEntry, ...rest] = contextDataSelects;
-  const statusId = statusIdParams.get('statusId');
-  const companyId = companyIdIdParams.get('companyId');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    /** Building url path */
-    const urlPaths = {
-      operationType:
-        filterSearchEntry?.operationType?.value === undefined
-          ? ''
-          : `&operationType=${filterSearchEntry?.operationType?.value}`,
-
-      typeOfProperty:
-        filterSearchEntry?.typeOfProperty?.value === undefined
-          ? ''
-          : `&typeOfProperty=${filterSearchEntry?.typeOfProperty?.value}`,
-
-      installmentType:
-        filterSearchEntry?.installmentType?.value === undefined
-          ? ''
-          : `&installment_type=${filterSearchEntry?.installmentType?.value}`,
-
-      region:
-        filterSearchEntry?.region?.label === undefined
-          ? ''
-          : `&region=${filterSearchEntry?.region?.label}`,
-
-      commune:
-        filterSearchEntry?.commune?.label === undefined
-          ? ''
-          : `&commune=${filterSearchEntry?.commune?.label}`,
-
-      surfaceM2:
-        filterSearchEntry?.surfaceM2 === undefined
-          ? ''
-          : `&surface_m2=${filterSearchEntry?.surfaceM2}`,
-
-      minPrice:
-        filterSearchEntry?.minPrice === undefined
-          ? ''
-          : `&min_price=${filterSearchEntry?.minPrice}`,
-
-      maxPrice:
-        filterSearchEntry?.maxPrice === undefined
-          ? ''
-          : `&max_price=${filterSearchEntry?.maxPrice}`,
-
-      bedrooms:
-        filterSearchEntry?.bedrooms?.value === undefined
-          ? ''
-          : `&bedrooms=${filterSearchEntry?.bedrooms?.value}`,
-
-      bathrooms:
-        filterSearchEntry?.bathrooms?.value === undefined
-          ? ''
-          : `&bathrooms=${filterSearchEntry?.bathrooms?.value}`,
-
-      coveredParkingLots:
-        filterSearchEntry?.coveredParkingLots?.value === undefined
-          ? ''
-          : `&covered_parking_lots=${filterSearchEntry?.coveredParkingLots?.value}`,
-    };
-
-    const url = `${urlPaths?.operationType}${urlPaths?.typeOfProperty}${urlPaths?.installmentType}${urlPaths?.region}${urlPaths?.commune}${urlPaths?.surfaceM2}${urlPaths?.minPrice}${urlPaths?.maxPrice}${urlPaths?.bedrooms}${urlPaths?.bathrooms}${urlPaths?.coveredParkingLots}`;
-
+  const getProperties = async (
+    currentPage,
+    limit = paginationTopLimit.limit
+  ) => {
     try {
-      setLoading(true);
       setNotFoundMsg('');
-      setProperties([]);
-      const [response, metaData] = await PropertiesServices.getProperties(
-        statusId,
-        companyId,
-        url
+      setIsLoading(true);
+      const { data, meta } = await PropertiesServices.getProperties(
+        currentPage,
+        limit
       );
-
-      setProperties(response.length > 0 ? response : []);
-      setLoading(false);
-      setNotFoundMsg(response.length > 0 ? '' : 'Propiedades no encontradas');
+      setProperties(data);
+      setTotalPages(Math.ceil(meta.totalItems / limit + 0.5));
+      setNotFoundMsg(
+        data.length === 0
+          ? 'Lo sentimos, tu busqueda no coincide con nuestros registros'
+          : ''
+      );
+      setIsLoading(false);
     } catch (error) {
-      console.error('Se produjo un error:', error);
+      console.log('Bad server request', error);
     }
   };
 
-  const getProperties = async (statusId, companyId, url) => {
-    const [response, metaData] = await PropertiesServices.getProperties(
-      statusId,
-      companyId,
-      url
-    );
-    setTotalItems(metaData?.meta?.totalItems);
-    setProperties(response);
+  const handlePageChange = (newPage) => {
+    setProperties([]);
+    setPage(newPage);
   };
 
-  const memoizedData = useMemo(
-    () => () => getProperties(statusId, companyId, ''),
-    []
-  );
-
   useEffect(() => {
-    memoizedData();
-  }, [memoizedData]);
-
-  useEffect(() => {
-    if (properties?.length > 0) {
-      setLoadingOnStart(false);
-      return;
-    }
-  }, [properties]);
-
-  console.log(filterSearchEntry);
+    getProperties(page);
+  }, [page]);
 
   return (
     <PropertiesContext.Provider
       value={{
-        contextData: [
-          statusId,
-          companyId,
-          totalItems,
-          setTotalItems,
-          itemsPerPage,
-          setItemsPerPage,
+        contextData: {
           properties,
           setProperties,
-          handleSubmit,
-          loadingOnStart,
-          setLoadingOnStart,
-          loading,
-          setLoading,
+          page,
+          totalPages,
+          handlePageChange,
+          isLoading,
+          setIsLoading,
           notFoundMsg,
           setNotFoundMsg,
-        ],
+        },
       }}
     >
       {children}

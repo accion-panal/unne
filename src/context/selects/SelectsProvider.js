@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SelectsContext } from './SelectsContext';
 import SelectsServices from '../../services/SelectsServices';
 
 const SelectsProvider = ({ children }) => {
-  const [selects, setSelects] = useState([]);
-  const [regions, setRegions] = useState([]);
-  const [communes, setCommunes] = useState([]);
-  const [regionId, setRegionId] = useState('');
   const [operationType, setOperationType] = useState([]);
   const [typeOfProperty, setTypeOfProperty] = useState([]);
   const [installmentType, setInstallmentType] = useState([]);
-  const [errorServerMsg, setErrorServerMsg] = useState({});
-  const [filterSearchEntry, setFilterSearchEntry] = useState({
-    operationType: '', 
+  const [regions, setRegions] = useState([]);
+  const [communes, setCommunes] = useState([]);
+  const [stateId, setStateId] = useState('');
+  const [selectedSelects, setSelectedSelects] = useState({
+    operationType: '',
     typeOfProperty: '',
     installmentType: '',
     region: '',
@@ -26,46 +24,39 @@ const SelectsProvider = ({ children }) => {
   });
 
   const getSelects = async () => {
-    try {
-      const response = await SelectsServices.getSelects();
-      const { regions, operationType, typeOfProperty, installment_type } =
-        response;
-      setSelects(response);
-      setRegions(regions);
-      setOperationType(operationType);
-      setTypeOfProperty(typeOfProperty);
-      setInstallmentType(installment_type);
-    } catch (error) {
-      setErrorServerMsg(error?.response);
-    }
+    const { data } = await SelectsServices.getSelects();
+    setRegions(data?.regions);
+    setOperationType(data?.operationType);
+    setTypeOfProperty(data?.typeOfProperty);
+    setInstallmentType(data?.installment_type);
   };
 
-  const getCommunesByRegion = async (stateId) => {
-    try {
-      const response = await SelectsServices.getCommunesByRegion(stateId);
-      setCommunes(response);
-    } catch (error) {
-      setErrorServerMsg(error?.response);
-    }
+  const getCommunesByStateId = async (id) => {
+    const { data } = await SelectsServices.getCommunesByStateId(id);
+    setCommunes(data);
   };
+
+  useEffect(() => {
+    getSelects();
+    getCommunesByStateId(stateId);
+  }, [stateId]);
+
+  console.log('Select', selectedSelects);
 
   return (
     <SelectsContext.Provider
       value={{
-        contextDataSelects: [
-          filterSearchEntry,
-          setFilterSearchEntry,
-          getSelects,
-          selects,
-          communes,
-          getCommunesByRegion,
-          regionId,
-          setRegionId,
+        contextDataSelects: {
           regions,
+          communes,
+          stateId,
+          setStateId,
           operationType,
           typeOfProperty,
           installmentType,
-        ],
+          selectedSelects,
+          setSelectedSelects,
+        },
       }}
     >
       {children}

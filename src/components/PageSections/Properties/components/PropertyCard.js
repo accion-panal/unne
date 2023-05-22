@@ -1,20 +1,20 @@
 import React, { useContext } from 'react';
-import { PropertiesContext } from '../../../../context/properties/PropertiesContext';
+// import { PropertiesContext } from '../../../../context/properties/PropertiesContext';
 import { Link } from 'react-router-dom';
 import { truncateString, parseToCLPCurrency } from '../../../../utils';
 
 const PropertyCard = ({ data, isList }) => {
-  const { contextData } = useContext(PropertiesContext);
-  const [
-    statusId,
-    companyId,
-    totalItems,
-    setTotalItems,
-    itemsPerPage,
-    setItemsPerPage,
-    properties,
-    setProperties,
-  ] = contextData;
+  // const { contextData } = useContext(PropertiesContext);
+  // const [
+  //   statusId,
+  //   companyId,
+  //   totalItems,
+  //   setTotalItems,
+  //   itemsPerPage,
+  //   setItemsPerPage,
+  //   properties,
+  //   setProperties,
+  // ] = contextData;
   const { id, title, image, address, commune, city, price, types } = data;
 
   return (
@@ -46,7 +46,7 @@ const PropertyCard = ({ data, isList }) => {
         </p>
 
         <Link
-          to={`/propiedades/${id}?statusId=${statusId}&companyId=${companyId}`}
+          to={`/propiedades/${id}?statusId=1&companyId=1`}
           className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300"
         >
           Detalles
