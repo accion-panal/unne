@@ -13,6 +13,18 @@ const PropertiesServices = {
     );
     return { data: response.data.data, meta: response.data.meta };
   },
+
+  getProperty: async (id, statusId, companyId) => {
+    const response = await api.get(
+      `properties/${id}?statusId=${statusId}&companyId=${companyId}`
+    );
+    return response.data;
+  },
+
+  getPropertyByIdCode: async (url) => {
+    const response = await api.get(`${url}`);
+    return response.data;
+  },
 };
 
 export default PropertiesServices;

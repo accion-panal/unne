@@ -1,20 +1,9 @@
-import React, { useContext } from 'react';
-// import { PropertiesContext } from '../../../../context/properties/PropertiesContext';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { truncateString, parseToCLPCurrency } from '../../../../utils';
+import { company } from '../../../../constants/consts/company';
 
 const PropertyCard = ({ data, isList }) => {
-  // const { contextData } = useContext(PropertiesContext);
-  // const [
-  //   statusId,
-  //   companyId,
-  //   totalItems,
-  //   setTotalItems,
-  //   itemsPerPage,
-  //   setItemsPerPage,
-  //   properties,
-  //   setProperties,
-  // ] = contextData;
   const { id, title, image, address, commune, city, price, types } = data;
 
   return (
@@ -26,7 +15,11 @@ const PropertyCard = ({ data, isList }) => {
       } border rounded border-gray-200 hover:cursor-pointer hover:shadow-xl transition duration-300 ease-in-out`}
     >
       <img
-        className={isList ? 'xl:h-64' : 'rounded-t-lg'}
+        className={
+          isList
+            ? 'h-64 xl:h-64 w-[100%] xl:w-[400px] object-cover'
+            : 'rounded-t-lg'
+        }
         src={image}
         alt={`top-img-${title}`}
       />
@@ -46,7 +39,7 @@ const PropertyCard = ({ data, isList }) => {
         </p>
 
         <Link
-          to={`/propiedades/${id}?statusId=1&companyId=1`}
+          to={`/propiedades/${id}?statusId=${company.statusId}&companyId=${company.companyId}`}
           className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300"
         >
           Detalles

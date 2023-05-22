@@ -48,7 +48,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 
   return (
     <React.Fragment>
-      <div className="absolute bottom-0 flex justify-center items-center w-[100%] xl:w-[80%] bg-white p-5">
+      <div className="absolute bottom-0 flex justify-center items-center w-[100%] xl:w-[80%] bg-gray-50 p-3">
         <button
           onClick={handlePreviousPage}
           disabled={currentPage === 1}
@@ -69,7 +69,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
             } p-3 border`}
             disabled={currentPage === pageNumber || pageNumber === '...'}
             style={{
-              backgroundColor: pageNumber === currentPage ? 'orange' : '',
+              backgroundColor:
+                pageNumber === currentPage ? 'bg-orange-500' : '',
             }}
             onClick={() =>
               typeof pageNumber === 'number' && onPageChange(pageNumber)

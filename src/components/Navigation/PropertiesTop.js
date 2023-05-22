@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { iconsList } from '../Icons';
+import { paginationTopLimit } from '../../constants/consts/company';
 
 const PropertiesTop = ({
   totalItems,
-  itemsPerPage,
   isGrid,
   setIsGrid,
   isList,
@@ -83,7 +83,7 @@ const PropertiesTop = ({
         </small>
         <span className="text-gray-300 mx-3">|</span>
         <small className="text-sm p-1 rounded">
-          Por página: {itemsPerPage ?? 0}
+          Por página: {paginationTopLimit.limit ?? 0}
         </small>
       </div>
     </div>

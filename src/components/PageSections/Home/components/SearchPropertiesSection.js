@@ -37,7 +37,6 @@ const SearchPropertiesSection = () => {
   //   installmentType,
   // ] = contextDataSelects;
 
-  const [propertyId, setPropertyId] = useState('');
   const [categories, setCategories] = useState([...webServicesTabs]);
   const [activeTab, setActiveTab] = useState(categories[-1]);
   const [isOpenSearchCode, setIsOpenSearchCode] = useState(false);
@@ -186,9 +185,7 @@ const SearchPropertiesSection = () => {
           </div>
         </form>
 
-        {isOpenSearchCode && (
-          <SearchByCode propertyId={propertyId} setPropertyId={setPropertyId} />
-        )}
+        {isOpenSearchCode && <SearchByCode />}
       </div>
     </div>
   );

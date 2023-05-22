@@ -1,115 +1,48 @@
 import React, { Fragment, useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
-// import { PropertiesContext } from '../../context/properties/PropertiesContext';
-// import { SelectsContext } from '../../context/selects/SelectsContext';
+import { PropertiesContext } from '../../context/properties/PropertiesContext';
+import { company } from '../../constants/consts/company';
 import PropertiesServices from '../../services/PropertiesServices';
 
-const SearchByCode = ({ propertyId, setPropertyId }) => {
-  // const { contextData } = useContext(PropertiesContext);
-  // const { contextDataSelects } = useContext(SelectsContext);
-  // const [filterSearchEntry, ...restSelects] = contextDataSelects;
-  // const [
-  //   statusId,
-  //   companyId,
-  //   totalItems,
-  //   setTotalItems,
-  //   itemsPerPage,
-  //   setItemsPerPage,
-  //   properties,
-  //   setProperties,
-  // ] = contextData;
-  const [loading, setLoading] = useState(false);
+const SearchByCode = () => {
+  const { contextData } = useContext(PropertiesContext);
+  const { propertyId, setPropertyId } = contextData;
+  const [isSearching, setIsSearching] = useState(false);
   const [notFoundMsg, setNotFoundMsg] = useState('');
+  const [propertyFounded, setPropertyFounded] = useState({});
+
+  console.log('PropertyId', propertyId);
 
   const CLASSES =
     'block w-full my-4 text-gray-500 focus:outline-none bg-white rounded-full border border-gray-300';
 
-  const handlePropertyId = (ev) => setPropertyId(Number(ev.target.value));
+  const onPropertyIdChange = (ev) => setPropertyId(Number(ev.target.value));
 
-  // const handleSubmit = async (ev) => {
-  //   ev.preventDefault();
-  //   /** Building url path */
-  //   const urlPaths = {
-  //     operationType:
-  //       filterSearchEntry?.operationType?.value === undefined
-  //         ? ''
-  //         : `&operationType=${filterSearchEntry?.operationType?.value}`,
+  const handleSubmit = async (ev) => {
+    ev.preventDefault();
 
-  //     typeOfProperty:
-  //       filterSearchEntry?.typeOfProperty?.value === undefined
-  //         ? ''
-  //         : `&typeOfProperty=${filterSearchEntry?.typeOfProperty?.value}`,
+    try {
+      const createUrl = {
+        propertyId: propertyId > 0 ? propertyId : '',
+      };
+      const url = `properties/${createUrl.propertyId}?statusId=${company.statusId}&companyId=${company.companyId}`;
 
-  //     installmentType:
-  //       filterSearchEntry?.installmentType?.value === undefined
-  //         ? ''
-  //         : `&installment_type=${filterSearchEntry?.installmentType?.value}`,
-
-  //     region:
-  //       filterSearchEntry?.region?.label === undefined
-  //         ? ''
-  //         : `&region=${filterSearchEntry?.region?.label}`,
-
-  //     commune:
-  //       filterSearchEntry?.commune?.label === undefined
-  //         ? ''
-  //         : `&commune=${filterSearchEntry?.commune?.label}`,
-
-  //     surfaceM2:
-  //       filterSearchEntry?.surfaceM2 === undefined
-  //         ? ''
-  //         : `&surface_m2=${filterSearchEntry?.surfaceM2}`,
-
-  //     minPrice:
-  //       filterSearchEntry?.minPrice === undefined
-  //         ? ''
-  //         : `&min_price=${filterSearchEntry?.minPrice}`,
-
-  //     maxPrice:
-  //       filterSearchEntry?.maxPrice === undefined
-  //         ? ''
-  //         : `&max_price=${filterSearchEntry?.maxPrice}`,
-
-  //     bedrooms:
-  //       filterSearchEntry?.bedrooms?.value === undefined
-  //         ? ''
-  //         : `&bedrooms=${filterSearchEntry?.bedrooms?.value}`,
-
-  //     bathrooms:
-  //       filterSearchEntry?.bathrooms?.value === undefined
-  //         ? ''
-  //         : `&bathrooms=${filterSearchEntry?.bathrooms?.value}`,
-
-  //     coveredParkingLots:
-  //       filterSearchEntry?.coveredParkingLots?.value === undefined
-  //         ? ''
-  //         : `&covered_parking_lots=${filterSearchEntry?.coveredParkingLots?.value}`,
-  //   };
-
-  //   const url = `${urlPaths?.operationType}${urlPaths?.typeOfProperty}${urlPaths?.installmentType}${urlPaths?.region}${urlPaths?.commune}${urlPaths?.surfaceM2}${urlPaths?.minPrice}${urlPaths?.maxPrice}${urlPaths?.bedrooms}${urlPaths?.bathrooms}${urlPaths?.coveredParkingLots}`;
-
-  //   try {
-  //     setLoading(true);
-  //     setNotFoundMsg('');
-  //     // setProperties([]);
-  //     const [response, metaData] = await PropertiesServices.getProperties(
-  //       // statusId,
-  //       // companyId,
-  //       url
-  //     );
-  //     // setProperties(response.length > 0 ? response : []);
-  //     setLoading(false);
-  //     setNotFoundMsg(response.length > 0 ? '' : 'Propiedades no encontradas');
-  //   } catch (error) {
-  //     console.error('Se produjo un error:', error);
-  //   }
-
-  //   console.log('Buscando... propiedad por codigo');
-  // };
+      setIsSearching(true);
+      const response = await PropertiesServices.getPropertyByIdCode(url);
+      setPropertyFounded(response);
+      setIsSearching(false);
+      console.log(response);
+    } catch (error) {
+      if (error.response.data.message) {
+        setIsSearching(false);
+        setNotFoundMsg('Propiedad no encontrada');
+      }
+      console.log('Propiead no encontrada');
+    }
+  };
 
   return (
     <Fragment>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg
@@ -132,25 +65,27 @@ const SearchByCode = ({ propertyId, setPropertyId }) => {
             type="number"
             id="search-property"
             value={propertyId}
-            onChange={handlePropertyId}
+            onChange={onPropertyIdChange}
             className={`${CLASSES} p-3 pl-10 text-MD`}
             placeholder="Código: 00001"
           />
+          {/* <div className="w-[49%]">
+          <label className="mb-1 text-gray-500">Precio mínimo</label>
+          <input
+            type="text"
+            value={selectedSelects.minPrice}
+            onChange={onMinPriceChange}
+            className="p-2 border outline-none focus:outline-none bg-white border-gray-200 w-[100%]"
+          />
+        </div> */}
 
-          <button
-            // onClick={handleSubmit}
-            className="text-white absolute pt-2 top-[0px] right-[1px] bottom-[0px] bg-gray-400 hover:bg-gray-500 py-2.5 px-4 xl:px-7 rounded-r-full"
-          >
-            Buscar propiedad
+          <button className="text-white absolute pt-2 top-[0px] right-[1px] bottom-[0px] bg-gray-400 hover:bg-gray-500 py-2.5 px-4 xl:px-7 rounded-r-full">
+            Buscar xd {isSearching && <span>obteniendo...</span>}
           </button>
-
-          {/* <Link
-            to={`/propiedades/${propertyId}?statusId=${statusId}&companyId=${companyId}`}
-            className="text-white absolute pt-3 top-[0px] right-[1px] bottom-[0px] bg-gray-400 hover:bg-gray-500 py-2.5 px-4 xl:px-7 rounded-r-full"
-          >
-            Buscar
-          </Link> */}
         </div>
+
+        {propertyFounded?.title}
+        {notFoundMsg && <p>{notFoundMsg}</p>}
       </form>
     </Fragment>
   );
