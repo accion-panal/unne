@@ -3,12 +3,16 @@ import { PropertiesContext } from '../../context/properties/PropertiesContext';
 import { company } from '../../constants/consts/company';
 import PropertiesServices from '../../services/PropertiesServices';
 
+import { useNavigate } from 'react-router-dom';
+
 const SearchByCode = () => {
   const { contextData } = useContext(PropertiesContext);
   const { propertyId, setPropertyId } = contextData;
   const [isSearching, setIsSearching] = useState(false);
   const [notFoundMsg, setNotFoundMsg] = useState('');
   const [propertyFounded, setPropertyFounded] = useState({});
+
+  const navigate = useNavigate();
 
   console.log('PropertyId', propertyId);
 
@@ -29,7 +33,16 @@ const SearchByCode = () => {
       setIsSearching(true);
       const response = await PropertiesServices.getPropertyByIdCode(url);
       setPropertyFounded(response);
+      navigate(
+        `/propiedades/${createUrl.propertyId}?statusId=${company.statusId}&companyId=${company.companyId}`
+      );
+      // if ('title' in propertyFounded) {
+      //   navigate(
+      //     `/propiedades/${createUrl.propertyId}?statusId=${company.statusId}&companyId=${company.companyId}`
+      //   );
+      // }
       setIsSearching(false);
+
       console.log(response);
     } catch (error) {
       if (error.response.data.message) {
