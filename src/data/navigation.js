@@ -14,11 +14,6 @@ export const navigationData = [
         name: '¿Quiénes somos?',
         href: '/quienes-somos',
       },
-      {
-        id: 3,
-        name: 'Webs DEMO',
-        href: '/webs-demo',
-      },
     ],
   },
   {
