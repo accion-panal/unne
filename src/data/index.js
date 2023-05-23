@@ -1,13 +1,6 @@
 import Slide1 from '../assets/img/carousel/slide1.jpg';
 import Slide4 from '../assets/img/carousel/slide4.jpg';
 
-
-
-
-
-
-
-
 /** Main Carousel Data */
 export const mainCarouselData = [
   {
@@ -25,10 +18,7 @@ export const mainCarouselData = [
 ];
 
 /** Tabs search by Property Data */
-export const webServicesTabs = ['venta', 'arriendo ', 'inversion'];
-
-
-
+export const webServicesTabs = ['venta', 'arriendo ', 'arriendo_temporal'];
 
 /** porque unne - Arrendar Data */
 export const whyUnneLeaseData = [
@@ -64,8 +54,6 @@ export const whyUnneLeaseData = [
     ],
   },
 ];
-
-
 
 /* Informacion del circulo en quiero-arrendar.js */
 export const CircleArrendarData = [
@@ -103,8 +91,6 @@ export const CircleArrendarData = [
       'lg:top-0 lg:left-[19rem] md:max-lg:bottom-[9rem] md:max-lg:left-[28rem] ',
   },
 ];
-
-
 
 /* Informacion del circulo en quiero-vender.js */
 export const CircleVenderData = [
@@ -197,9 +183,6 @@ export const whyUnneSellData = [
   },
 ];
 
-
-
-
 /** Objetives Auction page icons,title,desc */
 export const ObjetivesAuctionData = [
   {
@@ -228,3 +211,6 @@ export const ObjetivesAuctionData = [
     desc: 'Obtén las ganancias esperadas por tu inversión',
   },
 ];
+
+
+

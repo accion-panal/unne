@@ -1,20 +1,16 @@
 import React, { Fragment, useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PropertiesContext } from '../../context/properties/PropertiesContext';
 import { company } from '../../constants/consts/company';
 import PropertiesServices from '../../services/PropertiesServices';
-
-import { useNavigate } from 'react-router-dom';
+import Alert from '../Alert/Alert';
 
 const SearchByCode = () => {
   const { contextData } = useContext(PropertiesContext);
+  const navigate = useNavigate();
   const { propertyId, setPropertyId } = contextData;
   const [isSearching, setIsSearching] = useState(false);
   const [notFoundMsg, setNotFoundMsg] = useState('');
-  const [propertyFounded, setPropertyFounded] = useState({});
-
-  const navigate = useNavigate();
-
-  console.log('PropertyId', propertyId);
 
   const CLASSES =
     'block w-full my-4 text-gray-500 focus:outline-none bg-white rounded-full border border-gray-300';
@@ -31,25 +27,26 @@ const SearchByCode = () => {
       const url = `properties/${createUrl.propertyId}?statusId=${company.statusId}&companyId=${company.companyId}`;
 
       setIsSearching(true);
-      const response = await PropertiesServices.getPropertyByIdCode(url);
-      setPropertyFounded(response);
+      await PropertiesServices.getPropertyByIdCode(url);
       navigate(
         `/propiedades/${createUrl.propertyId}?statusId=${company.statusId}&companyId=${company.companyId}`
       );
+      setIsSearching(false);
+      setPropertyId('');
+      // setPropertyFounded(response);
       // if ('title' in propertyFounded) {
       //   navigate(
       //     `/propiedades/${createUrl.propertyId}?statusId=${company.statusId}&companyId=${company.companyId}`
       //   );
       // }
-      setIsSearching(false);
-
-      console.log(response);
     } catch (error) {
       if (error.response.data.message) {
         setIsSearching(false);
         setNotFoundMsg('Propiedad no encontrada');
+        setTimeout(() => {
+          setNotFoundMsg('');
+        }, 3000);
       }
-      console.log('Propiead no encontrada');
     }
   };
 
@@ -82,23 +79,13 @@ const SearchByCode = () => {
             className={`${CLASSES} p-3 pl-10 text-MD`}
             placeholder="Código: 00001"
           />
-          {/* <div className="w-[49%]">
-          <label className="mb-1 text-gray-500">Precio mínimo</label>
-          <input
-            type="text"
-            value={selectedSelects.minPrice}
-            onChange={onMinPriceChange}
-            className="p-2 border outline-none focus:outline-none bg-white border-gray-200 w-[100%]"
-          />
-        </div> */}
 
           <button className="text-white absolute pt-2 top-[0px] right-[1px] bottom-[0px] bg-gray-400 hover:bg-gray-500 py-2.5 px-4 xl:px-7 rounded-r-full">
-            Buscar xd {isSearching && <span>obteniendo...</span>}
+            {isSearching ? 'Buscando...' : 'Buscar'}
           </button>
         </div>
 
-        {propertyFounded?.title}
-        {notFoundMsg && <p>{notFoundMsg}</p>}
+        {notFoundMsg && <Alert type="danger" message={notFoundMsg} />}
       </form>
     </Fragment>
   );

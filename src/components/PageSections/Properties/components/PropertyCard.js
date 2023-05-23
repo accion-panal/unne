@@ -11,7 +11,7 @@ const PropertyCard = ({ data, isList }) => {
       className={`${
         isList
           ? 'flex flex-col items-center bg-white border border-gray-200 rounded shadow md:flex-row'
-          : 'w-full'
+          : 'w-full bg-white'
       } border rounded border-gray-200 hover:cursor-pointer hover:shadow-xl transition duration-300 ease-in-out`}
     >
       <img

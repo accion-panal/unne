@@ -2,8 +2,8 @@ import Home from '../pages/Home';
 import About from '../pages/About';
 import Properties from '../pages/Properties/Properties';
 import Property from '../pages/Properties/Property';
-import ToSell from '../pages/Owner/ToSell'; // quiero vender
-import ToLease from '../pages/Owner/ToLease'; // quiero arrendar
+import ToSell from '../pages/Owner/ToSell';
+import ToLease from '../pages/Owner/ToLease';
 import AuctionUnits from '../pages/Investor/AuctionUnits';
 import NewUnits from '../pages/Investor/NewUnits';
 import LeaseAdmin from '../pages/Investor/LeaseAdmin';
