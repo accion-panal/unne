@@ -247,3 +247,27 @@ export const ObjetivesAuctionData = [
     desc: 'Obtén las ganancias esperadas por tu inversión',
   },
 ];
+
+/** New Property Qualities */
+export const NewPropertyQualities = [
+  {
+    id: 1,
+    title: 'Descubre',
+    desc: 'Encuentra el activo que calce mejor con tu perfil financiero.',
+  },
+  {
+    id: 2,
+    title: 'Simula',
+    desc: 'Elige el activo inmobiliario que mas te guste y simula tu inversión de manera personalizada para proceder con la reserva de la propiedad.',
+  },
+  {
+    id: 3,
+    title: 'Relajate',
+    desc: 'Gestionamos el crédito hipotecario, promesa de compra y escrituración por ti.',
+  },
+  {
+    id: 4,
+    title: 'Gana por tu inversion',
+    desc: 'Administramos el arriendo de tu propiedad para que comiences a ganar por tu inversión.',
+  },
+];
