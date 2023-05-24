@@ -26,7 +26,7 @@ const PropertiesProvider = ({ children }) => {
       // console.log(meta.totalItems);
       setProperties(data);
       setTotalItems(meta.totalItems);
-      setTotalPages(Math.ceil(meta.totalItems / limit + 0.5));
+      setTotalPages(Math.ceil(meta.totalItems / limit )); // + 0.5
       setNotFoundMsg(
         data.length === 0
           ? 'Lo sentimos, tu busqueda no coincide con nuestros registros'

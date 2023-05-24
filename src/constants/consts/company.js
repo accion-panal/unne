@@ -4,6 +4,6 @@ export const company = {
 };
 
 export const paginationTopLimit = {
-  limit: 21,
+  limit: 20,
   topLimit: 999999999,
 };

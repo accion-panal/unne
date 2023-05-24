@@ -1,4 +1,3 @@
 export const realtorData = {
-  // email: 'josefinadelalamo@accionpanal.com',
-  email: 'ign.casrod59@gmail.com',
+  email: 'josefinadelalamo@accionpanal.com', // aca el correo de prueba como realtor
 };

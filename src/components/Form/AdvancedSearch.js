@@ -169,7 +169,19 @@ const AdvancedSearch = ({ setProperties }) => {
           : '',
     };
 
-    const url = `properties?page=${page}&limit=${paginationTopLimit.topLimit}&statusId=${company.statusId}&companyId=${company.companyId}${createUrl.operationType}${createUrl.typeOfProperty}${createUrl.installmentType}${createUrl.region}${createUrl.commune}${createUrl.surfaceM2}${createUrl.minPrice}${createUrl.maxPrice}${createUrl.bedrooms}${createUrl.bathrooms}${createUrl.coveredParkingLots}`;
+    console.log('pagina actual', page);
+
+    const url = `properties?page=${1}&limit=${
+      paginationTopLimit.topLimit
+    }&statusId=${company.statusId}&companyId=${company.companyId}${
+      createUrl.operationType
+    }${createUrl.typeOfProperty}${createUrl.installmentType}${
+      createUrl.region
+    }${createUrl.commune}${createUrl.surfaceM2}${createUrl.minPrice}${
+      createUrl.maxPrice
+    }${createUrl.bedrooms}${createUrl.bathrooms}${
+      createUrl.coveredParkingLots
+    }`;
 
     try {
       setNotFoundMsg('');

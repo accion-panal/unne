@@ -77,6 +77,32 @@ const ContactFormServices = {
     );
     return response.data;
   },
+
+  // Quienes somos form
+  sendContactAboutForm: async (
+    name,
+    userEmail,
+    reason,
+    message,
+    realtorEmail
+  ) => {
+    const response = await axios.post(
+      `https://formsubmit.co/ajax/${realtorEmail}`,
+      {
+        Nombre: name,
+        Correo: userEmail,
+        Soy: reason,
+        Mensaje: message,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      }
+    );
+    return response.data;
+  },
 };
 
 export default ContactFormServices;

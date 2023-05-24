@@ -1,6 +1,6 @@
 import React from 'react';
 import Contact from '../../../Form/Contact';
-import '../../../../assets/styles/components/Form/Social.css';
+import styles from '../../../../assets/styles/components/Form/Social.css';
 import { iconsList } from '../../../Icons';
 import ContainerSimple from './ContainerSimple';
 // import { Fade } from 'react-awesome-reveal';
@@ -37,23 +37,23 @@ const ContactUs = () => {
                 <ContainerSimple title="Teléfono" desc="+56264653732" />
                 <ContainerSimple title="Correo" desc="contacto@unne.cl" />
 
-                <div className="card rounded-lg">
-                  <span className="span">Redes</span>
+                <div className={`${styles.card} rounded-lg`}>
+                  <span className={`${styles.span}`}>Redes</span>
 
-                  <a className={`social hover:animate-bounce2`}>
+                  <a className={`${styles.social} hover:animate-bounce2`}>
                     <BsFacebook color="#0F8EF2 " />
                   </a>
 
                   <a
                     href="https://www.instagram.com/unne.cl/?hl=es"
                     target="_blank"
-                    className={`social hover:animate-bounce2`}
+                    className={`${styles.social} hover:animate-bounce2`}
                     rel="noreferrer"
                   >
                     <BsInstagram color="#FB00AD" />
                   </a>
 
-                  <a className={`social hover:animate-bounce2 `}>
+                  <a className={`${styles.social} hover:animate-bounce2 `}>
                     <BsYoutube color="#ff0000" />
                   </a>
                 </div>
