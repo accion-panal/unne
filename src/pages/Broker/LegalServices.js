@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import LegalServicesComponent from '../../components/PageSections/Broker/LegalServicesComponent';
 
 const LegalServices = () => {
-  return <div>Servicios Legales</div>;
+  return (
+    <Fragment>
+      <LegalServicesComponent />
+    </Fragment>
+  );
 };
 
 export default LegalServices;

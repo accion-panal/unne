@@ -226,7 +226,7 @@ const PersonalData = ({
           <div className="mt-8 flex justify-center">
             <Button
               type="submit"
-              className="block w-[200px] p-2 my-1 uppercase font-semibold text-sm rounded-full hover:shadow-sm transition ease-in-out duration-300 text-white bg-orange-500 hover:bg-orange-600"
+              className="block w-[200px] p-4 my-1 uppercase font-semibold text-md rounded-full hover:shadow-sm transition ease-in-out duration-300 text-white bg-orange-500 hover:bg-orange-600"
             >
               <span className="max-h-10">
                 {loading ? (

@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { Fragment } from 'react';
+import BrokerComponent from '../../components/PageSections/Broker';
 
 const ToPartner = () => {
   return (
-    <div>Asociate</div>
-  )
-}
+    <Fragment>
+      <BrokerComponent />
+    </Fragment>
+  );
+};
 
-export default ToPartner
+export default ToPartner;

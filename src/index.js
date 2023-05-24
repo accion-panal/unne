@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import ContextProvider from './context/ContextProvider';
 import PropertiesProvider from './context/properties/PropertiesProvider';
 import SelectsProvider from './context/selects/SelectsProvider';
+import ClientsProvider from './context/clients/ClientsProvider';
 
 /** Style Deps */
 import 'react-image-gallery/styles/css/image-gallery.css';
@@ -21,11 +22,13 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <ContextProvider>
-        <SelectsProvider>
-          <PropertiesProvider>
-            <App />
-          </PropertiesProvider>
-        </SelectsProvider>
+        <ClientsProvider>
+          <SelectsProvider>
+            <PropertiesProvider>
+              <App />
+            </PropertiesProvider>
+          </SelectsProvider>
+        </ClientsProvider>
       </ContextProvider>
     </BrowserRouter>
   </React.StrictMode>

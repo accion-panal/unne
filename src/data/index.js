@@ -271,3 +271,241 @@ export const NewPropertyQualities = [
     desc: 'Administramos el arriendo de tu propiedad para que comiences a ganar por tu inversión.',
   },
 ];
+
+/* Asociate.js Data */
+export const AssociateData = [
+  {
+    id: 1,
+    title: 'Asóciate a la red lider de corredores en Chile',
+    children: [
+      {
+        id: 1,
+        name: 'Mas de 30 cursos mensuales en el área legal y comercial',
+        status: '',
+      },
+      {
+        id: 2,
+        name: 'Adelanta tu comisión con nuestro Pronto Pago',
+        status: 'Nuevo',
+      },
+      {
+        id: 3,
+        name: 'Sesiones de Coaching comercial',
+        status: 'Nuevo',
+      },
+      {
+        id: 4,
+        name: 'Alianzas con bancos y mutuarias',
+        status: 'Nuevo',
+      },
+      {
+        id: 5,
+        name: 'Alianza con Assetplan, para aumentar tu cartera',
+        status: 'Nuevo',
+      },
+      {
+        id: 6,
+        name: 'Servicios Legales',
+        status: '',
+      },
+      {
+        id: 7,
+        name: 'Cuentas con un Vendeid para que las consultas te lleguen directamente',
+        status: '',
+      },
+      {
+        id: 8,
+        name: 'Sistema de canje inteligente',
+        status: '',
+      },
+      {
+        id: 9,
+        name: 'Conserva el 100% de tu comisión',
+        status: '',
+      },
+    ],
+  },
+];
+
+/* Imagenes de los portales - Data */
+export const PortalData = [
+  {
+    id: 1,
+    title: 'Portal Inmobiliario',
+    img: 'https://res.cloudinary.com/dbrhjc4o5/image/upload/v1680028999/unne-media/portal/portalinmobiliario_x6nndy.png',
+    href: 'https://www.portalinmobiliario.com/',
+  },
+  {
+    id: 2,
+    title: 'Yapo',
+    img: 'https://res.cloudinary.com/dbrhjc4o5/image/upload/v1680028998/unne-media/portal/yapo_iyqynp.png',
+    href: 'https://new.yapo.cl/',
+  },
+  {
+    id: 3,
+    title: 'Top Propiedades',
+    img: 'https://res.cloudinary.com/dbrhjc4o5/image/upload/v1680028998/unne-media/portal/topPropiedades_yu50t1.png',
+    href: 'https://www.toppropiedades.cl/',
+  },
+  {
+    id: 4,
+    title: 'Toc toc',
+    img: 'https://res.cloudinary.com/dbrhjc4o5/image/upload/v1680028998/unne-media/portal/toctoc_ll3lza.png',
+    href: 'https://www.toctoc.com/',
+  },
+];
+
+/* Asociate.js Data */
+export const AssociateCardData = [
+  {
+    id: 1,
+    title: 'Contrata nuestros servicios legales',
+    desc: 'Contamos con abogados especialistas en asesorias inmobiliarias que te guiaran en todo el proceso de la venta o arriendo de tu propiedad.',
+    icon: 'AiTwotoneGold',
+    href: 'href',
+    children: [
+      {
+        id: 1,
+        name: 'Adelanta tu comision con pronto pago',
+      },
+      {
+        id: 2,
+        name: 'Alianzas con bancos y mutuarias',
+      },
+      {
+        id: 3,
+        name: 'Banco de canje avanzado',
+      },
+    ],
+  },
+  {
+    id: 2,
+    title: 'Academia Unne',
+    desc: 'Tenemos un programa dirigido por especialista del área del corretaje, que te brindara los conocimientos necesarios para ser un profesional',
+    icon: 'BiBookOpen',
+    href: 'href',
+    children: [
+      {
+        id: 1,
+        name: 'Capacitaciones comerciales',
+      },
+      {
+        id: 2,
+        name: 'Capacitaciones legales',
+      },
+      {
+        id: 3,
+        name: 'Capacitaciones de sistema',
+      },
+    ],
+  },
+  {
+    id: 3,
+    title: 'Cuentas con el respaldo de un Vendeid',
+    desc: 'Contacto directo con los clientes interesados en tu propiedad ¡sin intermediarios!. De esta forma podrás minimizar los tiempos de espera',
+    icon: 'AiOutlineShareAlt',
+    href: '',
+    children: [],
+  },
+  {
+    id: 4,
+    title: 'Oportunidades de Inversión',
+    desc: 'Tus clientes contaran con productos de inversión de remate seguro y unidades nuevas',
+    icon: 'BsFillHouseAddFill',
+    href: 'href',
+    children: [],
+  },
+];
+
+/** Main Carousel Data */
+export const CarouselLegalServicesData = [
+  {
+    id: 1,
+    title: 'Enfócate en vender, alivia tu carga con Servicios Legales Unne',
+    desc: 'No pierdas una venta por no tener la asesoría necesaria y entrega un servicio profesional.',
+    img: Slide1,
+  },
+  {
+    id: 2,
+    title: 'Enfócate en vender, alivia tu carga con Servicios Legales Unne',
+    desc: 'No pierdas una venta por no tener la asesoría necesaria y entrega un servicio profesional.',
+    img: Slide4,
+  },
+];
+
+/** porque unne - vender Data */
+export const LegalServicesData = [
+  {
+    id: 1,
+    title: 'Profesionales',
+    desc: 'Contamos con un equipo de profesionales que te guiaran y apoyaran en todo el proceso legal.',
+    color: 'bg-[#FDDC97]',
+  },
+  {
+    id: 2,
+    title: 'Gestión',
+    desc: 'Nuestro equipo gestionara cada paso del proceso del credito hipotecario hasta el retiro del pago del vale vista.',
+    color: 'bg-[#F7B092]',
+  },
+  {
+    id: 3,
+    title: 'Cero Filas',
+    desc: 'Firma programada en notaria, para que tu tiempo lo utilices en otras cosas importantes.',
+    color: 'bg-[#D6D5D5]',
+  },
+];
+
+/** porque unne - vender Data */
+export const TradingProcessData = [
+  {
+    id: 1,
+    title: 'Proceso de Compraventa de inmuebles',
+    doc: 'Sin documentación',
+    uf: '6,8',
+    process: [
+      'Redacción de promesa e instrucciones notariales.',
+      'Coordinación bancaria.',
+      'Revisión de escritura publica de compraventa redactada por banco.',
+      'Redacción de instrucciones notariales de compraventa.',
+      'Coordinación notarial.',
+      'Monitorieo en CBR respectivo.',
+      'Orientacion legal en horario hábil.',
+    ],
+  },
+];
+
+/** porque unne - vender Data */
+export const MoreServicesData = [
+  {
+    id: 1,
+    title: 'Nuestros Servicios',
+    process: [
+      'Proceso de Compraventa de inmuebles',
+      'Proceso de Compraventa de inmuebles al Contado',
+      'Redacción de Promesa de compraventa e instrucciones notariales',
+      'Revision de promesa de compraventa',
+      'Informe de Estudio de Títulos',
+      'Solución de reparos',
+      'Redacción de poder especial de venta o compraventa',
+      'Redacción escrituras de cancelación, transacción, renuncia de gananciales, etc.',
+      'Redacción escritura publica de Compraventa',
+      'Revisión escritura publica Compraventa redactada por banco',
+      'Redacción instrucciones notariales de Compraventa',
+      'Redacción contrato de arrendamiento estándar',
+      'Redacción carta de termino de contrato de arrendamiento',
+    ],
+  },
+  {
+    id: 2,
+    title: 'Juicios',
+    process: [
+      'Cobro de honorarios correspondientes a la comisión del corredor',
+      'Terminación de contratos de arrendamiento por no pagos de las rentas ',
+      'Restitución de inmuebles por abandono del arrendatario',
+      'Precario',
+      'Incumplimientos de contrato de promesa',
+      'Conflictos a la Ley No 19.537 de Copropiedad Inmobiliaria',
+      'Representación en segunda instancia',
+    ],
+  },
+];
