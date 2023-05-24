@@ -3,6 +3,7 @@ import Head from '../../components/Head/Head';
 import MainCarousel from '../../components/Carousel/MainCarousel';
 import WhyUnneSection from '../../components/PageSections/Owner/ToLease/whyUnneSection';
 import CircleSection from '../../components/PageSections/Owner/ToLease/CircleSection';
+import StepsToLease from '../../components/PageSections/Owner/ToLease/StepsToLease';
 
 /* Data */
 import {
@@ -44,6 +45,10 @@ const ToLease = () => {
             ColorText="text-white"
           />
         </Fade>
+      </section>
+
+      <section className="my-20 xl:my-64 px-4 xl:px-32">
+        <StepsToLease />
       </section>
     </Fragment>
   );

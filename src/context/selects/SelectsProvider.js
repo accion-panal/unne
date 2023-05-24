@@ -41,7 +41,7 @@ const SelectsProvider = ({ children }) => {
     getCommunesByStateId(stateId);
   }, [stateId]);
 
-  console.log('Select', selectedSelects);
+
 
   return (
     <SelectsContext.Provider
