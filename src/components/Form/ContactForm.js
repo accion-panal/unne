@@ -122,8 +122,6 @@ const ContactForm = ({ title, subtitle }) => {
     }
   };
 
-  console.log(formData);
-
   return (
     <div className="bg-gray-200 rounded-[50px] p-4 my-10 xl:py-5 xl:px-10 xl:m-0">
       <ToastComponent />

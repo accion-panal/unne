@@ -169,8 +169,6 @@ const AdvancedSearch = ({ setProperties }) => {
           : '',
     };
 
-    console.log('pagina actual', page);
-
     const url = `properties?page=${1}&limit=${
       paginationTopLimit.topLimit
     }&statusId=${company.statusId}&companyId=${company.companyId}${

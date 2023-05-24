@@ -104,8 +104,6 @@ const Contact = () => {
     });
   };
 
-  console.log(formData);
-
   const handleSubmit = async (ev) => {
     ev.preventDefault();
 
