@@ -1,6 +1,6 @@
 import React from 'react';
 import Contact from '../../../Form/Contact';
-import styles from '../../../../assets/styles/components/Form/Social.css';
+import styles from '../../../../styles/components/ContactUsStyles/Social.module.css';
 import { iconsList } from '../../../Icons';
 import ContainerSimple from './ContainerSimple';
 // import { Fade } from 'react-awesome-reveal';
