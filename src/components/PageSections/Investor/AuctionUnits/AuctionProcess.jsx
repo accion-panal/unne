@@ -98,6 +98,7 @@ const AuctionProcess = () => {
               </div>
             </div>
 
+
           </div>
         </div>
       </div>

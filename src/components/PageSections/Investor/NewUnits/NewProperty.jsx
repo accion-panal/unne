@@ -42,9 +42,9 @@ const NewProperty = () => {
                 </h3>
             </div>
             <div className="flex gap-12 justify-center flex-wrap">
-                {/*       <InvestToday title="departamento" href="#departamento" />
+                <InvestToday title="departamento" href="#departamento" />
                 <InvestToday title="estacionamiento" href="#estacionamientos" />
-                <InvestToday title="bodega" href="#bodega" /> */}
+                <InvestToday title="bodega" href="#bodega" />
             </div>
         </div>
     );
