@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import { api } from '../../api';
 import { PropertiesContext } from '../../context/properties/PropertiesContext';
 import { SelectsContext } from '../../context/selects/SelectsContext';
@@ -24,6 +25,7 @@ const AdvancedSearch = ({ setProperties }) => {
     selectedSelects,
     setSelectedSelects,
   } = contextDataSelects;
+  const { pathname } = useLocation();
 
   /** Handle Inputs Form */
   const onOperationTypeChange = (ev) =>
@@ -198,6 +200,17 @@ const AdvancedSearch = ({ setProperties }) => {
     }
   };
 
+  const hideSelects = (pathname) => {
+    switch (pathname) {
+      case '/propiedades':
+        return 'hidden';
+      case '/soy-inversionista/unidades-nuevas':
+        return 'flex flex-col';
+      default:
+        return 'hidden';
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit} className="border-b p-5">
       <div className="flex flex-col mb-3">
@@ -232,7 +245,7 @@ const AdvancedSearch = ({ setProperties }) => {
         </select>
       </div>
 
-      <div className="flex flex-col mb-3">
+      <div className={`${hideSelects(pathname)} mb-3`}>
         <label className="mb-1 text-gray-500">Tipo de Instalación</label>
         <select
           value={selectedSelects.installmentType}

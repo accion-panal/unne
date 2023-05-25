@@ -19,7 +19,7 @@ const PropertiesTop = ({
     switch (pathname) {
       case '/propiedades':
         return 'Propiedades';
-      case '/soy-inversionista/unidades-nueva':
+      case '/soy-inversionista/unidades-nuevas':
         return 'Unidades nuevas';
       default:
         return 'Unne';
@@ -66,7 +66,7 @@ const PropertiesTop = ({
             </li>
 
             <li className="mx-1 p-2.5 bg-gray-100 cursor-pointer text-gray-500">
-              <Link to="/maps-propiedades">
+              <Link to="/propiedades/propiedades-en-mapa">
                 <FaMapMarkerAlt />
               </Link>
             </li>

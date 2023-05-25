@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { PropertiesContext } from './PropertiesContext';
 import PropertiesServices from '../../services/PropertiesServices';
 import { paginationTopLimit } from '../../constants/consts/company';
@@ -11,6 +12,7 @@ const PropertiesProvider = ({ children }) => {
   const [totalItems, setTotalItems] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [notFoundMsg, setNotFoundMsg] = useState('');
+  const { pathname } = useLocation();
 
   const getProperties = async (
     currentPage,
@@ -19,12 +21,15 @@ const PropertiesProvider = ({ children }) => {
     try {
       setNotFoundMsg('');
       setIsLoading(true);
-      const { data, meta } = await PropertiesServices.getProperties(
-        currentPage,
-        limit
+      const { data, newUnitiesData, meta } =
+        await PropertiesServices.getProperties(currentPage, limit);
+      setProperties(
+        pathname === '/soy-inversionista/unidades-nuevas'
+          ? newUnitiesData
+          : pathname === '/propiedades'
+          ? data
+          : data
       );
-      // console.log(meta.totalItems);
-      setProperties(data);
       setTotalItems(meta.totalItems);
       setTotalPages(Math.ceil(meta.totalItems / limit)); // + 0.5
       setNotFoundMsg(

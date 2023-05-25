@@ -11,7 +11,17 @@ const PropertiesServices = {
     const response = await api.get(
       `properties?page=${currentPage}&limit=${limit}&statusId=${statusId}&companyId=${companyId}`
     );
-    return { data: response.data.data, meta: response.data.meta };
+
+    // respuesta para unidades nuevas
+    const responseNewUnities = await api.get(
+      `properties?page=${currentPage}&limit=${limit}&statusId=${statusId}&companyId=${companyId}&operationType=venta`
+    );
+
+    return {
+      data: response.data.data,
+      newUnitiesData: responseNewUnities.data.data,
+      meta: response.data.meta,
+    };
   },
 
   getAllProperties: async (

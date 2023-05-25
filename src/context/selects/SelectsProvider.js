@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { SelectsContext } from './SelectsContext';
 import SelectsServices from '../../services/SelectsServices';
 
@@ -22,12 +23,43 @@ const SelectsProvider = ({ children }) => {
     bathrooms: '',
     coveredParkingLots: '',
   });
+  const { pathname } = useLocation();
+
+  console.log('current_pathName:', pathname);
 
   const getSelects = async () => {
     const { data } = await SelectsServices.getSelects();
+    const filtredOperationTypeSelects = data?.operationType.filter(
+      (type) => type.name !== 'arriendo' && type.name !== 'arriendo_temporal'
+    );
+    const filtredTypeOfPropertiesSelects = data?.typeOfProperty.filter(
+      (type) =>
+        type.name !== 'casa' &&
+        type.name !== 'parcela' &&
+        type.name !== 'industrial' &&
+        type.name !== 'agricola' &&
+        type.name !== 'local' &&
+        type.name !== 'oficina' &&
+        type.name !== 'sitio' &&
+        type.name !== 'terreno' &&
+        type.name !== 'agrícola' &&
+        type.name !== 'Terreno En Construccion'
+    );
+    setOperationType(
+      pathname === '/soy-inversionista/unidades-nuevas'
+        ? filtredOperationTypeSelects
+        : pathname === '/propiedades'
+        ? data?.operationType
+        : data?.operationType
+    );
+    setTypeOfProperty(
+      pathname === '/soy-inversionista/unidades-nuevas'
+        ? filtredTypeOfPropertiesSelects
+        : pathname === '/propiedades'
+        ? data?.typeOfProperty
+        : data?.typeOfProperty
+    );
     setRegions(data?.regions);
-    setOperationType(data?.operationType);
-    setTypeOfProperty(data?.typeOfProperty);
     setInstallmentType(data?.installment_type);
   };
 
@@ -39,9 +71,7 @@ const SelectsProvider = ({ children }) => {
   useEffect(() => {
     getSelects();
     getCommunesByStateId(stateId);
-  }, [stateId]);
-
-
+  }, [stateId, pathname]);
 
   return (
     <SelectsContext.Provider
