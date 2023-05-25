@@ -25,8 +25,6 @@ const SelectsProvider = ({ children }) => {
   });
   const { pathname } = useLocation();
 
-  console.log('current_pathName:', pathname);
-
   const getSelects = async () => {
     const { data } = await SelectsServices.getSelects();
     const filtredOperationTypeSelects = data?.operationType.filter(

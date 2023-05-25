@@ -47,6 +47,21 @@ const PropertiesServices = {
     const response = await api.get(`${url}`);
     return response.data;
   },
+
+  // Obtener ventas por venta de departamentos
+  getPropertiesByCard: async (
+    currentPage = paginationTopLimit.limitPage,
+    limit = paginationTopLimit.topLimit,
+    statusId = company.statusId,
+    companyId = company.companyId,
+    operationType,
+    typeOfProperty
+  ) => {
+    const response = await api.get(
+      `properties?page=${currentPage}&limit=${limit}&statusId=${statusId}&companyId=${companyId}&operationType=${operationType}&typeOfProperty=${typeOfProperty}`
+    );
+    return { data: response.data.data, meta: response.data.meta };
+  },
 };
 
 export default PropertiesServices;
