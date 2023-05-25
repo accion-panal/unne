@@ -71,12 +71,12 @@ const StepsToLease = () => {
             {validatePropertyForm() ? (
               <CheckedStep />
             ) : (
-              <bold>
+              <strong>
                 <span className="bg-orange-500 rounded-full py-[3.5px] px-[11px] mr-1">
                   1
                 </span>{' '}
                 Datos de Propiedad
-              </bold>
+              </strong>
             )}
             {/* Propiedad */}
           </span>

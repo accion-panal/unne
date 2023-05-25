@@ -10,6 +10,7 @@ import LeaseAdmin from '../pages/Investor/LeaseAdmin';
 import ToPartner from '../pages/Broker/ToPartner';
 import LegalServices from '../pages/Broker/LegalServices';
 import UnneAcademy from '../pages/Broker/UnneAcademy';
+import PropertiesInMap from '../pages/PropertiesInMap';
 
 export const navigationRoutes = [
   {
@@ -83,5 +84,11 @@ export const navigationRoutes = [
     name: 'Academia Unne',
     path: '/eres-corredor/academia-unne',
     element: <UnneAcademy />,
+  },
+  {
+    id: 14,
+    name: 'Propiedades en mapa',
+    path: '/propiedades/propiedades-en-mapa',
+    element: <PropertiesInMap />,
   },
 ];

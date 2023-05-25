@@ -14,6 +14,18 @@ const PropertiesServices = {
     return { data: response.data.data, meta: response.data.meta };
   },
 
+  getAllProperties: async (
+    currentPage = paginationTopLimit.limitPage,
+    limit = paginationTopLimit.topLimit,
+    statusId = company.statusId,
+    companyId = company.companyId
+  ) => {
+    const response = await api.get(
+      `properties?page=${currentPage}&limit=${limit}&statusId=${statusId}&companyId=${companyId}`
+    );
+    return { data: response.data.data, meta: response.data.meta };
+  },
+
   getProperty: async (id, statusId, companyId) => {
     const response = await api.get(
       `properties/${id}?statusId=${statusId}&companyId=${companyId}`

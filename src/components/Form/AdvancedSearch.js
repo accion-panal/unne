@@ -13,7 +13,7 @@ import Button from '../Button/Button';
 const AdvancedSearch = ({ setProperties }) => {
   const { contextData } = useContext(PropertiesContext);
   const { contextDataSelects } = useContext(SelectsContext);
-  const { page, setIsLoading, setNotFoundMsg } = contextData;
+  const { setIsLoading, setNotFoundMsg } = contextData;
   const {
     regions,
     communes,
