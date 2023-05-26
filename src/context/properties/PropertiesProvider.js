@@ -6,13 +6,31 @@ import { paginationTopLimit } from '../../constants/consts/company';
 
 const PropertiesProvider = ({ children }) => {
   const [properties, setProperties] = useState([]);
+  const [allProperties, setAllProperties] = useState([]);
+  const [propertiesInMap, setPropertiesInMap] = useState([]);
+  const [propertiesToShow, setPropertiesToShow] = useState([]);
   const [propertyId, setPropertyId] = useState('');
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [totalItems, setTotalItems] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [notFoundMsg, setNotFoundMsg] = useState('');
+  const [sortOrder, setSortOrder] = useState('');
   const { pathname } = useLocation();
+
+  const handleSortChange = (event) => {
+    setSortOrder(event.target.value);
+  };
+
+  properties.sort((a, b) => {
+    if (sortOrder === 'asc') {
+      return a.price - b.price;
+    } else if (sortOrder === 'desc') {
+      return b.price - a.price;
+    } else {
+      return 0;
+    }
+  });
 
   const getProperties = async (
     currentPage,
@@ -43,6 +61,22 @@ const PropertiesProvider = ({ children }) => {
     }
   };
 
+  const getAllProperties = async (currentPage, limit, statusId, companyId) => {
+    const { data, meta } = await PropertiesServices.getAllProperties(
+      currentPage,
+      limit,
+      statusId,
+      companyId
+    );
+    setAllProperties(data);
+    setPropertiesInMap(data);
+    setPropertiesToShow(data.slice(0, 10));
+  };
+
+  useEffect(() => {
+    getAllProperties();
+  }, []);
+
   const handlePageChange = (newPage) => {
     setProperties([]);
     setPage(newPage);
@@ -57,6 +91,11 @@ const PropertiesProvider = ({ children }) => {
       value={{
         contextData: {
           properties,
+          allProperties,
+          setAllProperties,
+          propertiesToShow,
+          setPropertiesToShow,
+          propertiesInMap,
           setProperties,
           page,
           totalPages,
@@ -68,6 +107,9 @@ const PropertiesProvider = ({ children }) => {
           setNotFoundMsg,
           propertyId,
           setPropertyId,
+          handleSortChange,
+          sortOrder,
+          setSortOrder,
         },
       }}
     >

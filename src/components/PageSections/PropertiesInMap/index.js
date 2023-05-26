@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Map, {
   Marker,
@@ -7,34 +7,20 @@ import Map, {
   FullscreenControl,
   Popup,
 } from 'react-map-gl';
+import { PropertiesContext } from '../../../context/properties/PropertiesContext';
 import Section from '../../Section/Section';
 import MarkerIcon from '../../../assets/img/map/marker.png';
 import { parseToCLPCurrency } from '../../../utils';
-import PropertiesServices from '../../../services/PropertiesServices';
 
 const PropertiesInMapComponent = () => {
-  const [propertiesInMap, setPropertiesInMap] = useState([]);
+  const { contextData } = useContext(PropertiesContext);
+  const { propertiesInMap } = contextData;
   const [selectedProperty, setSelectedProperty] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [totalItems, setTotalItems] = useState('');
 
-  const getAllProperties = async (currentPage, limit, statusId, companyId) => {
-    const { data, meta } = await PropertiesServices.getAllProperties(
-      currentPage,
-      limit,
-      statusId,
-      companyId
-    );
-    setPropertiesInMap(data);
-    setTotalItems(meta.totalItems);
-  };
-
   useEffect(() => {
-    getAllProperties();
-  }, []);
-
-  useEffect(() => {
-    if (setPropertiesInMap.length > 0) {
+    if (propertiesInMap.length > 0) {
       setIsLoading(false);
     }
   }, [propertiesInMap, isLoading]);

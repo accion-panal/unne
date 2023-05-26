@@ -21,6 +21,7 @@ import { TbSquareRoundedNumber4Filled } from 'react-icons/tb';
 import { IoIosArrowBack } from 'react-icons/io';
 import { IoIosArrowForward } from 'react-icons/io';
 import { HiClipboard, HiClipboardCheck } from 'react-icons/hi';
+import { RiArrowDownSLine } from 'react-icons/ri';
 
 import {
   FaUserAlt,
@@ -44,7 +45,11 @@ import {
 } from 'react-icons/ai';
 import { AiTwotoneGold } from 'react-icons/ai';
 import { GrClose } from 'react-icons/gr';
-import { MdOutlineArrowDropDown, MdSimCardDownload } from 'react-icons/md';
+import {
+  MdOutlineArrowDropDown,
+  MdSimCardDownload,
+  MdOutlineArrowBackIos,
+} from 'react-icons/md';
 import { BsFacebook } from 'react-icons/bs';
 import { BsInstagram } from 'react-icons/bs';
 import { BsYoutube } from 'react-icons/bs';
@@ -98,4 +103,5 @@ export const iconsList = {
   AiOutlineWhatsApp,
   AiFillPhone,
   BiErrorCircle,
+  RiArrowDownSLine,
 };

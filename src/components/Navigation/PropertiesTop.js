@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { iconsList } from '../Icons';
 import { paginationTopLimit } from '../../constants/consts/company';
+import { PropertiesContext } from '../../context/properties/PropertiesContext';
 
 const PropertiesTop = ({
   totalItems,
@@ -12,6 +13,8 @@ const PropertiesTop = ({
   setIsList,
   properties,
 }) => {
+  const { contextData } = useContext(PropertiesContext);
+  const { sortOrder, handleSortChange } = contextData;
   const { pathname } = useLocation();
   const { BsFillGridFill, FaThList, FaMapMarkerAlt } = iconsList;
 
@@ -38,6 +41,18 @@ const PropertiesTop = ({
         </div>
         <div>
           <ul className="flex">
+            <li className="w-[200px] sm:flex hidden mr-5">
+              <select
+                value={sortOrder}
+                onChange={handleSortChange}
+                className="px-2 py-1 border outline-none focus:outline-none bg-white border-gray-200 w-[100%]"
+              >
+                <option value="">Ordenar por:</option>
+                <option value="asc">Menor precio</option>
+                <option value="desc">Mayor precio</option>
+              </select>
+            </li>
+
             <li
               onClick={() => {
                 setIsGrid(true);
@@ -64,7 +79,6 @@ const PropertiesTop = ({
             >
               <FaThList />
             </li>
-
             <li className="mx-1 p-2.5 bg-gray-100 cursor-pointer text-gray-500">
               <Link to="/propiedades/propiedades-en-mapa">
                 <FaMapMarkerAlt />
@@ -75,7 +89,7 @@ const PropertiesTop = ({
       </div>
       <div className="flex flex-row justify-start items-center bg-gray-50 text-gray-500">
         <small className="text-sm p-1 rounded">
-          Encontradas: {properties?.length ?? 0}
+          Encontradas por página: {properties?.length ?? 0}
         </small>
         <span className="text-gray-300 mx-3">|</span>
         <small className="text-sm p-1 rounded">
