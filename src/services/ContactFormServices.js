@@ -78,6 +78,32 @@ const ContactFormServices = {
     return response.data;
   },
 
+
+  // Formulario Unidades nuevas
+  sendContactUnidad: async (name, lastname,userEmail, phone, date, time, realtorEmail) => {
+    const response = await axios.post(
+      `https://formsubmit.co/ajax/${realtorEmail}`,
+      {
+        Nombre: name,
+        Apellido: lastname,
+        Correo: userEmail,
+        Telefono: phone,
+        Fecha: date,
+        Hora: time,
+
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      }
+    );
+    return response.data;
+  },
+
+
+
   // Quienes somos form
   sendContactAboutForm: async (
     name,

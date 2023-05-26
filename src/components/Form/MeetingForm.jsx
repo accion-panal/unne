@@ -1,10 +1,14 @@
 import React, { useState, useRef } from 'react';
 import Button from '../Button/Button';
+import ContactFormServices from '../../services/ContactFormServices';
+import ToastifyComponent from '../Toastify/ToastifyComponent';
+import { toast } from 'react-toastify';
+import { realtorData } from '../../constants/consts/realtor';
 
 
 const MeetingForm = ({ title, subtitle, DataEmail }) => {
 
-    /*const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState({
         name: '',
         lastname: '',
         email: '',
@@ -12,23 +16,28 @@ const MeetingForm = ({ title, subtitle, DataEmail }) => {
         date: '',
         time: '',
     });
-    
-        /** Handle Form Data inputs */
-    /** Update Name 
+
+    const [loading, setLoading] = useState(false);
+    const [errorMsg, setErrorMsg] = useState({
+        allFieldRequierd: '',
+        serverEmailError: '',
+    });
+
+
     const handleName = (name) => {
         setFormData({
             ...formData,
             name: name,
         });
     };
-    /** Update Lastname 
+
     const handleLastname = (lastname) => {
         setFormData({
             ...formData,
             lastname: lastname,
         });
     };
-    /** Update Email
+
     const handleEmail = (email) => {
         setFormData({
             ...formData,
@@ -36,21 +45,21 @@ const MeetingForm = ({ title, subtitle, DataEmail }) => {
         });
     };
 
-    /** Update Phone 
+
     const handlePhone = (phone) => {
         setFormData({
             ...formData,
             phone: phone,
         });
     };
-    /** Update Date 
+
     const handleDate = (date) => {
         setFormData({
             ...formData,
             date: date,
         });
     };
-    /** Update Phone 
+
     const handleTime = (time) => {
         setFormData({
             ...formData,
@@ -58,12 +67,18 @@ const MeetingForm = ({ title, subtitle, DataEmail }) => {
         });
     };
 
+    const handleVerification = (ev) => {
+        setFormData({
+            ...formData,
+            terms: ev.target.checked,
+        });
+    };
+
     const onSubmit = (data) => {
         // console.log(data);
     };
 
-    /** Toast Messages */
-    /** On toast success 
+    /** On toast success */
     const showToastSuccessMsg = (msg) => {
         toast.success(msg, {
             position: 'bottom-center',
@@ -77,7 +92,8 @@ const MeetingForm = ({ title, subtitle, DataEmail }) => {
         });
     };
 
-    /** On toast error 
+
+    /** On toast error */
     const showToastErrorMsg = (msg) => {
         toast.error(msg, {
             position: 'bottom-center',
@@ -92,14 +108,9 @@ const MeetingForm = ({ title, subtitle, DataEmail }) => {
     };
 
 
-    const { ServiceID, TemplateID, PublicKEY } = DataEmail;
-    const form = useRef();
-    const sendEmail = async (e) => {
-        e.preventDefault();
-        /* console.log(formData) 
-        const serviceid = ServiceID;
-        const templateid = TemplateID;
-        const publickey = PublicKEY;
+
+    const handleSubmit = async (ev) => {
+        ev.preventDefault();
 
         if (
             [
@@ -109,34 +120,45 @@ const MeetingForm = ({ title, subtitle, DataEmail }) => {
                 formData?.phone,
                 formData?.date,
                 formData?.time,
-            ].includes('')
+            ].includes('') ||
+            formData.terms === false
         ) {
-            showToastErrorMsg('Todos los campos son obligatorios');
+            showToastErrorMsg(
+                'Todos los campos son obligatorios, y debes aceptar los terminos y condiciones'
+            );
             return;
         }
 
-
         try {
-            const response = emailjs.sendForm(
-                serviceid,
-                templateid,
-                form.current,
-                publickey
+            setLoading(true);
+            const response = await ContactFormServices.sendContactUnidad(
+                formData?.name,
+                formData?.lastname,
+                formData?.email,
+                formData?.phone,
+                formData?.date,
+                formData?.time,
+                realtorData?.email
             );
-            const responseStatus = await response;
-            responseStatus.status === 200 &&
+
+            if ((await response.success) === 'true') {
+                setLoading(false);
+                setErrorMsg({
+                    allFieldRequierd: '',
+                    serverEmailError: '',
+                });
                 showToastSuccessMsg(
-                    `Mensaje enviado con éxito, revise el correo | ${formData.email}`
+                    `Solicitud enviada exitosamente, dentro de poco de contactaremos`
                 );
-            console.log('Enviando...');
-
+                setTimeout(() => {
+                    window.location.reload();
+                }, 4000);
+            }
         } catch (error) {
-            /* console.log(error); 
             showToastErrorMsg('Ha ocurrido un error al enviar el formulario');
+            console.log('error', error);
         }
-
     };
- */
 
 
     return (
@@ -147,14 +169,18 @@ const MeetingForm = ({ title, subtitle, DataEmail }) => {
                     <p className="text-xl font-semibold text-gray-700">{subtitle}</p>
                 )}
             </div>
-            <form className="py-6 px-4">
+            <form name='FormsData' onSubmit={handleSubmit} className="py-6 px-4">
                 <div className='grid grid-cols-1 sm:grid-cols-2 gap-x-20 gap-y-3 py-5 max-sm:divide-y-2 max-sm:divide-[#d8d8da]'>
                     <div className="max-sm:py-2">
                         <label htmlFor="name" className='block text-base font-semibold'>Nombre:</label>
                         <input
-                            type="text"
                             className="block w-full rounded-xl bg-slate-50 py-2 px-2 outline-none"
+                            type="text"
+                            placeholder="Nombre"
                             name='user_name'
+                            id="name"
+                            value={formData?.name}
+                            onChange={(ev) => handleName(ev.target.value)}
                         />
 
                     </div>
@@ -162,9 +188,13 @@ const MeetingForm = ({ title, subtitle, DataEmail }) => {
                     <div className="max-sm:py-2">
                         <label htmlFor="lastname" className='block text-base font-semibold'>Apellido:</label>
                         <input
-                            type="text"
                             className="block w-full rounded-xl bg-slate-50 py-2 px-2 outline-none"
+                            type="text"
+                            placeholder="Apellido"
                             name='user_lastname'
+                            id="lastname"
+                            value={formData?.lastname}
+                            onChange={(ev) => handleLastname(ev.target.value)}
                         />
 
                     </div>
@@ -172,9 +202,13 @@ const MeetingForm = ({ title, subtitle, DataEmail }) => {
                     <div className="max-sm:py-2">
                         <label htmlFor="email" className='block text-base font-semibold'>Email:</label>
                         <input
-                            type="email"
                             className="block w-full rounded-xl bg-slate-50 py-2 px-2 outline-none"
+                            type="email"
+                            placeholder="email"
                             name='user_email'
+                            id="email"
+                            value={formData?.email}
+                            onChange={(ev) => handleEmail(ev.target.value)}
                         />
 
                     </div>
@@ -183,9 +217,12 @@ const MeetingForm = ({ title, subtitle, DataEmail }) => {
                         <label htmlFor="phone" className='block text-base font-semibold'>Telefono:</label>
                         <input
                             className="block w-full rounded-xl bg-slate-50 py-2 px-2 outline-none"
-                            name='user_phone'
-                            placeholder='Ej: 9 9999 9999'
                             type="text"
+                            placeholder='Ej: 9 9999 9999'
+                            name='user_phone'
+                            id="phone"
+                            value={formData?.phone}
+                            onChange={(ev) => handlePhone(ev.target.value)}
                             pattern="[0-9]{9}"
                             maxLength="9"
                         />
@@ -194,23 +231,54 @@ const MeetingForm = ({ title, subtitle, DataEmail }) => {
                     <div className="max-sm:py-2">
                         <label htmlFor="date" className='block text-base font-semibold'>Fecha:</label>
                         <input
-                            type="date"
                             className="block w-full rounded-xl py-2 px-2 bg-slate-50 outline-none"
+                            type="date"
                             name='user_date'
+                            id="date"
+                            value={formData?.date}
+                            onChange={(ev) => handleDate(ev.target.value)}
                         />
 
                     </div>
                     <div className="max-sm:py-2">
                         <label htmlFor="tel" className='block text-base font-semibold'>Hora:</label>
                         <input
-                            type="time"
                             className="block w-full rounded-xl bg-slate-50 py-2 px-2 outline-none"
+                            type="time"
                             name='user_time'
+                            id="time"
+                            value={formData?.time}
+                            onChange={(ev) => handleTime(ev.target.value)}
+
                         />
                     </div>
                 </div>
+
+                <div className="w-5/6 mx-auto my-14 mb-10 flex items-center justify-center">
+                    <div className="mb-[0.125rem] block min-h-[1.5rem] pl-[1.5rem]">
+                        <input
+                            className="relative float-left mt-[0.15rem] mr-[6px] -ml-[1.5rem] h-[1.125rem] w-[1.125rem] appearance-none rounded-[0.25rem] border-[0.125rem] border-solid border-neutral-300 outline-none before:pointer-events-none before:absolute before:h-[0.875rem] before:w-[0.875rem] before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] checked:border-orange-500 checked:bg-orange-500 checked:before:opacity-[0.16] checked:after:absolute checked:after:ml-[0.25rem] checked:after:-mt-px checked:after:block checked:after:h-[0.8125rem] checked:after:w-[0.375rem] checked:after:rotate-45 checked:after:border-[0.125rem] checked:after:border-t-0 checked:after:border-l-0 checked:after:border-solid checked:after:border-white checked:after:bg-transparent checked:after:content-[''] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:transition-[border-color_0.2s] focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-[0.875rem] focus:after:w-[0.875rem] focus:after:rounded-[0.125rem] focus:after:content-[''] checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#ca6f3b] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:after:ml-[0.25rem] checked:focus:after:-mt-px checked:focus:after:h-[0.8125rem] checked:focus:after:w-[0.375rem] checked:focus:after:rotate-45 checked:focus:after:rounded-none checked:focus:after:border-[0.125rem] checked:focus:after:border-t-0 checked:focus:after:border-l-0 checked:focus:after:border-solid checked:focus:after:border-white checked:focus:after:bg-transparent dark:border-neutral-600 dark:checked:border-orange-500 dark:checked:bg-orange-500"
+                            type="checkbox"
+                            id="terms"
+                            name="terms"
+                            checked={formData?.terms}
+                            onChange={handleVerification}
+                        />
+                        <label
+                            className="inline-block pl-[0.15rem] hover:cursor-pointer"
+                            htmlFor="terms"
+                        >
+                            Al continuar estás aceptando los términos y condiciones y la
+                            política de privacidad
+                        </label>
+                    </div>
+                </div>
+
+
+
                 <div className="flex justify-center items-center">
                     <Button
+                        value="Send"
                         type="submit"
                         className="bg-orange-500 rounded-full text-white px-4 py-1 hover:bg-orange-600"
                     >
@@ -218,6 +286,7 @@ const MeetingForm = ({ title, subtitle, DataEmail }) => {
                             Agenda una reunión
                         </div>
                     </Button>
+                    <ToastifyComponent />
                 </div>
             </form >
         </div >
