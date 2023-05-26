@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Head from '../../components/Head/Head';
 import PropertyComponent from '../../components/PageSections/Properties/components/Property';
 import PropertiesServices from '../../services/PropertiesServices';
 import { company } from '../../constants/consts/company';
@@ -23,6 +24,7 @@ const Property = () => {
 
   return (
     <Fragment>
+      <Head title={`${property?.title ?? 'cargando...'}`} />
       <PropertyComponent {...{ property }} />
     </Fragment>
   );

@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 const Head = ({ title, description, keywords }) => {
   return (
     <Helmet>
-      <title>Accion Panal {title && `| ${title}`}</title>
+      <title>Unne {title && `| ${title}`}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
     </Helmet>

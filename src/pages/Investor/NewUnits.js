@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import Head from '../../components/Head/Head';
 import NewProperty from '../../components/PageSections/Investor/NewUnits/NewProperty';
 import Layout from '../../components/Layout/Layout';
 import Banner from '../../components/PageSections/Investor/NewUnits/Banner';
@@ -10,6 +11,8 @@ const NewUnits = () => {
   const margin = 'my-20';
   return (
     <Fragment>
+      <Head title="Unidades nuevas" />
+
       <section className={`${margin}`}>
         <Fade delay={300} cascade>
           <NewProperty />

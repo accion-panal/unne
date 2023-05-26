@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import Head from '../../components/Head/Head';
 import MainCarousel from '../../components/Carousel/MainCarousel';
 import WhyUnneSection from '../../components/PageSections/Owner/ToLease/whyUnneSection';
 import CircleSection from '../../components/PageSections/Owner/ToLease/CircleSection';
@@ -16,6 +17,7 @@ const ToSell = () => {
 
   return (
     <Fragment>
+      <Head title="Quiero vender" />
       <section>
         <MainCarousel data={mainCarouselSellData} />
       </section>

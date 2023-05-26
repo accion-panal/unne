@@ -19,7 +19,7 @@ const ToLease = () => {
 
   return (
     <Fragment>
-      {/* HERO SECTION */}
+      <Head title="Quiero arrendar" />
 
       <section>
         <MainCarousel data={mainCarouselData} />
