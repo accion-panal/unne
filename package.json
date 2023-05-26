@@ -67,5 +67,14 @@
     "webpack": "^5.84.1",
     "webpack-cli": "^5.1.1",
     "worker-loader": "^3.0.8"
+  },
+  "browser": {
+    "mapbox-gl": "./node_modules/mapbox-gl/dist/mapbox-gl.js"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
   }
 }
