@@ -16,22 +16,6 @@ import ClientCard from '../../components/Card/ClientCard';
 const LeaseAdmin = () => {
   const { contextData } = useContext(ClientsContext);
   const [clients, setClients, getClientList] = contextData;
-
-
-  useEffect(() => {
-    getClientList();
-  }, []);
-
-
-  const DataEmailJS = [
-    {
-      ServiceID: "service_j0tf7sp",
-      TemplateID: "template_6amoogk",
-      PublicKEY: "ZWanVNmLr-iX_Op5K",
-    },
-  ];
-
-
   return (
     <Fragment>
         <section className="relative mt-10 xl:mt-16 px-4 xl:px-56">
@@ -49,12 +33,11 @@ const LeaseAdmin = () => {
                 <PlanCard key={plan.id} data={plan} />
               ))}
           </div>
-          {DataEmailJS?.length > 0 && DataEmailJS?.map((e) => 
-          (<ContactForm 
-            key={e.ServiceID} 
+          
+        <ContactForm 
             title="¡Despreocúpate por tu propiedad de inversión!" 
             subtitle="COMPLETA EL FORMULARIO Y ENTÉRATE CÓMO" 
-            DataEmail={e}/>))}
+        />
         </section> 
 
         <section className="relative my-24 xl:mt-40 px-4 xl:px-56">

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { iconsList } from '../Icons';
 import Button from '../Button/Button';
-import ToastComponent from '../Toastify/ToastifyComponent';
+import { iconsList } from '../Icons';
+import ContactFormServices from '../../services/ContactFormServices';
+import ToastifyComponent from '../Toastify/ToastifyComponent';
 import { toast } from 'react-toastify';
 import { realtorData } from '../../constants/consts/realtor';
-import ContactFormServices from '../../services/ContactFormServices';
+
 
 const ContactForm = ({ title, subtitle }) => {
   const { FaUserAlt, BsFillTelephoneFill, FiMail } = iconsList;
@@ -124,7 +125,7 @@ const ContactForm = ({ title, subtitle }) => {
 
   return (
     <div className="bg-gray-200 rounded-[50px] p-4 my-10 xl:py-5 xl:px-10 xl:m-0">
-      <ToastComponent />
+      <ToastifyComponent />
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gray-700 py-3">{title}</h2>
         {subtitle && (

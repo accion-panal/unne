@@ -68,33 +68,54 @@ const AuctionProcess = () => {
 
 
           <div className='flex flex-wrap justify-center p-10 m-2  text-center items-end'>
-            <div className="card w-80 h-80 m-6  bg-gray-200 shadow-xl hover:scale-110 transition duration-500">
-              <figure className="px-10 pt-10">
-                <RiUserSearchFill size="6rem" color='grey' />
-              </figure>
+            <div className="card w-80 min-h-[23.5rem] m-6  bg-gray-200 shadow-xl hover:scale-110 transition duration-500">
+              <div>
+                <figure className="px-10 pt-10">
+                  <RiUserSearchFill size="6rem" color='grey' />
+                </figure>
+              </div>
               <div className="card-body items-center text-center">
-                <h2 className="card-title">Transparente</h2>
-                <p>La propiedad siempre está a nombre del Cliente, desde la firma de compra hasta la firma de venta</p>
+                <div>
+                  <h2 className="card-title">Transparente</h2>
+                </div>
+
+                <div>
+                  <p>La propiedad siempre está a nombre del Cliente, desde la firma de compra hasta la firma de venta</p>
+                </div>
               </div>
             </div>
 
-            <div className="card w-80 h-80 m-6 bg-gray-200 shadow-xl hover:scale-110 transition duration-500">
-              <figure className="px-10 pt-10">
-                <BsBarChartFill size="6rem" color='grey' />
-              </figure>
+            <div className="card w-80 min-h-[23.5rem]  m-6 bg-gray-200 shadow-xl hover:scale-110 transition duration-500">
+              <div>
+                <figure className="px-10 pt-10">
+                  <BsBarChartFill size="6rem" color='grey' />
+                </figure>
+              </div>
+
               <div className="card-body items-center text-center">
-                <h2 className="card-title">Rentable</h2>
-                <p>Rentabilidad del 15% asegurada en escritura publica</p>
+                <div>
+                  <h2 className="card-title">Rentable</h2>
+                </div>
+
+                <div>
+                  <p>Rentabilidad del 15% asegurada en escritura publica</p>
+                </div>
               </div>
             </div>
 
-            <div className="card w-80 h-80 m-6 bg-gray-200 shadow-xl hover:scale-110 transition duration-500">
-              <figure className="px-10 pt-10">
-                <GiMoneyStack size="6rem" color='grey' />
-              </figure>
+            <div className="card w-80 min-h-[23.5rem] m-6 bg-gray-200 shadow-xl hover:scale-110 transition duration-500">
+              <div>
+                <figure className="px-10 pt-10">
+                  <GiMoneyStack size="6rem" color='grey' />
+                </figure>
+              </div>
               <div className="card-body items-center text-center">
-                <h2 className="card-title">Seguro</h2>
-                <p>El Cliente entregará el capital asociado a la compra del inmueble una vez se haya acreditado la adjudicación a su nombre, a la instancia que corresponda</p>
+                <div>
+                  <h2 className="card-title">Seguro</h2>
+                </div>
+                <div>
+                  <p>El Cliente entregará el capital asociado a la compra del inmueble una vez se haya acreditado la adjudicación a su nombre, a la instancia que corresponda</p>
+                </div>
               </div>
             </div>
 
