@@ -48,7 +48,7 @@ const InvestToday = ({ title, href, operationType, typeOfProperty }) => {
 
   return (
     <Link
-      href={`${href}`}
+      to={`${href}`}
       onClick={() => {
         scrollToDown();
         setSelectedSelects({

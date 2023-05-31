@@ -122,7 +122,7 @@ const PropertiesInMapComponent = () => {
                           }}
                         >
                           <Link
-                            href={`/propiedades/${
+                            to={`/propiedades/${
                               property?.id
                             }?statusId=${1}&companyId=${15}`}
                           >

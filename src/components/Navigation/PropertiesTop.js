@@ -1,6 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { iconsList } from '../Icons';
 import { paginationTopLimit } from '../../constants/consts/company';
 import { PropertiesContext } from '../../context/properties/PropertiesContext';
