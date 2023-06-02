@@ -149,11 +149,9 @@ const AuctionObjetives = () => {
                 realtorData?.email
             );
 
-            console.log(response)
             /** Api services */
             const apiResponse = await ContactApiFormServices.addContactForm(formData)
 
-            console.log(apiResponse)
 
             /*          if (response.success === 'true' && apiResponse.status === "ok") {
                          setLoading(false);
