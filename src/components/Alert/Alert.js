@@ -20,3 +20,4 @@ const Alert = ({ type, message }) => {
 };
 
 export default Alert;
+

@@ -92,12 +92,12 @@ const StepsToLease = () => {
             {validatePersonalDataForm() ? (
               <CheckedStep />
             ) : (
-              <bold>
+              <strong>
                 <span className="bg-orange-500 rounded-full py-[3.5px] px-[11px] mr-1">
                   2
                 </span>{' '}
                 Datos Personales
-              </bold>
+              </strong>
             )}
           </span>
         </Tab>
@@ -112,12 +112,12 @@ const StepsToLease = () => {
             {sendCodeStatusValidation ? (
               <CheckedStep />
             ) : (
-              <bold>
+              <strong>
                 <span className="bg-orange-500 rounded-full py-[3.5px] px-[11px] mr-1">
                   3
                 </span>{' '}
                 Validación de email
-              </bold>
+              </strong>
             )}
           </span>
         </Tab>

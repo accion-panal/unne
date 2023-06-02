@@ -100,7 +100,7 @@ const PersonalData = ({
         state.verificationCode.code
       );
 
-      if ((await response.success) === 'false') {
+      if (response.success === 'false') {
         showToastErrorMsg(
           'Tu correo necesita activación, enviaremos un link de activación de tu email'
         );
@@ -108,7 +108,7 @@ const PersonalData = ({
         return;
       }
 
-      if ((await response.success) === 'true') {
+      if (response.success === 'true') {
         setLoading(false);
         setErrorMsg({
           allFieldRequierd: '',
