@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { parseRealtorDate } from '../utils';
 const ContactFormServices = {
   sendFormToUser: async (name, userEmail, phone, uniqueCode) => {
     const response = await axios.post(
@@ -61,10 +61,11 @@ const ContactFormServices = {
     return response.data;
   },
 
-  sendContactForm: async (name, userEmail, phone, realtorEmail) => {
+  sendContactForm: async (from, name, userEmail, phone, realtorEmail) => {
     const response = await axios.post(
       `https://formsubmit.co/ajax/${realtorEmail}`,
       {
+        Desde: from,
         Nombre: name,
         Correo: userEmail,
         Telefono: phone,
@@ -136,6 +137,39 @@ const ContactFormServices = {
     );
     return response.data;
   },
+
+  //Meeting Form
+  sendContactMeetingForm: async (
+    from,
+    name,
+    lastName,
+    phone,
+    meetingDateTime,
+    email,
+    realtorEmail
+  ) => {
+    const response = await axios.post(
+      `https://formsubmit.co/ajax/${realtorEmail}`,
+      {
+        Desde: from,
+        Nombre: `${name} ${lastName}`,
+        Telefono: phone,
+        Fecha_y_Hora_Reunion: parseRealtorDate(
+          meetingDateTime ?? new Date()
+        ),
+        Correo: email,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      }
+    );
+    return response.data;
+  },
+
+
 };
 
 export default ContactFormServices;

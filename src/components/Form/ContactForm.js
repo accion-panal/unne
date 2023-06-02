@@ -1,56 +1,88 @@
 import React, { useState } from 'react';
-import Button from '../Button/Button';
-import { iconsList } from '../Icons';
 import ContactFormServices from '../../services/ContactFormServices';
+import ContactApiFormServices from '../../services/ContactApiForm';
+import Button from '../Button/Button';
+import Alert from '../Alert/Alert';
 import ToastifyComponent from '../Toastify/ToastifyComponent';
 import { toast } from 'react-toastify';
 import { realtorData } from '../../constants/consts/realtor';
-
+import { companyData } from '../../constants/consts/company'
+import { iconsList } from '../Icons';
 
 const ContactForm = ({ title, subtitle }) => {
   const { FaUserAlt, BsFillTelephoneFill, FiMail } = iconsList;
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    terms: false,
-  });
 
-  const [loading, setLoading] = useState(false);
+    const [formData, setFormData] = useState({
+        name: '',
+        phone: '',
+        email: '',
+        termsAndConditions: false,
+        companyId: 1,
+        action: 'Servicios: inversionista Administración de Arriendo',
+        message: 'Servicios: inversionista Administración de Arriendo',
+        subject: 'Servicios: inversionista Administración de Arriendo',
+        lastName: '...',
+        meetingDate: "No indicada"
+    });
+
+
   const [errorMsg, setErrorMsg] = useState({
     allFieldRequierd: '',
     serverEmailError: '',
   });
 
-  /** Handle Form Data inputs */
-  /** Update Name */
-  const handleName = (name) => {
+  // const [successMsg, setSuccessMsg] = useState('');
+    const [successMsg, setSuccessMsg] = useState({
+    formSubmitMsg: '',
+    formApiMsg: ''
+  });
+  const [loading, setLoading] = useState(false);
+
+    /** Handle Name change */
+  const handleNameChange = (ev) => {
     setFormData({
       ...formData,
-      name: name,
-    });
-  };
-  /** Update Email */
-  const handleEmail = (email) => {
-    setFormData({
-      ...formData,
-      email: email,
+      name: ev.target.value,
     });
   };
 
-  /** Update Phone */
-  const handlePhone = (phone) => {
+   /** Handle Email change */
+  const handleEmailChange = (ev) => {
     setFormData({
       ...formData,
-      phone: phone,
+      email: ev.target.value,
     });
   };
 
-  /** Update CHECKBOX */
-  const handleVerification = (ev) => {
+  /** Handle Phone change */
+  const handlePhoneChange = (ev) => {
     setFormData({
       ...formData,
-      terms: ev.target.checked,
+      phone: ev.target.value,
+    });
+  };
+
+  /** Handle Terms and Conditions change */
+  const handleTermsChange = (ev) => {
+    setFormData({
+      ...formData,
+      termsAndConditions: ev.target.checked,
+    });
+  };
+
+
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      phone: '',
+      email: '',
+      termsAndConditions: false,
+      companyId: 1,
+      action: 'Servicios: inversionista Unidades de remate',
+      message: 'Servicios: inversionista Unidades de remate',
+      subject: 'Servicios: inversionista Unidades de remate',
+      lastName: '...',
+      meetingDate: "..."
     });
   };
 
@@ -82,57 +114,71 @@ const ContactForm = ({ title, subtitle }) => {
     });
   };
 
-  const handleSubmit = async (ev) => {
+  const onFormSubmit = async (ev) => {
     ev.preventDefault();
 
-    if (
-      [formData?.name, formData?.email, formData?.phone].includes('') ||
-      formData.terms === false
-    ) {
-      showToastErrorMsg(
-        'Todos los campos son obligatorios, y debes aceptar los terminos y condiciones'
-      );
+    if (Object.values(formData).includes('') || formData?.termsAndConditions === false) {
+      setErrorMsg({
+          allFieldRequierd:
+              'Por favor, completa todos los campos y acepta los terminos y condiciones',
+      });
       return;
     }
-
     try {
       setLoading(true);
       const response = await ContactFormServices.sendContactForm(
+        'Unne',
         formData?.name,
         formData?.email,
         formData?.phone,
         realtorData?.email
       );
 
-      if ((await response.success) === 'true') {
+      console.log(response)
+        /** Api services */
+        const apiResponse = await ContactApiFormServices.addContactForm(formData)
+      console.log(apiResponse)
+
+
+  
+      if (response.success === 'true' && apiResponse.status === "ok") {
         setLoading(false);
         setErrorMsg({
           allFieldRequierd: '',
           serverEmailError: '',
         });
-        showToastSuccessMsg(
-          `Solicitud enviada exitosamente, dentro de poco de contactaremos`
-        );
+        setSuccessMsg({
+          formSubmitMsg: 'Solicitud enviada con exito! Un ejecutivo se contactara contigo',
+          formApiMsg: 'Success!!!'
+
+        });
         setTimeout(() => {
-          window.location.reload();
-        }, 4000);
+            setSuccessMsg({
+              formSubmitMsg: '',
+              formApiMsg: ''
+
+            });
+            resetForm();
+            window.location.reload()
+        }, 3000);
       }
     } catch (error) {
-      showToastErrorMsg('Ha ocurrido un error al enviar el formulario');
-      console.log('error', error);
+      setLoading(false);
+      setErrorMsg({
+          serverEmailError: 'Oh! Ha ocurrido un error al enviar tu solicitud'
+      })
     }
   };
 
   return (
     <div className="bg-gray-200 rounded-[50px] p-4 my-10 xl:py-5 xl:px-10 xl:m-0">
-      <ToastifyComponent />
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gray-700 py-3">{title}</h2>
         {subtitle && (
           <p className="text-md font-bold text-gray-700">{subtitle}</p>
         )}
       </div>
-      <form name="FormSubmit" onSubmit={handleSubmit} className="py-6">
+      <form name="FormSubmit" onSubmit={onFormSubmit} className="py-6">
         <div className="flex mb-5">
           <div className="w-1/5 flex justify-start items-center">
             <i className="p-4 rounded-full bg-white ml-2">
@@ -147,7 +193,7 @@ const ContactForm = ({ title, subtitle }) => {
               id="name"
               className="w-full p-3 rounded-full bg-white text-lg text-gray-900 placeholder:text-gray-500 placeholder:font-bold outline-none "
               value={formData?.name}
-              onChange={(ev) => handleName(ev.target.value)}
+              onChange={handleNameChange}
             />
           </div>
         </div>
@@ -166,7 +212,7 @@ const ContactForm = ({ title, subtitle }) => {
               placeholder="Teléfono"
               className="w-full p-3 rounded-full bg-white text-lg text-gray-900 placeholder:text-gray-500 placeholder:font-bold outline-none"
               value={formData?.phone}
-              onChange={(ev) => handlePhone(ev.target.value)}
+              onChange={handlePhoneChange}
               pattern="[0-9]{9}"
               maxLength="9"
             />
@@ -187,7 +233,7 @@ const ContactForm = ({ title, subtitle }) => {
               placeholder="Correo electrónico"
               className=" w-full p-3 rounded-full bg-white text-lg text-gray-900 placeholder:text-gray-500 placeholder:font-bold outline-none"
               value={formData?.email}
-              onChange={(ev) => handleEmail(ev.target.value)}
+              onChange={handleEmailChange}
             />
           </div>
         </div>
@@ -199,8 +245,8 @@ const ContactForm = ({ title, subtitle }) => {
               type="checkbox"
               id="checkboxTerms"
               name="checkboxTerms"
-              checked={formData?.terms || false}
-              onChange={handleVerification}
+              value={formData.termsAndConditions}
+              onChange={handleTermsChange}
             />
             <label
               className="inline-block pl-[0.15rem] hover:cursor-pointer"
@@ -211,6 +257,14 @@ const ContactForm = ({ title, subtitle }) => {
             </label>
           </div>
         </div>
+
+
+        {errorMsg.allFieldRequierd && <Alert message={errorMsg.allFieldRequierd} type="danger" />}
+        {successMsg?.formSubmitMsg && (
+          <div className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50"
+            role="alert">
+            {successMsg?.formSubmitMsg}
+          </div>)}
 
         <div className="flex mb-5 justify-center items-center">
           <Button
