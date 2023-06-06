@@ -4,7 +4,7 @@ import Button from '../Button/Button';
 const Footer = () => (
   <footer className="bg-gray-100 pt-10 pb-20 xl:px-32">
     <div className="flex flex-wrap mx-4 lg:mx-0">
-      <div className="w-full flex justify-center items-start flex-col sm:w-1/2 lg:w-4/12">
+      <div className="w-full flex justify-center sm:justify-start items-center sm:items-start flex-col sm:w-1/2 lg:w-4/12">
         <div className="w-5/6">
           <Button
             href="/"
@@ -21,7 +21,7 @@ const Footer = () => (
           </div>
         </div>
       </div>
-      <div className="w-full flex justify-center items-start flex-col sm:w-1/2 lg:w-4/12">
+      <div className="w-full flex justify-center sm:justify-start items-center sm:items-start flex-col sm:w-1/2 lg:w-4/12">
         <div className="w-5/6">
           <Button
             href="/"
@@ -29,7 +29,7 @@ const Footer = () => (
           >
             Contacto
           </Button>
-          <div className="h-48">
+          <div className="h-56">
             <p className="text-md text-gray-800 mt-5">
               <span className="font-bold text-gray-900">Dirección:</span>{' '}
               Asturias 171, Of. 101, Las Condes, Santiago
@@ -92,7 +92,7 @@ const Footer = () => (
         </div>
       </div>
 
-      <div className="w-full flex justify-center items-start flex-col sm:w-1/2 lg:w-4/12">
+      <div className="w-full flex justify-center sm:justify-start items-center sm:items-start flex-col sm:w-1/2 lg:w-4/12">
         <div className="w-5/6">
           <Button
             href="/"
