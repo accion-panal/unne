@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Head from '../../components/Head/Head';
 import MainCarousel from '../../components/Carousel/MainCarousel';
 import WhyUnneSection from '../../components/PageSections/Owner/ToLease/whyUnneSection';
@@ -14,6 +15,14 @@ import {
 
 const ToSell = () => {
   const margin = 'my-20';
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/soy-propietario/quiero-vender') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [location.pathname]);
 
   return (
     <Fragment>

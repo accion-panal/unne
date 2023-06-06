@@ -1,8 +1,17 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Head from '../components/Head/Head';
 import HomeComponent from '../components/PageSections/Home';
 
 const Home = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [location.pathname]);
+
   return (
     <Fragment>
       <Head
