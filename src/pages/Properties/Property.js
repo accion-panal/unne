@@ -23,8 +23,6 @@ const Property = () => {
     getProperty(id, company?.statusId, company?.companyId);
   }, [id]);
 
-  console.log(`${location.pathname}${location.search}`);
-
   useEffect(() => {
     if (
       `${location.pathname}${location.search}` ===
