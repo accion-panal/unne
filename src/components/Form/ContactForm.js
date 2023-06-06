@@ -6,25 +6,24 @@ import Alert from '../Alert/Alert';
 import ToastifyComponent from '../Toastify/ToastifyComponent';
 import { toast } from 'react-toastify';
 import { realtorData } from '../../constants/consts/realtor';
-import { companyData } from '../../constants/consts/company'
+import { companyData } from '../../constants/consts/company';
 import { iconsList } from '../Icons';
 
 const ContactForm = ({ title, subtitle }) => {
   const { FaUserAlt, BsFillTelephoneFill, FiMail } = iconsList;
 
-    const [formData, setFormData] = useState({
-        name: '',
-        phone: '',
-        email: '',
-        termsAndConditions: false,
-        companyId: 1,
-        action: 'Servicios: inversionista Administración de Arriendo',
-        message: 'Servicios: inversionista Administración de Arriendo',
-        subject: 'Servicios: inversionista Administración de Arriendo',
-        lastName: '...',
-        meetingDate: "No indicada"
-    });
-
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    termsAndConditions: false,
+    companyId: 1,
+    action: 'Servicios: inversionista Administración de Arriendo',
+    message: 'Servicios: inversionista Administración de Arriendo',
+    subject: 'Servicios: inversionista Administración de Arriendo',
+    lastName: '...',
+    meetingDate: 'No indicada',
+  });
 
   const [errorMsg, setErrorMsg] = useState({
     allFieldRequierd: '',
@@ -32,13 +31,13 @@ const ContactForm = ({ title, subtitle }) => {
   });
 
   // const [successMsg, setSuccessMsg] = useState('');
-    const [successMsg, setSuccessMsg] = useState({
+  const [successMsg, setSuccessMsg] = useState({
     formSubmitMsg: '',
-    formApiMsg: ''
+    formApiMsg: '',
   });
   const [loading, setLoading] = useState(false);
 
-    /** Handle Name change */
+  /** Handle Name change */
   const handleNameChange = (ev) => {
     setFormData({
       ...formData,
@@ -46,7 +45,7 @@ const ContactForm = ({ title, subtitle }) => {
     });
   };
 
-   /** Handle Email change */
+  /** Handle Email change */
   const handleEmailChange = (ev) => {
     setFormData({
       ...formData,
@@ -70,7 +69,6 @@ const ContactForm = ({ title, subtitle }) => {
     });
   };
 
-
   const resetForm = () => {
     setFormData({
       name: '',
@@ -82,7 +80,7 @@ const ContactForm = ({ title, subtitle }) => {
       message: 'Servicios: inversionista Unidades de remate',
       subject: 'Servicios: inversionista Unidades de remate',
       lastName: '...',
-      meetingDate: "..."
+      meetingDate: '...',
     });
   };
 
@@ -117,10 +115,13 @@ const ContactForm = ({ title, subtitle }) => {
   const onFormSubmit = async (ev) => {
     ev.preventDefault();
 
-    if (Object.values(formData).includes('') || formData?.termsAndConditions === false) {
+    if (
+      Object.values(formData).includes('') ||
+      formData?.termsAndConditions === false
+    ) {
       setErrorMsg({
-          allFieldRequierd:
-              'Por favor, completa todos los campos y acepta los terminos y condiciones',
+        allFieldRequierd:
+          'Por favor, completa todos los campos y acepta los terminos y condiciones',
       });
       return;
     }
@@ -134,35 +135,34 @@ const ContactForm = ({ title, subtitle }) => {
         realtorData?.email
       );
 
-        /** Api services */
-        const apiResponse = await ContactApiFormServices.addContactForm(formData)
-      
-      if (response.success === 'true' && apiResponse.status === "ok") {
+      /** Api services */
+      const apiResponse = await ContactApiFormServices.addContactForm(formData);
+
+      if (response.success === 'true' && apiResponse.status === 'ok') {
         setLoading(false);
         setErrorMsg({
           allFieldRequierd: '',
           serverEmailError: '',
         });
         setSuccessMsg({
-          formSubmitMsg: 'Solicitud enviada con exito! Un ejecutivo se contactara contigo',
-          formApiMsg: 'Success!!!'
-
+          formSubmitMsg:
+            'Solicitud enviada con exito! Un ejecutivo se contactara contigo',
+          formApiMsg: 'Success!!!',
         });
         setTimeout(() => {
-            setSuccessMsg({
-              formSubmitMsg: '',
-              formApiMsg: ''
-
-            });
-            resetForm();
-            window.location.reload()
+          setSuccessMsg({
+            formSubmitMsg: '',
+            formApiMsg: '',
+          });
+          resetForm();
+          window.location.reload();
         }, 3000);
       }
     } catch (error) {
       setLoading(false);
       setErrorMsg({
-          serverEmailError: 'Oh! Ha ocurrido un error al enviar tu solicitud'
-      })
+        serverEmailError: 'Oh! Ha ocurrido un error al enviar tu solicitud',
+      });
     }
   };
 
@@ -176,12 +176,12 @@ const ContactForm = ({ title, subtitle }) => {
       </div>
       <form name="FormSubmit" onSubmit={onFormSubmit} className="py-6">
         <div className="flex mb-5">
-          <div className="w-1/5 flex justify-start items-center">
+          <div className="hidden md:w-1/5 md:flex justify-start items-center">
             <i className="p-4 rounded-full bg-white ml-2">
               <FaUserAlt className="text-xl text-gray-300" />
             </i>
           </div>
-          <div className="w-5/6 flex justify-center items-center flex-col">
+          <div className="w-full md:w-5/6 flex justify-center items-center flex-col">
             <input
               type="text"
               placeholder="Nombre"
@@ -195,12 +195,12 @@ const ContactForm = ({ title, subtitle }) => {
         </div>
 
         <div className="flex mb-5">
-          <div className="w-1/5 flex justify-start items-center">
+          <div className="hidden md:w-1/5 md:flex justify-start items-center">
             <i className="p-4 rounded-full bg-white  ml-2">
               <BsFillTelephoneFill className="text-xl text-gray-300" />
             </i>
           </div>
-          <div className="w-5/6 flex justify-center items-center flex-col">
+          <div className="w-full md:w-5/6 flex justify-center items-center flex-col">
             <input
               type="phone"
               name="phone"
@@ -216,12 +216,12 @@ const ContactForm = ({ title, subtitle }) => {
         </div>
 
         <div className="flex mb-5">
-          <div className="w-1/5 flex justify-start items-center">
+          <div className="hidden md:w-1/5 md:flex justify-start items-center">
             <i className="p-4 rounded-full bg-white  ml-2">
               <FiMail className="text-xl text-gray-300" />
             </i>
           </div>
-          <div className="w-5/6 flex justify-center items-center flex-col">
+          <div className="w-full md:w-5/6 flex justify-center items-center flex-col">
             <input
               type="email"
               name="email"
@@ -254,13 +254,17 @@ const ContactForm = ({ title, subtitle }) => {
           </div>
         </div>
 
-
-        {errorMsg.allFieldRequierd && <Alert message={errorMsg.allFieldRequierd} type="danger" />}
+        {errorMsg.allFieldRequierd && (
+          <Alert message={errorMsg.allFieldRequierd} type="danger" />
+        )}
         {successMsg?.formSubmitMsg && (
-          <div className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50"
-            role="alert">
+          <div
+            className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50"
+            role="alert"
+          >
             {successMsg?.formSubmitMsg}
-          </div>)}
+          </div>
+        )}
 
         <div className="flex mb-5 justify-center items-center">
           <Button

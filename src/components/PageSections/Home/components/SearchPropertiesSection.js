@@ -120,7 +120,7 @@ const SearchPropertiesSection = () => {
             <div className="d-flex justify-start items-start pb-4">
               <div className=" border-gray-200">
                 <nav
-                  className="flex space-x-1 p-2 w-100 rounded-[100px] text-black mb:16 bg-gray-200 border mx-auto w-5/6 lg:w-3/6"
+                  className="space-x-1 p-2 w-100 text-black mb:16 mx-auto w-6/6 lg:w-3/6 flex justify-center items-center flex-col sm:flex-row"
                   aria-label="Tabs"
                 >
                   {categories.map((tab) => (
@@ -129,8 +129,8 @@ const SearchPropertiesSection = () => {
                       className={`${
                         activeTab === tab
                           ? 'bg-amber-400 text-white p-2'
-                          : 'border border-gray-300 bg-white text-gray-800 hover:text-gray-700 hover:border-gray-300'
-                      } w-full text-md font-medium leading-5 rounded-[100px] py-3 focus:ring-1 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-amber-400 ring-opacity-60 ring-offset-2 focus:outline-none focus:bg-amber-400 text-black p-2`}
+                          : 'border border-gray-300 bg-gray-400 text-white hover:text-white hover:border-gray-300 ring-1'
+                      }  w-full text-md my-1 font-medium leading-5 rounded-[100px] py-3 focus:ring-1 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-amber-400 ring-opacity-60 ring-offset-2 focus:outline-none focus:bg-amber-400 text-black p-2`}
                       onClick={(ev) => {
                         ev.preventDefault();
                         setActiveTab(tab);

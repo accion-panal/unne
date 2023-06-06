@@ -8,7 +8,7 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 
 const HighlightedProjects = () => {
   const { contextData } = useContext(PropertiesContext);
-  const { properties } = contextData;
+  const { properties, highlightedProperties } = contextData;
   const [isLoading, setIsLoading] = useState(true);
 
   const responsive = {
@@ -19,15 +19,15 @@ const HighlightedProjects = () => {
   };
 
   /** Get Highlighted Properties only */
-  const getHighlightedProperties = properties?.filter(
+  const getHighlightedProperties = highlightedProperties?.filter(
     (filtredProperty) => filtredProperty?.highlighted === false
   );
 
   useEffect(() => {
-    if (properties.length > 0) {
+    if (highlightedProperties.length > 0) {
       setIsLoading(false);
     }
-  }, [properties, getHighlightedProperties]);
+  }, [highlightedProperties, getHighlightedProperties]);
 
   return (
     <Section className="bg-gray-50 py-1">

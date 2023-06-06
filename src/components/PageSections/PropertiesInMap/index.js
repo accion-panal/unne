@@ -40,9 +40,7 @@ const PropertiesInMapComponent = () => {
             Descubre propiedades es una forma fácil y eficiente de encontrar y
             explorar propiedades en una ubicación específica
           </p>
-          <p className="text-orange-500 text-sm">
-            Propiedades activas en mapa: {totalItems ?? '...'}
-          </p>
+          <p className="text-orange-500 text-sm">Propiedades activas en mapa</p>
         </div>
 
         <div>

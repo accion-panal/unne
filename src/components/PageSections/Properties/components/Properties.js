@@ -97,7 +97,7 @@ const Properties = ({ isGrid, isList, setIsGrid, setIsList }) => {
         {/* ADVANCED SEARCH FORM */}
         <div className="w-full md:w-1/5 bg-white border ml-0 xl:ml-2">
           <AdvancedSearch {...{ setProperties }} />
-          <div className="p-5">
+          <div className="p-5 mb-20">
             <h3 className="bg-gray-50 p-2">Proyectos destacados</h3>
 
             <ul className="flex w-[100%] flex-wrap relative">
@@ -105,7 +105,7 @@ const Properties = ({ isGrid, isList, setIsGrid, setIsList }) => {
                 <Link
                   key={propiedad.id}
                   to={`/propiedades/${propiedad?.id}?statusId=${company.statusId}&companyId=${company.companyId}`}
-                  className={`${styles.link} relative h-[145px] text-white text-xs w-[45%] sm:w-[45%] lg:w-[45%] xl:w-[45%] m-1`}
+                  className={`${styles.link} relative h-[145px] text-white text-xs w-[45%] sm:w-[47.5%] lg:w-[45%] xl:w-[45%] m-1`}
                 >
                   <img
                     src={
@@ -132,7 +132,7 @@ const Properties = ({ isGrid, isList, setIsGrid, setIsList }) => {
               ))}
             </ul>
 
-            <div className="flex items-center bg-white">
+            <div className="flex items-center bg-white mt-4">
               <div className="flex-1 border-b bg-white border-gray-200"></div>
               <button onClick={showMoreProperties} className="relative">
                 {showMore && (

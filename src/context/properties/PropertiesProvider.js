@@ -7,6 +7,7 @@ import { paginationTopLimit } from '../../constants/consts/company';
 const PropertiesProvider = ({ children }) => {
   const [properties, setProperties] = useState([]);
   const [allProperties, setAllProperties] = useState([]);
+  const [highlightedProperties, setHighlightedProperties] = useState([]);
   const [propertiesInMap, setPropertiesInMap] = useState([]);
   const [propertiesToShow, setPropertiesToShow] = useState([]);
   const [propertyId, setPropertyId] = useState('');
@@ -48,6 +49,7 @@ const PropertiesProvider = ({ children }) => {
           ? data
           : data
       );
+      setHighlightedProperties(data);
       setTotalItems(meta.totalItems);
       setTotalPages(Math.ceil(meta.totalItems / limit)); // + 0.5
       setNotFoundMsg(
@@ -92,6 +94,7 @@ const PropertiesProvider = ({ children }) => {
         contextData: {
           properties,
           allProperties,
+          highlightedProperties,
           setAllProperties,
           propertiesToShow,
           setPropertiesToShow,

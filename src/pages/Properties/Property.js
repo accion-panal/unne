@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import Head from '../../components/Head/Head';
 import PropertyComponent from '../../components/PageSections/Properties/components/Property';
 import PropertiesServices from '../../services/PropertiesServices';
@@ -7,6 +7,7 @@ import { company } from '../../constants/consts/company';
 
 const Property = () => {
   const { id } = useParams();
+  const location = useLocation();
   const [property, setProperty] = useState({});
 
   const getProperty = async (id, statusId, companyId) => {
@@ -21,6 +22,17 @@ const Property = () => {
   useEffect(() => {
     getProperty(id, company?.statusId, company?.companyId);
   }, [id]);
+
+  console.log(`${location.pathname}${location.search}`);
+
+  useEffect(() => {
+    if (
+      `${location.pathname}${location.search}` ===
+      `/propiedades/${id}?statusId=${company?.statusId}&companyId=${company?.companyId}`
+    ) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [location.pathname]);
 
   return (
     <Fragment>

@@ -1,4 +1,5 @@
 import React, { Fragment, useContext, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { ClientsContext } from '../../context/clients/ClientsContext';
 import { plansCardData } from '../../data/index';
 
@@ -15,6 +16,15 @@ import ClientCard from '../../components/Card/ClientCard';
 const LeaseAdmin = () => {
   const { contextData } = useContext(ClientsContext);
   const [clients, setClients, getClientList] = contextData;
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/soy-inversionista/administracion-de-arriendo') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [location.pathname]);
+
   return (
     <Fragment>
       <Head title="Admin. de arriendo" />

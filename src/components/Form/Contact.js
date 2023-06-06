@@ -243,9 +243,9 @@ const Contact = () => {
           </div>
         </div>
 
-        <div className="my-5 py-3 flex justify-center items-center">
+        <div className="my-5 py-3 flex justify-center items-center flex-wrap">
           {reasons.map((reason) => (
-            <label key={reason.id} className="flex items-center mx-1">
+            <label key={reason.id} className="flex items-center mx-1 my-1">
               <input
                 type="checkbox"
                 id="action"
