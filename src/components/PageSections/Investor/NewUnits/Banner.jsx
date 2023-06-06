@@ -14,7 +14,7 @@ const banner = () => {
   const subTitleFont = '';
 
   return (
-    <div id="meeting-section" className="flex justify-center py-5">
+    <div id="meeting-section" className="flex justify-center py-5 mr-4 ml-4">
       <div className="collapse trasition duration-300 ease-in-out">
         <input type="checkbox" className="peer" />
         <div className="collapse-title px-0 py-0 w-full bg-[#FEF4DE] max-w-4xl overflow-hidden flex flex-col sm:flex-row">
