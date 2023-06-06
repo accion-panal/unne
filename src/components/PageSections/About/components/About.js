@@ -27,7 +27,7 @@ const About = () => {
           <h2 className="text-2xl xl:text-5xl text-center xl:text-start text-orange-500 font-bold">
             ¿Quiénes somos?
           </h2>
-          <p className="text-lg xl:text-xl text-gray-700 mt-8 ml-0 xl:ml-5">
+          <p className="text-lg xl:text-xl text-gray-700 mt-8 ml-0 xl:ml-5 md:text-center xl:text-left">
             Unne es una plataforma de corretaje, donde los corredores puedan
             acceder <br />
             a herramientas digitales que de otro modo seria difícil de acceder.
@@ -48,10 +48,10 @@ const About = () => {
             decisiones.”
           </p>
 
-          <p className="text-lg xl:text-xl text-gray-700 mt-8 ml-0 xl:ml-5">
+          <p className="text-lg xl:text-xl text-gray-700 mt-8 ml-0 xl:ml-5 md:text-center xl:text-left">
             Pablo Ramirez
           </p>
-          <p className="text-xl xl:text-xl text-gray-700 ml-0 xl:ml-5">
+          <p className="text-xl xl:text-xl text-gray-700 ml-0 xl:ml-5 md:text-center xl:text-left">
             Fundador y Gerente General
           </p>
 
