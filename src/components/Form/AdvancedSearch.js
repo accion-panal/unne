@@ -14,7 +14,7 @@ import Button from '../Button/Button';
 const AdvancedSearch = ({ setProperties }) => {
   const { contextData } = useContext(PropertiesContext);
   const { contextDataSelects } = useContext(SelectsContext);
-  const { setIsLoading, setNotFoundMsg } = contextData;
+  const { isLoading, setIsLoading, setNotFoundMsg } = contextData;
   const {
     regions,
     communes,
@@ -374,7 +374,7 @@ const AdvancedSearch = ({ setProperties }) => {
         type="submit"
         className="block w-full p-2 my-1 uppercase font-semibold text-sm rounded-full hover:shadow-sm transition ease-in-out duration-300 text-white bg-orange-500 hover:bg-orange-600"
       >
-        Buscar
+        {isLoading ? 'Buscando...' : 'Buscar'}
       </Button>
 
       <Button
