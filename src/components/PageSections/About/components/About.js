@@ -15,7 +15,7 @@ const About = () => {
           />
 
           <div className="pt-10">
-            <h2 className="text-2xl xl:text-4xl font-bold text-black text-start">
+            <h2 className="text-2xl xl:text-4xl font-bold text-black text-center sm:text-start">
               “Un largo camino
               <br />
               se inicia con un solo paso...”
