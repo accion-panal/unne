@@ -234,7 +234,7 @@ const AuctionObjetives = () => {
             </Fade>
 
             <div className="flex flex-col justify-center items-center min-h-screen  mt-10 bg-[url('https://dummyimage.com/1920x1080/fce58a/fce58a')] ">
-                <h2 className="text-4xl font-bold mb-4 text-center">
+                <h2 className="text-4xl font-bold mb-4 text-center mt-4">
                     Te ayudamos a elegir la mejor opción de inversión para ti
                 </h2>
 
@@ -244,7 +244,7 @@ const AuctionObjetives = () => {
                 </h2>
 
                 <form name='FormsData' onSubmit={onFormSubmit} className="w-full max-w-md ">
-                    <div className="mb-8 shadow border-l-gray-600 rounded-3xl">
+                    <div className="mb-8 shadow mr-2 ml-2 border-l-gray-600 rounded-3xl">
                         <input
                             className="bg-white bg-opacity-60  backdrop-filter backdrop-blur-md  shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             type="text"
@@ -257,7 +257,7 @@ const AuctionObjetives = () => {
                         />
                     </div>
 
-                    <div className="mb-8 shadow border-l-gray-600 rounded">
+                    <div className="mb-8 shadow mr-2 ml-2 border-l-gray-600 rounded">
                         <input
                             className="bg-white  bg-opacity-60  backdrop-filter backdrop-blur-md  shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             type="email"
@@ -269,7 +269,7 @@ const AuctionObjetives = () => {
                         />
                     </div>
 
-                    <div className="mb-8 shadow border-l-gray-600 rounded">
+                    <div className="mb-8 shadow mr-2 ml-2 border-l-gray-600 rounded">
                         <input
                             className="bg-white  bg-opacity-60  backdrop-filter backdrop-blur-md  shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             type="text"
@@ -336,7 +336,7 @@ const AuctionObjetives = () => {
 
                             value="Send"
                             type="submit"
-                            className="bg-orange-400  text-white pl-2 pr-4 py-2 hover:bg-orange-600 w-2/4 rounded-lg"
+                            className="bg-orange-400  text-white pl-2 pr-4 py-2 mb-4 hover:bg-orange-600 w-2/4 rounded-lg"
                         >
                             <div className="text-xl font-medium capitalize w-5/6 mx-auto text-center">
                                 <span className="max-h-10">
