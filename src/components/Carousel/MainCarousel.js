@@ -18,7 +18,11 @@ const MainCarousel = ({ data }) => {
               <img
                 src={slide.img}
                 alt="slide-1"
-                className="bg-center bg-no-repeat bg-cover brightness-100"
+                className="bg-center bg-no-repeat bg-cover brightness-100 w-screen h-[400px] xl:h-[600px]"
+                style={{
+                  backgroundPosition: 'center',
+                  objectFit: 'cover',
+                }}
               />
 
               <div className="absolute inset-0 flex items-center justify-start w-100 pl-4 xl:pl-32 bg-black bg-opacity-25">

@@ -169,9 +169,13 @@ const ContactForm = ({ title, subtitle }) => {
   return (
     <div className="bg-gray-200 rounded-[50px] p-4 my-10 xl:py-5 xl:px-10 xl:m-0">
       <div className="text-center">
-        <h2 className="text-3xl font-bold text-gray-700 py-3">{title}</h2>
+        <h2 className="text-xl lg:text-2xl xl:text-3xl font-bold text-gray-700 py-3 px-5">
+          {title}
+        </h2>
         {subtitle && (
-          <p className="text-md font-bold text-gray-700">{subtitle}</p>
+          <p className="text-xs xl:text-md font-bold text-gray-700">
+            {subtitle}
+          </p>
         )}
       </div>
       <form name="FormSubmit" onSubmit={onFormSubmit} className="py-6">
@@ -187,7 +191,7 @@ const ContactForm = ({ title, subtitle }) => {
               placeholder="Nombre"
               name="name"
               id="name"
-              className="w-full p-3 rounded-full bg-white text-lg text-gray-900 placeholder:text-gray-500 placeholder:font-bold outline-none "
+              className="w-[90%] xl:w-full p-3 rounded-full bg-white text-lg text-gray-900 placeholder:text-gray-500 placeholder:font-bold outline-none "
               value={formData?.name}
               onChange={handleNameChange}
             />
@@ -196,7 +200,7 @@ const ContactForm = ({ title, subtitle }) => {
 
         <div className="flex mb-5">
           <div className="hidden md:w-1/5 md:flex justify-start items-center">
-            <i className="p-4 rounded-full bg-white  ml-2">
+            <i className="p-4 rounded-full bg-white ml-2">
               <BsFillTelephoneFill className="text-xl text-gray-300" />
             </i>
           </div>
@@ -206,7 +210,7 @@ const ContactForm = ({ title, subtitle }) => {
               name="phone"
               id="phone"
               placeholder="Teléfono"
-              className="w-full p-3 rounded-full bg-white text-lg text-gray-900 placeholder:text-gray-500 placeholder:font-bold outline-none"
+              className="w-[90%] xl:w-full p-3 rounded-full bg-white text-lg text-gray-900 placeholder:text-gray-500 placeholder:font-bold outline-none"
               value={formData?.phone}
               onChange={handlePhoneChange}
               pattern="[0-9]{9}"
@@ -227,7 +231,7 @@ const ContactForm = ({ title, subtitle }) => {
               name="email"
               id="email"
               placeholder="Correo electrónico"
-              className=" w-full p-3 rounded-full bg-white text-lg text-gray-900 placeholder:text-gray-500 placeholder:font-bold outline-none"
+              className="w-[90%] xl:w-full p-3 rounded-full bg-white text-lg text-gray-900 placeholder:text-gray-500 placeholder:font-bold outline-none"
               value={formData?.email}
               onChange={handleEmailChange}
             />
