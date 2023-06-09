@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-// import Fab from '../SocialMediaFloating/Fab';
+import Fab from '../SocialMediaFloating/Fab';
 
 const Layout = ({ children }) => {
   return (
@@ -14,7 +14,9 @@ const Layout = ({ children }) => {
 
       {/* FOOTER PAGE */}
       <Footer />
-      {/* <Fab></Fab> */}
+
+      {/* SOCIAL MEDIA FLOATER */}
+      <Fab />
     </div>
   );
 };
