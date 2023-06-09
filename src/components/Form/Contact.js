@@ -5,7 +5,7 @@ import ContactApiFormServices from '../../services/ContactApiForm';
 import ToastifyComponent from '../Toastify/ToastifyComponent';
 import { toast } from 'react-toastify';
 import { iconsList } from '../Icons';
-import { company } from '../../constants/consts/company';
+import { company, companyForm } from '../../constants/consts/company';
 import { realtorData } from '../../constants/consts/realtor';
 
 const reasons = [
@@ -30,7 +30,7 @@ const Contact = () => {
     phone: '...',
     email: '',
     termsAndConditions: false,
-    companyId: 1, // ❌ el company si es 15, el server responde con un status 500
+    companyId: companyForm.id, // ❌ el company si es 15, el server responde con un status 500
     action: '',
     message: '',
     subject: '...',
@@ -134,7 +134,7 @@ const Contact = () => {
       phone: '',
       email: '',
       termsAndConditions: false,
-      companyId: company.companyId,
+      companyId: companyForm.id,
       action: '',
       message: '',
       subject: '',

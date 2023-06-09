@@ -8,7 +8,7 @@ import Button from '../Button/Button';
 import Alert from '../Alert/Alert';
 import { parseRealtorDate } from '../../utils';
 import { realtorData } from '../../constants/consts/realtor';
-import { companyData } from '../../constants/consts/company';
+import { companyForm } from '../../constants/consts/company';
 
 const MeetingForm = ({ title, subtitle, DataEmail }) => {
   const [formData, setFormData] = useState({
@@ -16,7 +16,7 @@ const MeetingForm = ({ title, subtitle, DataEmail }) => {
     phone: '',
     email: '',
     termsAndConditions: false,
-    companyId: 1,
+    companyId: companyForm.id,
     action: 'Servicios: inversionista Unidades nuevas',
     message: 'Servicios: inversionista Unidades nuevas',
     subject: 'Servicios: inversionista Unidades nuevas',
@@ -100,7 +100,7 @@ const MeetingForm = ({ title, subtitle, DataEmail }) => {
       phone: '',
       email: '',
       termsAndConditions: false,
-      companyId: 1,
+      companyId: companyForm.id,
       action: 'Servicios: inversionista Unidades nuevas',
       message: 'Servicios: inversionista Unidades nuevas',
       subject: 'Servicios: inversionista Unidades nuevas',

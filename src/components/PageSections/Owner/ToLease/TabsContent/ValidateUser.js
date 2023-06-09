@@ -6,6 +6,7 @@ import { useValue } from '../../../../../context/ContextProvider';
 import ContactFormServices from '../../../../../services/ContactFormServices';
 import { realtorData } from '../../../../../constants/consts/realtor';
 import ContactApiFormServices from '../../../../../services/ContactApiForm';
+import { companyForm } from '../../../../../constants/consts/company';
 
 function ValidateUser({
   formData,
@@ -102,7 +103,7 @@ function ValidateUser({
       );
 
       const formDataFormatted = {
-        companyId: 1,
+        companyId: companyForm.id,
         typeProperty: formData?.propertyData?.propertyType,
         action: 'Quiero Arrendar',
         fullName: formData?.personalData?.name,

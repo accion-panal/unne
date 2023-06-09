@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { realtorData } from '../../constants/consts/realtor';
 import { companyData } from '../../constants/consts/company';
 import { iconsList } from '../Icons';
+import { companyForm } from '../../constants/consts/company';
 
 const ContactForm = ({ title, subtitle }) => {
   const { FaUserAlt, BsFillTelephoneFill, FiMail } = iconsList;
@@ -17,7 +18,7 @@ const ContactForm = ({ title, subtitle }) => {
     phone: '',
     email: '',
     termsAndConditions: false,
-    companyId: 1,
+    companyId: companyForm.id,
     action: 'Servicios: inversionista Administración de Arriendo',
     message: 'Servicios: inversionista Administración de Arriendo',
     subject: 'Servicios: inversionista Administración de Arriendo',
@@ -75,7 +76,7 @@ const ContactForm = ({ title, subtitle }) => {
       phone: '',
       email: '',
       termsAndConditions: false,
-      companyId: 1,
+      companyId: companyForm.id,
       action: 'Servicios: inversionista Unidades de remate',
       message: 'Servicios: inversionista Unidades de remate',
       subject: 'Servicios: inversionista Unidades de remate',
