@@ -1,6 +1,7 @@
 export const company = {
   statusId: 1,
-  companyId: 15,
+  companyId: 10087,
+  codigoUsuarioMaestro: null,
 };
 
 export const companyForm = {

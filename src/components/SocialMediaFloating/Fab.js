@@ -4,7 +4,7 @@ import { iconsList } from '../Icons';
 
 const Fab = () => {
   const { AiOutlinePlus, AiOutlineWhatsApp } = iconsList;
-  const phoneNumber = '56964653732';
+  const phoneNumber = '932924867';
   const whatsappBusinessLink = `https://wa.me/${phoneNumber}`;
 
   const [isOpen, setIsOpen] = useState(false);
