@@ -54,10 +54,6 @@ const Properties = ({ isGrid, isList, setIsGrid, setIsList }) => {
 
   return (
     <React.Fragment>
-      {/* <div class="flex flex-col-reverse lg:flex-row">
-        <div class="w-full lg:w-3/4 bg-gray-200 p-4">Col1</div>
-        <div class="w-full lg:w-1/4 bg-gray-300 p-4">Col2</div>
-      </div> */}
       <div className="flex relative flex-col w-[100%]">
         <PropertiesTop
           {...{

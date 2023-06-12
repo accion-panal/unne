@@ -6,9 +6,9 @@ const StepsPlan = ({ backgroundColor, data }) => {
     <div
       className={`${backgroundColor} text-center py-6 px-4 xl:my-5 xl:mx-10 rounded-lg cursor-pointer trasition duration-300 ease-in-out`}
     >
-      <div class="flex items-center justify-center">
-        <div class="w-16 h-16 rounded-full font-bold bg-orange-500 flex items-center justify-center">
-          <span class="text-white text-lg font-bold">{id}</span>
+      <div className="flex items-center justify-center">
+        <div className="w-16 h-16 rounded-full font-bold bg-orange-500 flex items-center justify-center">
+          <span className="text-white text-lg font-bold">{id}</span>
         </div>
       </div>
 

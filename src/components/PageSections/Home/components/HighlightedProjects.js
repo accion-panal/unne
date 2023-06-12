@@ -20,7 +20,7 @@ const HighlightedProjects = () => {
 
   /** Get Highlighted Properties only */
   const getHighlightedProperties = highlightedProperties?.filter(
-    (filtredProperty) => filtredProperty?.highlighted === false
+    (filtredProperty) => filtredProperty?.highlighted === true
   );
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const HighlightedProjects = () => {
             ))}
           />
         ) : (
-          <p>Lo sentimos, no se han encontrado propiedades destacadas</p>
+          <p> {' '} Lo sentimos, no se han encontrado propiedades destacadas</p>
         )}
       </div>
     </Section>
