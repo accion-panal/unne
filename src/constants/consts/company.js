@@ -9,7 +9,7 @@ export const companyForm = {
 };
 
 export const paginationTopLimit = {
-  limit: 20,
+  limit: 9,
   topLimit: 999999999,
   limitPage: 1,
 };
