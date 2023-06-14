@@ -4,9 +4,13 @@ import ImageGallery from 'react-image-gallery';
 const GalleryCarousel = ({ items }) => {
   const getImages = () =>
     items?.images
-      ? items?.images?.map((image) => ({
-          original: image,
-          thumbnail: image,
+      ? items?.images?.map((_, idx) => ({
+          original: `https://aulen.partnersadvisers.info/properties/secure-imgs/Imagenes//${
+            items?.id
+          }//${idx + 1}.jpg`,
+          thumbnail: `https://aulen.partnersadvisers.info/properties/secure-imgs/Imagenes//${
+            items?.id
+          }//${idx + 1}.jpg`,
         }))
       : [];
 

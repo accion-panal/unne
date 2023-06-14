@@ -20,7 +20,7 @@ const PropertyCard = ({ data, isList }) => {
             ? 'h-64 xl:h-64 w-[100%] xl:w-[400px] object-cover'
             : 'rounded-t-lg'
         }
-        src={image}
+        src={`https://aulen.partnersadvisers.info/properties/secure-imgs/Imagenes//${id}//1.jpg`}
         alt={`top-img-${title}`}
       />
 
