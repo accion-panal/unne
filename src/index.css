@@ -10,16 +10,6 @@
   --font-inter-regular: 'Inter-regular';
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: var(--color-black);
-  }
-  /* Color of the icons in the input  (number,datepicker,time,etc..) THEME:DARK */
-  ::-webkit-calendar-picker-indicator {
-    filter: invert(1);
-  }
-}
-
 @font-face {
   font-family: 'Poppins-regular';
   src: url('./assets/font/Poppins/Poppins-Regular.ttf') format('woff2');
@@ -75,7 +65,10 @@ strong {
 
 h1,
 h2,
-h3 {
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-poppins-bold);
 }
 

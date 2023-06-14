@@ -127,7 +127,7 @@ const PropertiesInMapComponent = () => {
                             <div className="max-w-sm bg-white">
                               <img
                                 className="rounded-t-lg"
-                                src={property?.image}
+                                src={`https://aulen.partnersadvisers.info/properties/secure-imgs/Imagenes//${property?.id}//1.jpg`}
                                 alt={`small-card-${property?.title}`}
                                 style={{
                                   height: '30px',

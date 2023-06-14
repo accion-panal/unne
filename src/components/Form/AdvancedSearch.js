@@ -120,9 +120,17 @@ const AdvancedSearch = ({ setProperties }) => {
       coveredParkingLots: '',
     });
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: pathname === '/propiedades' ? 0 : 850,
+      behavior: 'smooth',
+    });
+  };
+
   /** On Form Submit */
   const handleSubmit = async (event) => {
     event.preventDefault();
+    scrollToTop();
 
     const createUrl = {
       operationType:

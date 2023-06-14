@@ -18,12 +18,13 @@ const CardMap = ({ property }) => {
     <div className="max-w-sm bg-white">
       <a href="#">
         <img
-          className="rounded-t-lg"
-          src={images[0] ?? images[1] ?? images[2]}
+          src={
+            `https://aulen.partnersadvisers.info/properties/secure-imgs/Imagenes//${property?.id}//1.jpg` ??
+            `https://aulen.partnersadvisers.info/properties/secure-imgs/Imagenes//${property?.id}//2.jpg` ??
+            `https://aulen.partnersadvisers.info/properties/secure-imgs/Imagenes//${property?.id}//3.jpg`
+          }
           alt={`small-card-${title}`}
-          style={{
-            height: '30px',
-          }}
+          className="h-[200px] w-[100%] object-cover rounded-t-xl xl:rounded-none"
         />
       </a>
 

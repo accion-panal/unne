@@ -26,11 +26,11 @@ const Details = ({ property }) => {
 
   return (
     <div className="border rounded-sm p-4 xl:p-8">
-      <h3 className="border-b pb-1">Empresa {company}</h3>
+      <h3 className="border-b pb-1 text-gray-800">Empresa {company}</h3>
 
       <p className="text-sm text-gray-400 my-2">
         Publicado por:{' '}
-        <span className="text-gray-700">
+        <span className="text-gray-800">
           {company ?? 'Empresa no registrada'}
         </span>
       </p>

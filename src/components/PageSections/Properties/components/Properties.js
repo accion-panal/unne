@@ -29,6 +29,8 @@ const Properties = ({ isGrid, isList, setIsGrid, setIsList }) => {
   } = contextData;
   const { RiArrowDownSLine } = iconsList;
   const [showMore, setShowMore] = useState(false);
+  const [isOpenForm, setIsOpenForm] = useState(true);
+  const { MdOutlineFilterList, MdOutlineFilterListOff } = iconsList;
 
   const showMoreProperties = () => {
     const propiedadesActuales = propertiesToShow.length;
@@ -43,13 +45,15 @@ const Properties = ({ isGrid, isList, setIsGrid, setIsList }) => {
     }
   };
 
+  const handleToggleForm = () => setIsOpenForm(!isOpenForm);
+
   const seeLessProperties = () => {
     setPropertiesToShow(allProperties.slice(0, 10));
     setShowMore(true);
   };
 
   const outstandingProperties = propertiesToShow.filter(
-    (property) => property.highlighted === false
+    (property) => property.highlighted === true
   );
 
   return (
@@ -66,7 +70,7 @@ const Properties = ({ isGrid, isList, setIsGrid, setIsList }) => {
             properties,
           }}
         />
-        <div className=" flex flex-col-reverse md:flex-row">
+        <div className="flex flex-col-reverse md:flex-row">
           <div className="w-full md:w-4/5 bg-white mb-48">
             {/* PROPERTIES LIST */}
             {isLoading && <Spinner />}
@@ -74,8 +78,8 @@ const Properties = ({ isGrid, isList, setIsGrid, setIsList }) => {
             <ul
               className={`${
                 isGrid
-                  ? 'grid grid-cols-1 sm:grid-cols-3 gap-4 p-2'
-                  : 'flex flex-col gap-4 p-2'
+                  ? 'grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4 p-2'
+                  : 'flex flex-col gap-3'
               }`}
             >
               {properties.map((character) => (
@@ -97,9 +101,28 @@ const Properties = ({ isGrid, isList, setIsGrid, setIsList }) => {
           </div>
           {/* ADVANCED SEARCH FORM */}
           <div className="w-full md:w-1/5 bg-white border ml-0 xl:ml-2">
-            <AdvancedSearch {...{ setProperties }} />
+            <button
+              onClick={handleToggleForm}
+              className="bg-gray-100 w-full mx-auto p-2 hover:bg-gray-200 border-b"
+            >
+              {isOpenForm ? (
+                <span className="flex items-center justify-center text-sm">
+                  <MdOutlineFilterListOff className="pr-1 text-xl" />
+                  Ocultar filtros
+                </span>
+              ) : (
+                <span className="flex items-center justify-center text-sm">
+                  <MdOutlineFilterList className="pr-1 text-xl" />
+                  Mostrar filtros
+                </span>
+              )}
+            </button>
+            {isOpenForm && <AdvancedSearch {...{ setProperties }} />}
+
             <div className="p-5 mb-20">
-              <h3 className="bg-gray-50 p-2">Proyectos destacados</h3>
+              <h3 className="bg-gray-50 p-2 text-gray-800">
+                Proyectos destacados
+              </h3>
 
               <ul className="flex w-[100%] flex-wrap relative">
                 {outstandingProperties?.map((propiedad) => (
