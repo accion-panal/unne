@@ -7,6 +7,7 @@ import { paginationTopLimit } from '../../constants/consts/company';
 const PropertiesProvider = ({ children }) => {
   const [properties, setProperties] = useState([]);
   const [allProperties, setAllProperties] = useState([]);
+  const [allSimilarProperties, setAllSimilarProperties] = useState([]);
   const [highlightedProperties, setHighlightedProperties] = useState([]);
   const [propertiesInMap, setPropertiesInMap] = useState([]);
   const [propertiesToShow, setPropertiesToShow] = useState([]);
@@ -71,6 +72,7 @@ const PropertiesProvider = ({ children }) => {
       companyId
     );
     setAllProperties(data);
+    setAllSimilarProperties(data);
     setPropertiesInMap(data);
     setPropertiesToShow(data.slice(0, 10));
   };
@@ -94,6 +96,7 @@ const PropertiesProvider = ({ children }) => {
         contextData: {
           properties,
           allProperties,
+          allSimilarProperties,
           highlightedProperties,
           setAllProperties,
           propertiesToShow,

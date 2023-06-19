@@ -7,11 +7,12 @@ import Details from './Details';
 import Characteristics from './Characteristics';
 import ReactMap from '../../../Map/ReactMap';
 import PDFView from './PDFView';
+import SimilarProyects from './SimilarProyects';
 import ClipboardProperty from './ClipboardProperty';
 import Modal from '../../../Modal/Modal';
 import Spinner from '../../../Spinner/Spinner';
 import { iconsList } from '../../../Icons';
-//importar los componentes aca
+// import LocationSearch from './LocationSearch';
 
 const PropertyComponent = ({ property }) => {
   const [loadingOnStart, setLoadingOnStart] = useState(true);
@@ -81,11 +82,10 @@ const PropertyComponent = ({ property }) => {
             </div>
             <div className="sm:col-span-6 col-span-3 xl:col-span-1 bg-white h-auto order-1 xl:order-2">
               <Details property={property} />
-              {/* <SimilarProjects /> */}
+              <SimilarProyects property={property} />
             </div>
           </div>
 
-          {/* REACT MAP */}
           <div>
             <ReactMap
               longitudeProp={lng}
@@ -93,7 +93,6 @@ const PropertyComponent = ({ property }) => {
               property={property}
             />
           </div>
-
           <Modal
             renderTrigger={() => null}
             isOpenProp={showModalShare}
@@ -104,7 +103,6 @@ const PropertyComponent = ({ property }) => {
               setShowModalShare(false);
             }}
           />
-
           <Modal
             renderTrigger={() => null}
             isOpenProp={showModalDetail}
