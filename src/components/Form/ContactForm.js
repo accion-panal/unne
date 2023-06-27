@@ -139,6 +139,17 @@ const ContactForm = ({ title, subtitle }) => {
       /** Api services */
       const apiResponse = await ContactApiFormServices.addContactForm(formData);
 
+      if (response?.success === 'false') {
+        setErrorMsg({
+          allFieldRequierd: '',
+          serverEmailError:
+            'Se necesita activación de email del administrador/a',
+        });
+        setLoading(false);
+        resetForm();
+        return;
+      }
+
       if (response.success === 'true' && apiResponse.status === 'ok') {
         setLoading(false);
         setErrorMsg({
@@ -250,7 +261,7 @@ const ContactForm = ({ title, subtitle }) => {
               onChange={handleTermsChange}
             />
             <label
-              className="inline-block pl-[0.15rem] hover:cursor-pointer"
+              className="inline-block pl-[0.15rem] hover:cursor-pointer text-gray-600"
               htmlFor="checkboxTerms"
             >
               Al continuar estás aceptando los términos y condiciones y la
@@ -258,6 +269,10 @@ const ContactForm = ({ title, subtitle }) => {
             </label>
           </div>
         </div>
+
+        {errorMsg?.serverEmailError && (
+          <Alert type="danger" message={errorMsg?.serverEmailError} />
+        )}
 
         {errorMsg.allFieldRequierd && (
           <Alert message={errorMsg.allFieldRequierd} type="danger" />

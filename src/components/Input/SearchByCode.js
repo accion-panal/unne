@@ -21,6 +21,14 @@ const SearchByCode = () => {
     ev.preventDefault();
 
     try {
+      if (propertyId === '') {
+        setNotFoundMsg('Debes ingresar un código de propiedad');
+        setTimeout(() => {
+          setNotFoundMsg('');
+        }, 2500);
+        return;
+      }
+
       const createUrl = {
         propertyId: propertyId > 0 ? propertyId : '',
       };
@@ -33,12 +41,6 @@ const SearchByCode = () => {
       );
       setIsSearching(false);
       setPropertyId('');
-      // setPropertyFounded(response);
-      // if ('title' in propertyFounded) {
-      //   navigate(
-      //     `/propiedades/${createUrl.propertyId}?statusId=${company.statusId}&companyId=${company.companyId}`
-      //   );
-      // }
     } catch (error) {
       if (error.response.data.message) {
         setIsSearching(false);

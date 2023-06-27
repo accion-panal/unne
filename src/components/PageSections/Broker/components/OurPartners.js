@@ -18,12 +18,12 @@ const OurPartners = () => {
     <Section className="mt-[200px] bg-gray-50 py-10">
       <div className="flex flex-col items-center justify-center">
         <div className="pb-5 text-center">
-          <h2 className={`font-bold ${titleFont}`}>
+          <h2 className={`font-bold text-gray-800 ${titleFont}`}>
             Nuestros asociados cuentan su experiencia Unne
           </h2>
         </div>
       </div>
-      <div className="px-4 xl:px-32 2xl:px-48">
+      <div className="px-4">
         <ReactSlickComponent
           RenderComponent={PartnersCard}
           data={clients}

@@ -13,7 +13,7 @@ const Capacitation = () => {
             <h2 className="text-3xl text-black font-bold  pt-20 ">
               Academia UNNE
             </h2>
-            <p className="pt-4">
+            <p className="pt-4 text-gray-600">
               Para nosotros es esencial que estés preparado para los diferentes
               desafíos que te presenta la industria,
               <br />
@@ -43,9 +43,11 @@ const Capacitation = () => {
                 </h2>
               </div>
               <div className={`${styles.flipCardBack} pt-10`}>
-                <p>Sistemas y correo electrónico</p>
-                <p>Estudios y seguimiento de las publicaciones</p>
-                <p>Guía de publicación</p>
+                <p className="text-white">Sistemas y correo electrónico</p>
+                <p className="text-white">
+                  Estudios y seguimiento de las publicaciones
+                </p>
+                <p className="text-white">Guía de publicación</p>
               </div>
             </div>
           </div>

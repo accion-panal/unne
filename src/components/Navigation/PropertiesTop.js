@@ -36,11 +36,13 @@ const PropertiesTop = ({
     <div className=" py-5 px-3 border mb-4 bg-white w-full">
       <div className="flex justify-between items-center my-4">
         <div className="flex flex-col justify-start">
-          <h1 className="text-2xl font-ligth">{getTitle(pathname)}</h1>
+          <h1 className="text-2xl font-ligth text-gray-800">
+            {getTitle(pathname)}
+          </h1>
         </div>
         <div>
           <ul className="flex">
-            <li className="w-[200px] sm:flex hidden mr-5">
+            <li className="w-[200px] sm:flex hidden mr-5 text-gray-600">
               <select
                 value={sortOrder}
                 onChange={handleSortChange}

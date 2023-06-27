@@ -12,7 +12,7 @@ const WhyServicesUnne = () => {
     <Section className="mb-6">
       {/* ¿Por que contratar servicios legales Unne? */}
       <div className="flex justify-center text-center">
-        <h2 className={` ${titleFont1} font-bold`}>
+        <h2 className={` ${titleFont1} font-bold text-gray-800`}>
           ¿Por que contratar servicios legales Unne?
         </h2>
       </div>
@@ -24,7 +24,7 @@ const WhyServicesUnne = () => {
       <div className="divider"></div>
       {/* Consulta por tu asesoria */}
       <div className="flex justify-center items-end flex-wrap gap-4 xl:gap-10 text-center">
-        <h2 className={` ${titleFont2} font-bold`}>
+        <h2 className={` ${titleFont2} font-bold text-gray-800`}>
           Consulta por tu asesoría gratuita
         </h2>
         <div className="flex justify-center pb-1 pt-5 xl:pt-0">

@@ -310,7 +310,7 @@ const AdvancedSearch = ({ setProperties }) => {
 
       <div className="flex flex-row justify-between items-center w-[100%] mb-3">
         <div className="w-[49%]">
-          <label className="mb-1 text-gray-500">Precio mínimo</label>
+          <label className="mb-1 text-gray-500">P. mínimo</label>
           <input
             type="text"
             value={selectedSelects.minPrice}
@@ -320,7 +320,7 @@ const AdvancedSearch = ({ setProperties }) => {
         </div>
 
         <div className="w-[49%]">
-          <label className="mb-1 text-gray-500">Precio máximo</label>
+          <label className="mb-1 text-gray-500">P. máximo</label>
           <input
             type="text"
             value={selectedSelects.maxPrice}

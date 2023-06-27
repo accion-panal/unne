@@ -13,10 +13,10 @@ const NewProperty = () => {
   return (
     <div className="">
       <div className="text-center pb-10">
-        <h2 className={`${titleFont} font-bold`}>
+        <h2 className={`${titleFont} font-bold text-gray-800`}>
           Es momento de invertir en tu nueva propiedad
         </h2>
-        <p className={`${subFont} pt-2 font-medium`}>
+        <p className={`${subFont} pt-2 font-medium text-gray-600`}>
           Invierte en Propiedades nuevas en blanco, verde o de entrega
           inmediata, para que tu activo pueda generar ganancias luego de
           arrendarla y con el tiempo plusvalia
@@ -26,15 +26,17 @@ const NewProperty = () => {
         {/* Section map*/}
         {NewPropertyQualities.length > 0
           ? NewPropertyQualities.map((e) => (
-            <BasicCard key={e.id} backgroundColor="bg-[#FEF9EA]" data={e} />
-          ))
+              <BasicCard key={e.id} backgroundColor="bg-[#FEF9EA]" data={e} />
+            ))
           : null}
       </div>
-      <div className="divider my-10 font-bold text-2xl justify-center
-                  before:content-[none] md:before:content-[''] md:before:mx-6 lg:before:mx-12 xl:before:ml-24 before:bg-black 
-                  after:content-[none] md:after:content-[''] md:after:mx-6 lg:after:mx-12 xl:after:mr-24 after:bg-black">
+      <div
+        className="divider my-10 font-bold text-2xl justify-center
+                  before:content-[none] md:before:content-[''] md:before:mx-6 lg:before:mx-12 xl:before:ml-24 before:bg-gray-200 
+                  after:content-[none] md:after:content-[''] md:after:mx-6 lg:after:mx-12 xl:after:mr-24 after:bg-gray-200"
+      >
         <div className="mx-4">
-          <h3 className={`${subTitleFont} text-xl md:text-2xl`}>
+          <h3 className={`${subTitleFont} text-xl md:text-2xl text-gray-800`}>
             {''}
             Elige en qué quieres invertir hoy
           </h3>

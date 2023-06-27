@@ -8,7 +8,10 @@ const Info = ({ data, titleFont, listFont, spanFont }) => {
 
       <ul className="">
         {children?.map(({ id, name, status }) => (
-          <li key={id} className={`py-2 font-semibold list-none ${listFont}`}>
+          <li
+            key={id}
+            className={`py-2 font-semibold list-none text-gray-600 ${listFont}`}
+          >
             - {name}{' '}
             {status && (
               <span

@@ -20,10 +20,12 @@ const banner = () => {
         <div className="collapse-title px-0 py-0 w-full bg-[#FEF4DE] max-w-4xl overflow-hidden flex flex-col sm:flex-row">
           <div className="bg-[url('https://fastly.picsum.photos/id/445/1920/1080.jpg?hmac=44gXMs9bLf5UIfUbqBaNQYr0ry9r2a9Tbj8OLYhcbx0')] max-w-xs w-96 h-full bg-cover"></div>
           <div className="flex flex-col items-center px-5 pt-6 pb-4 text-center max-w-xl">
-            <h3 className={` ${titleFont} font-bold`}>
+            <h3 className={` ${titleFont} font-bold text-gray-800`}>
               Te ayudamos con el financiamiento para tu credito Hipotecario
             </h3>
-            <p className={`${subTitleFont} font-semibold max-w-sm`}>
+            <p
+              className={`${subTitleFont} font-semibold max-w-sm text-gray-600`}
+            >
               Dejanos tus datos y trabajaremos juntos para encontrar la mejor
               alternativa para ti
             </p>

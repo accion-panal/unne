@@ -189,6 +189,17 @@ const MeetingForm = ({ title, subtitle, DataEmail }) => {
       /** Api services */
       const apiResponse = await ContactApiFormServices.addContactForm(formData);
 
+      if (response?.success === 'false') {
+        setErrorMsg({
+          allFieldRequierd: '',
+          serverEmailError:
+            'Se necesita activación de email del administrador/a',
+        });
+        setLoading(false);
+        resetForm();
+        return;
+      }
+
       if (response.success === 'true' && apiResponse.status === 'ok') {
         setLoading(false);
         setErrorMsg({
@@ -221,9 +232,9 @@ const MeetingForm = ({ title, subtitle, DataEmail }) => {
     <div className="bg-gray-200 rounded-[25px] p-4 my-10 xl:py-5 xl:px-10 xl:m-0 w-full ">
       {/* xl:w-3/5 */}
       <div className="text-center">
-        <h2 className="text-4xl font-bold py-2">{title}</h2>
+        <h2 className="text-4xl font-bold py-2 text-gray-800">{title}</h2>
         {subtitle && (
-          <p className="text-xl font-semibold text-gray-700">{subtitle}</p>
+          <p className="text-xl font-semibold text-gray-600">{subtitle}</p>
         )}
       </div>
       <form name="FormsData" onSubmit={onFormSubmit} className="py-6 px-4">
@@ -319,13 +330,6 @@ const MeetingForm = ({ title, subtitle, DataEmail }) => {
               type="time"
               name="time"
               id="time"
-              /*  value={formData?.meetingTime}
-                             onChange={(e) =>
-                                 setFormData({
-                                     ...formData,
-                                     meetingTime: e.target.value,
-                                 })
-                             } */
               value={meetingTime}
               onChange={handleTimeChange}
             />
@@ -343,7 +347,7 @@ const MeetingForm = ({ title, subtitle, DataEmail }) => {
               onChange={handleTermsAndConditions}
             />
             <label
-              className="inline-block pl-[0.15rem] hover:cursor-pointer"
+              className="inline-block pl-[0.15rem] hover:cursor-pointer text-gray-600"
               htmlFor="terms"
             >
               Al continuar estás aceptando los términos y condiciones y la
@@ -352,9 +356,14 @@ const MeetingForm = ({ title, subtitle, DataEmail }) => {
           </div>
         </div>
 
+        {errorMsg?.serverEmailError && (
+          <Alert type="danger" message={errorMsg?.serverEmailError} />
+        )}
+
         {errorMsg.allFieldRequierd && (
           <Alert message={errorMsg.allFieldRequierd} type="danger" />
         )}
+
         {successMsg?.formSubmitMsg && (
           <div
             className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50"

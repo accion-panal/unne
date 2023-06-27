@@ -28,7 +28,7 @@ const MainInformation = () => {
           </Fade>
         </div>
         <Fade direction="right" delay={200} cascade>
-          <div className="px-10 w-full flex justify-center">
+          <div className="w-full flex justify-center">
             <div className="max-w-2xl">
               <ContactForm title="Comienza tu experiencia en Unne" />
             </div>

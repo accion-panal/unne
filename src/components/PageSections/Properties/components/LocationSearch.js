@@ -43,8 +43,6 @@ const LocationSearch = ({ lng, lat }) => {
       );
       const data = await response.json();
 
-      console.log(data);
-
       const relevantLocations = data.features.filter(
         (feature) => feature.properties.category === 'subway'
       );

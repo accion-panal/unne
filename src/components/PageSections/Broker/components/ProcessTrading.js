@@ -12,8 +12,8 @@ const ProcessTrading = ({ data }) => {
     <div className="cursor-default">
       <div className="flex justify-center items-center gap-5 flex-wrap">
         <div className="max-w-xs text-center">
-          <h2 className={`font-bold ${titleFont}`}>{title}</h2>
-          <p className={`${subtitleFont}`}>{doc}</p>
+          <h2 className={`font-bold ${titleFont} text-gray-800`}>{title}</h2>
+          <p className={`${subtitleFont} text-gray-600`}>{doc}</p>
         </div>
         <div className="">
           <ul className="py-1 flex justify-center flex-col font-semibold max-w-[550px]">
@@ -23,7 +23,7 @@ const ProcessTrading = ({ data }) => {
                   key={idx}
                   className={`before:content-[""] before:w-2 before:h-4 before:border-r-2 before:border-b-2 before:border-orange-400
                                 before:-left-4 before:relative before:inline-block before:rotate-45
-                                flex pb-1 ml-7 ${listFont}`}
+                                flex pb-1 ml-7 text-gray-600 ${listFont}`}
                 >
                   {process}
                 </li>

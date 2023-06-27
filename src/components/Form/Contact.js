@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { iconsList } from '../Icons';
 import { company, companyForm } from '../../constants/consts/company';
 import { realtorData } from '../../constants/consts/realtor';
+import Alert from '../Alert/Alert';
 
 const reasons = [
   {
@@ -176,6 +177,17 @@ const Contact = () => {
       /** Api Service */
       const apiResponse = await ContactApiFormServices.addContactForm(formData);
 
+      if (response?.success === 'false') {
+        setErrorMsg({
+          allFieldRequierd: '',
+          serverEmailError:
+            'Se necesita activación de email del administrador/a',
+        });
+        setLoading(false);
+        resetForm();
+        return;
+      }
+
       if (response.success === 'true' && apiResponse.status === 'ok') {
         setLoading(false);
         setErrorMsg({
@@ -192,12 +204,11 @@ const Contact = () => {
       }
     } catch (error) {
       showToastErrorMsg('Ha ocurrido un error al enviar el formulario');
-      console.log('error', error);
     }
   };
 
   return (
-    <div className="bg-gray-200 rounded-[50px] p-4 my-10 xl:py-5 xl:px-10 xl:m-4">
+    <div className="bg-gray-200 rounded-[50px] p-4 my-10 ">
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gray-700 py-3">
           Contáctanos para más información
@@ -223,7 +234,6 @@ const Contact = () => {
             />
           </div>
         </div>
-
         <div className="flex mb-5">
           <div className="w-1/5 flex justify-start items-center">
             <i className="p-4 rounded-full bg-white ml-2 xl:ml-8">
@@ -242,7 +252,6 @@ const Contact = () => {
             />
           </div>
         </div>
-
         <div className="my-5 py-3 flex justify-center items-center flex-wrap">
           {reasons.map((reason) => (
             <label key={reason.id} className="flex items-center mx-1 my-1">
@@ -259,7 +268,6 @@ const Contact = () => {
             </label>
           ))}
         </div>
-
         <div className="flex mb-5">
           <div className="flex justify-start items-center"></div>
           <div className="w-[90%] mx-auto flex justify-center items-center flex-col">
@@ -273,7 +281,6 @@ const Contact = () => {
             ></textarea>
           </div>
         </div>
-
         <div className="w-5/6 mx-auto my-14 mb-10 flex items-center justify-center">
           <div className="mb-[0.125rem] block min-h-[1.5rem] pl-[1.5rem]">
             <input
@@ -285,7 +292,7 @@ const Contact = () => {
               onChange={handleVerification}
             />
             <label
-              className="inline-block pl-[0.15rem] hover:cursor-pointer"
+              className="inline-block pl-[0.15rem] hover:cursor-pointer text-gray-600"
               htmlFor="termsAndConditions"
             >
               Al continuar estás aceptando los términos y condiciones y la
@@ -293,6 +300,10 @@ const Contact = () => {
             </label>
           </div>
         </div>
+
+        {errorMsg?.serverEmailError && (
+          <Alert type="danger" message={errorMsg?.serverEmailError} />
+        )}
 
         <div className="flex mb-5 justify-center items-center">
           <button

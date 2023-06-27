@@ -37,7 +37,7 @@ const LeaseAdmin = () => {
         <PropertyManagmentSteps />
       </section>
 
-      <section className="relative my-10 w-full xl:mt-40 px-4 lg:px-4 xl:px-24 2xl:px-56  grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-0 xl:gap-4">
+      <section className="relative my-10 w-full xl:mt-40 px-4 lg:px-4 xl:px-24 2xl:px-32  grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-0 xl:gap-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 col-span-12 xl:col-span-2">
           {plansCardData?.length > 0 &&
             plansCardData?.map((plan) => (

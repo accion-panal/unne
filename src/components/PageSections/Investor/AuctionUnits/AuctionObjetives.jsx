@@ -149,6 +149,17 @@ const AuctionObjetives = () => {
       /** Api services */
       const apiResponse = await ContactApiFormServices.addContactForm(formData);
 
+      if (response?.success === 'false') {
+        setErrorMsg({
+          allFieldRequierd: '',
+          serverEmailError:
+            'Se necesita activación de email del administrador/a',
+        });
+        setLoading(false);
+        resetForm();
+        return;
+      }
+
       /*          if (response.success === 'true' && apiResponse.status === "ok") {
                          setLoading(false);
                          setErrorMsg({
@@ -225,11 +236,11 @@ const AuctionObjetives = () => {
       </Fade>
 
       <div className="flex flex-col justify-center items-center min-h-screen  mt-10 bg-[url('https://dummyimage.com/1920x1080/fce58a/fce58a')] ">
-        <h2 className="text-4xl font-bold mb-4 text-center mt-4">
+        <h2 className="text-4xl font-bold mb-4 text-center mt-4 text-gray-800">
           Te ayudamos a elegir la mejor opción de inversión para ti
         </h2>
 
-        <h2 className="text-lg text-gray-600 mb-8 text-center">
+        <h2 className="text-lg text-gray-500 mb-8 text-center">
           Déjanos tus datos y trabajaremos juntos para encontrar la mejor
           alternativa de inversión para ti.
         </h2>
@@ -288,7 +299,7 @@ const AuctionObjetives = () => {
                 onChange={handleTermsChange}
               />
               <label
-                className="inline-block pl-[0.15rem] hover:cursor-pointer"
+                className="inline-block pl-[0.15rem] hover:cursor-pointer text-gray-600"
                 htmlFor="terms"
               >
                 Al continuar estás aceptando los términos y condiciones y la
@@ -313,6 +324,10 @@ const AuctionObjetives = () => {
                         type="danger"
                         
                     /> */}
+
+          {errorMsg?.serverEmailError && (
+            <Alert type="danger" message={errorMsg?.serverEmailError} />
+          )}
 
           {errorMsg.allFieldRequierd && (
             <Alert message={errorMsg.allFieldRequierd} type="danger" />

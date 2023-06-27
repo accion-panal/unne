@@ -120,6 +120,16 @@ function ValidateUser({
         formDataFormatted
       );
 
+      if (response?.success === 'false') {
+        setErrorMsg({
+          allFieldRequierd: '',
+          serverEmailError:
+            'Se necesita activación de email del administrador/a',
+        });
+        setLoading(false);
+        return;
+      }
+
       if (response.success === 'true' && apiResponse.status === 'ok') {
         setSendCodeStatusValidation(true);
         setLoading(false);
